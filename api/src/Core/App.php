@@ -2,6 +2,8 @@
 
 namespace Core;
 
+use Http\Router;
+
 class App {
 	public function __construct() {
 		$this->setup();

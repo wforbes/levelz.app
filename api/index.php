@@ -1,3 +1,4 @@
 <?php
+
 require "src/Core/App.php";
-$app = new Core/App();
+$app = new Core\App();

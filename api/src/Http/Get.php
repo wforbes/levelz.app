@@ -11,11 +11,11 @@ class Get {
         $this->setUrlElementsFromPath($parsed_url);
         $this->url_element_count = count($this->url_elements);
         $this->setParametersFromQuery($parsed_url);
-        $this->routeRequest($app, $app->dlm, $app->view);
+        $this->routeRequest($app, $app->dlm);
 	}
 	
-	private function routeRequest($app, $d, $v){
-		echo json_encode("test");
+	private function routeRequest($app, $d){
+		echo json_encode("Http GET method test was successful!");
 	}
 
 	//name: setParametersFromQuery
