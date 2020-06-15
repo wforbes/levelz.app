@@ -20,10 +20,16 @@
 					<v-col offset-sm="3" sm="6" cols="12">
 						<v-row>
 							<v-col>
-								<h4>updates:</h4>
-								<p>
-									(6/14/2020) I've started working on API calls on the <router-link to="/dev">Development Page</router-link>
-								</p>
+								<div style="display:inline-block; border: 0.1em solid black; border-bottom: 0.1em; padding: 0.2em; border-top-left-radius: 0.2em; border-top-right-radius: 0.2em; ">
+									<h4>updates:</h4>
+								</div>
+								<div style="border: 0.1em solid black; border-bottom: 0.25em solid black; border-radius:0.2em; padding: 1em;">
+									<ul style="list-style: none; padding:0; margin:0;">
+										<li>
+											(6/14/2020) I've started working on API calls on the <router-link to="/dev">Development Page</router-link>
+										</li>
+									</ul>
+								</div>
 							</v-col>
 						</v-row>
 					</v-col>
@@ -51,12 +57,13 @@
 				</v-row>
 			</v-container>
 		</div>
+		<br/><br/>
 	</v-main>
 </template>
 
 <script>
 export default {
-	name:"Home",
+	name:"HomePage",
 	data() {
 		return {};
 	},
