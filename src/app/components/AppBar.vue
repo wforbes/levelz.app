@@ -4,15 +4,9 @@
 			app
 			dark
 		>
-			<v-hover
-				v-slot:default="{ hover }"
-			>
-				<v-card :elevation="hover ? 12 : 2">
-					<router-link to="/">
-						<v-img src="../../assets/logo-icon.png" max-width="42" />
-					</router-link>
-				</v-card>
-			</v-hover>
+			<router-link to="/">
+				<v-img src="../../assets/logo-icon.png" width="42" />
+			</router-link>
 			<v-spacer></v-spacer>
 			<v-btn icon class="mr-3">
 				<v-icon>mdi-key</v-icon>
