@@ -1,5 +1,5 @@
 <template>
-	<v-content>
+	<v-main>
 		<div class="app-title">
 			<v-container>
 				<v-row>
@@ -12,6 +12,18 @@
 								<span class="display-2">
 									Levelz
 								</span>
+							</v-col>
+						</v-row>
+					</v-col>
+				</v-row>
+				<v-row>
+					<v-col offset-sm="3" sm="6" cols="12">
+						<v-row>
+							<v-col>
+								<h4>updates:</h4>
+								<p>
+									(6/14/2020) I've started working on API calls on the <router-link to="/dev">Development Page</router-link>
+								</p>
 							</v-col>
 						</v-row>
 					</v-col>
@@ -37,19 +49,16 @@
 						</p>
 					</v-col>
 				</v-row>
-				<v-row>
-					<v-col>
-						<router-link to="/dev">Development Page</router-link>
-					</v-col>
-				</v-row>
 			</v-container>
 		</div>
-	</v-content>
+	</v-main>
 </template>
 
 <script>
 export default {
 	name:"Home",
-	data() {},
+	data() {
+		return {};
+	},
 }
 </script>
