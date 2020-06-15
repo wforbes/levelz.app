@@ -10,6 +10,11 @@ Vue.use(VueRouter)
     name: 'Home',
     component: Home
   },
+  {
+    path: '/dev',
+    name: "DevPage",
+    component: () => import("../dev/views/DevPage.vue"),
+  },
 ]
 
 const router = new VueRouter({

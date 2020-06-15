@@ -1,0 +1,26 @@
+{
+	"name": "wforbes/levelz.app",
+	"description": "A productivity web app that gamifies the concept of a todo list or task tracking app.",
+	"license": "MIT",
+	"minimum-stability":"dev",
+	"authors": [
+	  {
+		"name": "Will Forbes",
+		"email": "will@levelz.app"
+	  }
+	],
+	"require": {
+	  "php": "^7.1"
+	},
+	"autoload": {
+	  "psr-4": {
+		"Core\\": "src/Core/",
+		"View\\": "src/View/",
+		"Data\\": "src/Data/",
+		"Http\\": "src/Http/",
+		"Auth\\": "src/Auth/",
+		"Model\\": "src/Model/",
+		"Sec\\":"src/Sec/"
+	  }
+	}
+  }

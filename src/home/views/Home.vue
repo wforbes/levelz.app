@@ -37,6 +37,11 @@
 						</p>
 					</v-col>
 				</v-row>
+				<v-row>
+					<v-col>
+						<router-link to="/dev">Development Page</router-link>
+					</v-col>
+				</v-row>
 			</v-container>
 		</div>
 	</v-content>
