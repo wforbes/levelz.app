@@ -29,14 +29,17 @@ export default {
 	name:"DevPage",
 	data(){
 		return {
+			host: "",
 			testGetResponse: ""
 		};
 	},
 	methods: {
+		setEnvironment() {
+			this.host = (window.location.host === "localhost:8080") ? "http://localhost/levelz.app/" : "";
+		},
 		testGet() {
-			axios.get('http://localhost/levelz.app/api/')
+			axios.get(this.host + "api/")
 				.then((response) => {
-					//this.apiTest.getTestString = response.data;
 					this.testGetResponse = response.data;
 				})
 				.catch((error) => {
@@ -47,6 +50,8 @@ export default {
 			this.testGetResponse = "";
 		}
 	},
-	created() {}
+	created() {
+		this.setEnvironment();
+	}
 }
 </script>
