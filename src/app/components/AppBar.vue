@@ -4,22 +4,57 @@
 			app
 			dark
 		>
-			<router-link to="/">
-				<v-img src="../../assets/logo-icon.png" width="42" />
-			</router-link>
-			<v-spacer></v-spacer>
-			<v-btn icon class="mr-3">
-				<v-icon>mdi-key</v-icon>
-			</v-btn>
+			<v-container>
+				<v-row>
+					<v-col
+						offset-md="1" md="5"
+						offset-lg="2" lg="4"
+						offset-xl="3" xl="3"
+						cols="6"
+					>
+						<router-link to="/">
+							<v-img src="../../assets/logo-icon.png" width="42" />
+						</router-link>
+					</v-col>
+					<v-col 
+						md="5"
+						lg="4"
+						xl="3"
+						cols="6"
+						align="right">
+						<v-btn icon class="mr-3" @click="openAuthDialog">
+							<v-icon>mdi-key</v-icon>
+						</v-btn>
+					</v-col>
+				</v-row>
+			</v-container>
 		</v-app-bar>
+		<AuthDialog
+			:dialogOpen="dialogOpen"
+			@closeDialog="closeAuthDialog"
+		/>
 	</div>
 </template>
 
 <script>
+import AuthDialog from "../../auth/components/AuthDialog.vue"
 export default {
 	name: "AppBar",
-	data() {
-		return {};
+	components: {
+		AuthDialog
 	},
+	data() {
+		return {
+			dialogOpen: false
+		};
+	},
+	methods: {
+		openAuthDialog() {
+			this.dialogOpen = true;
+		},
+		closeAuthDialog() {
+			this.dialogOpen = false;
+		}
+	}
 }
 </script>
