@@ -1,5 +1,5 @@
 <template>
-	<v-main>
+	<div>
 		<v-container>
 			<v-row>
 				<v-col>
@@ -9,18 +9,17 @@
 			<v-row>
 				<v-col>
 					<v-btn large @click='testGet'>Test: Get Http Request</v-btn>
-					
 				</v-col>
 				<v-col>
 					<p>
-						GET HTTP Test Response: 
-						<strong>{{ testGetResponse }}</strong>
+						GET HTTP Test Response:
 					</p>
+					<strong>{{ testGetResponse }}</strong>
 					<v-btn v-show="testGetResponse !== ''" @click="clearTestGetResponse">Clear</v-btn>
 				</v-col>
 			</v-row>
 		</v-container>
-	</v-main>
+	</div>
 </template>
 <script>
 import axios from 'axios';
