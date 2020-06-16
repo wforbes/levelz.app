@@ -19,7 +19,10 @@
 					<div style="border: 0.1em solid black; border-bottom: 0.25em solid black; border-radius:0.2em; padding: 1em;">
 						<ul style="list-style: none; padding:0; margin:0;">
 							<li>
-								(6/14/2020) I've started working on API calls on the <router-link to="/dev">Development Page</router-link>
+								<strong>(6/16/2020)</strong> Clicking the key icon in the top right opens a Signup/Login dialog window now. Created a simple email/data policy statement that displays there from the 'Click here for more info' link.
+							</li>
+							<li>
+								<strong>(6/14/2020)</strong> I've started working on API calls on the <router-link to="/dev">Development Page</router-link>. The server works now!
 							</li>
 						</ul>
 					</div>
