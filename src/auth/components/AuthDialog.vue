@@ -9,49 +9,66 @@
 						<v-icon>mdi-close</v-icon>
 					</v-btn>
 				</v-toolbar>
-				<v-container>
-					<v-row>
-						<v-col>
-							<span class="text-subtitle-1">
-								To create an account on Lvlz, we just need a couple pieces of info.<br />
-								We won't spam you and we'll never share your data with anyone.<br />
-								<a @click="showMoreInfo">Click here for more info.</a>
-							</span>
-						</v-col>
-					</v-row>
-					<v-row>
-						<v-col cols="12" sm="6">
-							<v-form>
-								<v-text-field outlined
-									label="Email"
-								></v-text-field>
-								<v-text-field outlined
-									label="Username"
-								></v-text-field>
-								<v-text-field outlined
-									label="Password"
-								></v-text-field>
-								<v-text-field outlined
-									label="Repeat Password"
-								></v-text-field>
-								<v-container>
-									<v-row>
-										<v-col>
-											<v-btn color="success">Sign Up</v-btn>
-										</v-col>
-										<v-col align="right">
-											<v-btn color="error">Reset</v-btn>
-										</v-col>
-									</v-row>
-								</v-container>
-							</v-form>
-						</v-col>
-						<v-col cols="12" sm="6">
-							<p>Already have an account?</p>
-							<v-btn>Login Instead</v-btn>
-						</v-col>
-					</v-row>
-				</v-container>
+				<v-tabs
+					fixed-tabs
+					background-color="indigo"
+					dark
+				>
+					<v-tab :key="0">
+						Signup
+					</v-tab>
+					<v-tab-item :key="0">
+						<v-container>
+							<v-row>
+								<v-col>
+									<span class="text-subtitle-1">
+										To create an account on Lvlz, we just need a couple pieces of info.<br />
+										We won't spam you and we'll never share your data with anyone.<br />
+										<a @click="showMoreInfo">Click here for more info.</a>
+									</span>
+								</v-col>
+							</v-row>
+							<v-row>
+								<v-col cols="12" sm="6">
+									<v-form>
+										<v-text-field outlined
+											label="Email"
+										></v-text-field>
+										<v-text-field outlined
+											label="Username"
+										></v-text-field>
+										<v-text-field outlined
+											label="Password"
+										></v-text-field>
+										<v-text-field outlined
+											label="Repeat Password"
+										></v-text-field>
+										<v-container>
+											<v-row>
+												<v-col>
+													<v-btn color="success">Sign Up</v-btn>
+												</v-col>
+												<v-col align="right">
+													<v-btn color="error">Reset</v-btn>
+												</v-col>
+											</v-row>
+										</v-container>
+									</v-form>
+								</v-col>
+								<v-col cols="12" sm="6">
+									<p>Already have an account?</p>
+									<v-btn>Login Instead</v-btn>
+								</v-col>
+							</v-row>
+						</v-container>
+					</v-tab-item>
+					<v-tab :key="1">
+						Log In
+					</v-tab>
+					<v-tab-item :key="1">
+						Login form...
+					</v-tab-item>
+				</v-tabs>
 			</v-card>
 		</v-dialog>
 		<v-dialog v-model="moreInfoOpen">
