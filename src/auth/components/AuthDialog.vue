@@ -276,12 +276,16 @@ export default {
 		submitSignup() {
 			axios
 				.post(this.host + "api/", {
-					email: this.newEmail,
-					username: this.newUsername,
-					password: this.newPassword
+					data: {
+						n: "auth",
+						v: "signup",
+						email: this.newEmail,
+						username: this.newUsername,
+						password: this.newPassword
+					}
 				})
 				.then(response => {
-					this.serverResponse = response.data[0];
+					this.serverResponse = response.data;
 				});
 		},
 		setEnvironment() {
