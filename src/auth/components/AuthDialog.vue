@@ -62,7 +62,12 @@
 										<v-container>
 											<v-row>
 												<v-col>
-													<v-btn :disabled="!signupValid" color="success">Sign Up</v-btn>
+													<v-btn
+														@click="submitSignup"
+														:disabled="!signupValid"
+														color="success"
+														>Sign Up</v-btn
+													>
 												</v-col>
 												<v-col align="right">
 													<v-btn color="error">Reset</v-btn>
@@ -80,6 +85,13 @@
 											your data with anyone.
 											<a @click="showMoreInfo">Click here for more info.</a>
 										</span>
+									</v-card>
+									<v-card class="mt-5 pa-4">
+										<p>
+											(6/17/20): Signup feature isn't finished yet, check back
+											in a few days!
+										</p>
+										<p>{{ serverResponse }}</p>
 									</v-card>
 								</v-col>
 							</v-row>
@@ -197,11 +209,14 @@
 	</div>
 </template>
 <script>
+import axios from "axios";
 export default {
 	name: "AuthDialog",
 	props: ["dialogOpen"],
 	data() {
 		return {
+			host: "",
+			serverResponse: "",
 			tabsKey: 0,
 			moreInfoOpen: false,
 			newEmail: "",
@@ -240,6 +255,9 @@ export default {
 			x: ""
 		};
 	},
+	created() {
+		this.setEnvironment();
+	},
 	computed: {
 		toolbarTitle() {
 			return this.tabsKey ? "Log In To Lvlz" : "Create Your Lvlz Account";
@@ -254,6 +272,23 @@ export default {
 		},
 		closeMoreInfo() {
 			this.moreInfoOpen = false;
+		},
+		submitSignup() {
+			axios
+				.post(this.host + "api/", {
+					email: this.newEmail,
+					username: this.newUsername,
+					password: this.newPassword
+				})
+				.then(response => {
+					this.serverResponse = response.data[0];
+				});
+		},
+		setEnvironment() {
+			this.host =
+				window.location.host === "localhost:8080"
+					? "http://localhost/levelz.app/"
+					: "";
 		},
 		isValidUsername(username) {
 			if (!username) return false;
