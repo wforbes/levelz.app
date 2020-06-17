@@ -15,7 +15,7 @@ Here are some features and a general roadmap for their completion for the rest o
   * [x] **App Runs On Local** - Get the app serving from a XAMPP local web server, get the Vue app making successful requests to it (handle local CORS issues between localhost ports), and prototype some ideas.
   * [x] **App Runs On Remote** - Get the app uploaded via ftp to the web host and ensure the front end can make requests to the back-end!
 * [ ] **User Authentication** - Allow a user to create an account on the app, confirm their account via email, view a basic dashboard, and log in to thier account later
-  * [ ] **Signup Form** - Create a component that allows the User to sign up for a Lvlz account by securely transmitting data to the web server.
+  * [x] **Signup Form** - Create a component that allows the User to sign up for a Lvlz account by securely transmitting data to the web server.
   * [ ] **Create Database Entry** - Validate the User's new account info and store it on the database.
   * [ ] **Confirmation Emails** - Sending out a confirmation email when a new account is created that provides a link to confirm the account.
   * [ ] **Login Form** - Create a component that allows people that have made an account to log in to it securely with their password.
