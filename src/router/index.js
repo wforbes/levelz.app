@@ -3,25 +3,25 @@ import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
-	const routes = [
+const routes = [
 	{
-		path: '/',
-		name: 'Home',
-		component: () => import("../home/views/HomePage.vue"),
+		path: "/",
+		name: "Home",
+		component: () => import("../home/views/HomePage.vue")
 	},
 	{
-		path: '/dev',
+		path: "/dev",
 		name: "DevPage",
-		component: () => import("../dev/views/DevPage.vue"),
+		component: () => import("../dev/views/DevPage.vue")
 	},
-	{ 
-		path: '*',
-		component: () => import("../app/views/Error404.vue"),
-	},
+	{
+		path: "*",
+		component: () => import("../app/views/Error404.vue")
+	}
 ];
 
 const router = new VueRouter({
-	mode: 'history',
+	mode: "history",
 	base: process.env.BASE_URL,
 	routes: routes
 });

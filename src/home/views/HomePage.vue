@@ -13,16 +13,25 @@
 			</v-row>
 			<v-row>
 				<v-col>
-					<div style="display:inline-block; border: 0.1em solid black; border-bottom: 0.1em; padding: 0.2em; border-top-left-radius: 0.2em; border-top-right-radius: 0.2em; ">
+					<div
+						style="display:inline-block; border: 0.1em solid black; border-bottom: 0.1em; padding: 0.2em; border-top-left-radius: 0.2em; border-top-right-radius: 0.2em; "
+					>
 						<h4>updates:</h4>
 					</div>
-					<div style="border: 0.1em solid black; border-bottom: 0.25em solid black; border-radius:0.2em; padding: 1em;">
+					<div
+						style="border: 0.1em solid black; border-bottom: 0.25em solid black; border-radius:0.2em; padding: 1em;"
+					>
 						<ul style="list-style: none; padding:0; margin:0;">
 							<li>
-								<strong>(6/16/2020)</strong> Clicking the key icon in the top right opens a Signup/Login dialog window now. Created a simple email/data policy statement that displays there from the 'Click here for more info' link.
+								<strong>(6/16/2020)</strong> Clicking the key icon in the top
+								right opens a Signup/Login dialog window now. Created a simple
+								email/data policy statement that displays there from the 'Click
+								here for more info' link.
 							</li>
 							<li>
-								<strong>(6/14/2020)</strong> I've started working on API calls on the <router-link to="/dev">Development Page</router-link>. The server works now!
+								<strong>(6/14/2020)</strong> I've started working on API calls
+								on the <router-link to="/dev">Development Page</router-link>.
+								The server works now!
 							</li>
 						</ul>
 					</div>
@@ -50,15 +59,15 @@
 				</v-row>
 			</v-container>
 		</div>
-		<br/><br/>
+		<br /><br />
 	</div>
 </template>
 
 <script>
 export default {
-	name:"HomePage",
+	name: "HomePage",
 	data() {
 		return {};
-	},
-}
+	}
+};
 </script>

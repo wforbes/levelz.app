@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<v-dialog v-model="dialogOpen" persistent max-width="800">	
+		<v-dialog v-model="dialogOpen" persistent max-width="800">
 			<v-card class="elevation-12">
 				<v-toolbar dark dense flat>
 					<v-toolbar-title>Create Your Lvlz Account</v-toolbar-title>
@@ -9,11 +9,7 @@
 						<v-icon>mdi-close</v-icon>
 					</v-btn>
 				</v-toolbar>
-				<v-tabs
-					fixed-tabs
-					background-color="indigo"
-					dark
-				>
+				<v-tabs fixed-tabs background-color="indigo" dark>
 					<v-tab :key="0">
 						Signup
 					</v-tab>
@@ -22,8 +18,10 @@
 							<v-row>
 								<v-col>
 									<span class="text-subtitle-1">
-										To create an account on Lvlz, we just need a couple pieces of info.<br />
-										We won't spam you and we'll never share your data with anyone.<br />
+										To create an account on Lvlz, we just need a couple pieces
+										of info.<br />
+										We won't spam you and we'll never share your data with
+										anyone.<br />
 										<a @click="showMoreInfo">Click here for more info.</a>
 									</span>
 								</v-col>
@@ -31,16 +29,11 @@
 							<v-row>
 								<v-col cols="12" sm="6">
 									<v-form>
-										<v-text-field outlined
-											label="Email"
-										></v-text-field>
-										<v-text-field outlined
-											label="Username"
-										></v-text-field>
-										<v-text-field outlined
-											label="Password"
-										></v-text-field>
-										<v-text-field outlined
+										<v-text-field outlined label="Email"></v-text-field>
+										<v-text-field outlined label="Username"></v-text-field>
+										<v-text-field outlined label="Password"></v-text-field>
+										<v-text-field
+											outlined
 											label="Repeat Password"
 										></v-text-field>
 										<v-container>
@@ -82,46 +75,59 @@
 			<v-card class="pa-3 pr-6 pl-6">
 				<h3>We don't spam. Period.</h3>
 				<ul>
-					<li>We won't send you emails you can't unsubscribe from or turn off.</li>
-					<li>We won't send you emails from sources other than addresses at Levelz.app or Lvlz.app.</li>
-					<li>We won't send you emails that you haven't specifically agreed to wanting to get.</li>
+					<li>
+						We won't send you emails you can't unsubscribe from or turn off.
+					</li>
+					<li>
+						We won't send you emails from sources other than addresses at
+						Levelz.app or Lvlz.app.
+					</li>
+					<li>
+						We won't send you emails that you haven't specifically agreed to
+						wanting to get.
+					</li>
 				</ul>
 				<h3>We don't share your data with Third-Parties. Period.</h3>
 				<p>
 					We don't agree with sharing your data with any other entity outside of
-					Levelz.app or Lvlz.app, in principle and practice. Not only do we value your privacy 
-					and security, but we also find it very important to keep you from experiencing 
-					the intrusive ads and solicitation that come from third-party data companies
-					when they get ahold of your data and spread it around to all their friends. If we
-					do ever share your data, it will be within your full control to limit it, or because
-					specifically requested it! 
+					Levelz.app or Lvlz.app, in principle and practice. Not only do we
+					value your privacy and security, but we also find it very important to
+					keep you from experiencing the intrusive ads and solicitation that
+					come from third-party data companies when they get ahold of your data
+					and spread it around to all their friends. If we do ever share your
+					data, it will be within your full control to limit it, or because
+					specifically requested it!
 				</p>
 				<h4>Analytics and Usage Data</h4>
 				<p>
-					Although we do use your browsing data to make Lvlz.app better when we can, and a part
-					of that may involve using the Google Analytics service, we'll always do our best to keep
-					whatever analytics data we have about individuals private.
+					Although we do use your browsing data to make Lvlz.app better when we
+					can, and a part of that may involve using the Google Analytics
+					service, we'll always do our best to keep whatever analytics data we
+					have about individuals private.
 				</p>
 				<h4>Third-Party Login Services</h4>
 				<p>
-					Although we may offer log in services from companies like Google or Facebook to provide
-					you the convience of logging in to Lvlz.app using your accounts on those other platforms, 
-					we'll always do our best to limit our data sharing with those platforms so that we can conserve
+					Although we may offer log in services from companies like Google or
+					Facebook to provide you the convience of logging in to Lvlz.app using
+					your accounts on those other platforms, we'll always do our best to
+					limit our data sharing with those platforms so that we can conserve
 					your privacy.
 				</p>
 				<h4>Goals For Offline Features</h4>
 				<p>
-					In our general development plan for Lvlz.app we've outlined various ways that we can offer
-					offline, private, non-connected, self-contained versions of our features so that you may use Lvlz.app
-					without even being connected to the internet, and thus not even sharing your data with us, 
-					unless you want to. We will continue to pursue paradigms like this because we support your
-					desire to keep your data private.
+					In our general development plan for Lvlz.app we've outlined various
+					ways that we can offer offline, private, non-connected, self-contained
+					versions of our features so that you may use Lvlz.app without even
+					being connected to the internet, and thus not even sharing your data
+					with us, unless you want to. We will continue to pursue paradigms like
+					this because we support your desire to keep your data private.
 				</p>
 				<h4>We'll keep getting better at this.</h4>
 				<p>
-					Lvlz is a very young app and we're interested in finding new ways to improve this
-					statement.<br />
-					Email me with your thoughts at <a href="mailto:will@levelz.app">will@levelz.app</a>.
+					Lvlz is a very young app and we're interested in finding new ways to
+					improve this statement.<br />
+					Email me with your thoughts at
+					<a href="mailto:will@levelz.app">will@levelz.app</a>.
 				</p>
 				<p>- Will Forbes, Creator of Lvlz</p>
 			</v-card>
@@ -131,8 +137,8 @@
 <script>
 export default {
 	name: "AuthDialog",
-	props: [ "dialogOpen" ],
-	data() { 
+	props: ["dialogOpen"],
+	data() {
 		return {
 			moreInfoOpen: false
 		};
