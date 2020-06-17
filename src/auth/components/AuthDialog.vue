@@ -9,32 +9,47 @@
 						<v-icon>mdi-close</v-icon>
 					</v-btn>
 				</v-toolbar>
-				<v-tabs fixed-tabs background-color="indigo" dark>
+				<v-tabs background-color="primary" dark fixed-tabs icons-and-text>
 					<v-tab :key="0">
 						Signup
+						<v-icon>mdi-account-plus</v-icon>
 					</v-tab>
 					<v-tab-item :key="0">
 						<v-container>
 							<v-row>
-								<v-col>
-									<span class="text-subtitle-1">
-										To create an account on Lvlz, we just need a couple pieces
-										of info.<br />
-										We won't spam you and we'll never share your data with
-										anyone.<br />
-										<a @click="showMoreInfo">Click here for more info.</a>
-									</span>
-								</v-col>
-							</v-row>
-							<v-row>
-								<v-col cols="12" sm="6">
+								<v-col cols="12" sm="6" order-sm="1" order="2">
 									<v-form>
-										<v-text-field outlined label="Email"></v-text-field>
-										<v-text-field outlined label="Username"></v-text-field>
-										<v-text-field outlined label="Password"></v-text-field>
+										<v-text-field
+											outlined
+											label="Email"
+											v-model="newEmail"
+											:rules="[rules.required, rules.emailValid]"
+										></v-text-field>
+										<v-text-field
+											outlined
+											label="Username"
+											v-model="newUsername"
+											:rules="[
+												rules.required,
+												rules.usernameLength,
+												rules.usernameValid
+											]"
+										></v-text-field>
+										<v-text-field
+											outlined
+											label="Password"
+											v-model="newPassword"
+											:rules="[
+												rules.required,
+												rules.passwordLength,
+												rules.passwordValid
+											]"
+										></v-text-field>
 										<v-text-field
 											outlined
 											label="Repeat Password"
+											v-model="newRepeatPassword"
+											:rules="[rules.required, rules.passwordMatch]"
 										></v-text-field>
 										<v-container>
 											<v-row>
@@ -48,15 +63,23 @@
 										</v-container>
 									</v-form>
 								</v-col>
-								<v-col cols="12" sm="6">
-									<p>Already have an account?</p>
-									<v-btn>Login Instead</v-btn>
+								<v-col cols="12" sm="6" order-sm="2" order="1">
+									<v-card class="elevation-6 pa-4">
+										<span class="text-subtitle-1">
+											To create an account on Lvlz, we just need a couple pieces
+											of info.<br />
+											We won't spam you and we'll never share your data with
+											anyone.
+											<a @click="showMoreInfo">Click here for more info.</a>
+										</span>
+									</v-card>
 								</v-col>
 							</v-row>
 						</v-container>
 					</v-tab-item>
 					<v-tab :key="1">
 						Log In
+						<v-icon>mdi-login</v-icon>
 					</v-tab>
 					<v-tab-item :key="1">
 						Login form...
@@ -140,7 +163,35 @@ export default {
 	props: ["dialogOpen"],
 	data() {
 		return {
-			moreInfoOpen: false
+			moreInfoOpen: false,
+			newEmail: "",
+			newUsername: "",
+			newPassword: "",
+			newRepeatPassword: "",
+			emailTakenMsg: "",
+			emailValidationMsg: "",
+			usernameTakenMsg: "",
+			usernameValidationMsg: "",
+			passwordValidationMsg: "",
+			passwordMatchMsg: "",
+			rules: {
+				required: value => !!value || "This can't be blank.",
+				emailValid: value =>
+					this.emailRegex.test(value) || "A valid Email is required.",
+				usernameLength: value =>
+					(value.length >= 3 && value.length <= 20) ||
+					"Must be between 2 and 20 characters.",
+				usernameValid: value =>
+					this.isValidUsername(value) || this.usernameValidationMsg,
+				passwordLength: value =>
+					(value.length >= 6 && value.length <= 32) ||
+					"Must be between 6 and 32 characters.",
+				passwordValid: value => !!value || "false",
+				passwordMatch: value => !!value || "false"
+			},
+			// eslint-disable-next-line no-control-regex
+			emailRegex: /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/,
+			x: ""
 		};
 	},
 	methods: {
@@ -152,6 +203,65 @@ export default {
 		},
 		closeMoreInfo() {
 			this.moreInfoOpen = false;
+		},
+		isValidUsername(username) {
+			if (!username) return false;
+			this.usernameValidationMsg = "";
+			const testRegex = /^[a-zA-Z0-9._]+$/;
+			const numberFirstRegex = /^[a-zA-Z]+$/;
+			let formValid = false;
+			let startValid = false;
+			let dotscoreValid = false;
+			let endValid = false;
+			let startNumberValid = false;
+			if (testRegex.test(username)) {
+				formValid = true;
+			} else {
+				//this.checkUsernameForDelimAdd();
+				this.usernameValidationMsg +=
+					"Can only contain: [ A-Z, a-z, . and _ ]\n";
+			}
+
+			if (!username.startsWith(".") && !username.startsWith("_")) {
+				startValid = true;
+			} else {
+				this.checkUsernameForDelimAdd();
+				this.usernameValidationMsg += "Can't begin with . or _ characters.";
+			}
+
+			if (!username.endsWith(".") && !username.endsWith("_")) {
+				endValid = true;
+			} else {
+				this.checkUsernameForDelimAdd();
+				this.usernameValidationMsg += "Can't end with . or _ characters.";
+			}
+
+			if (
+				!username.includes("..") &&
+				!username.includes("__") &&
+				!username.includes("._") &&
+				!username.includes("_.")
+			) {
+				dotscoreValid = true;
+			} else {
+				this.checkUsernameForDelimAdd();
+				this.usernameValidationMsg += "Can't contain: [..],[._],[_.] or [__].";
+			}
+
+			if (numberFirstRegex.test(username)) {
+				startNumberValid = true;
+			} else {
+				this.checkUsernameForDelimAdd();
+				this.usernameValidationMsg += "Can't begin with a number.";
+			}
+
+			return (
+				formValid && startValid && endValid && dotscoreValid && startNumberValid
+			);
+		},
+		checkUsernameForDelimAdd() {
+			this.usernameValidationMsg +=
+				this.usernameValidationMsg !== "" ? "; " : "";
 		}
 	}
 };
