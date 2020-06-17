@@ -8,7 +8,18 @@ class Post {
 	public function __construct($app)
     {
 		$this->app = $app;
-		Post::reply(["The server received your request, but signups aren't implemented yet!"]);
+        
+        if (empty($_POST["data"])) {
+            //https://stackoverflow.com/questions/8893574/php-php-input-vs-post
+            $body = file_get_contents("php://input");
+			$json = json_decode($body, true);
+			$_POST["data"] = $json["data"];
+        }
+        
+        $post = $_POST;
+        Post::reply($post);
+        
+
 
         exit();
     }
