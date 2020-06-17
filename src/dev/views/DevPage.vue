@@ -48,7 +48,7 @@ export default {
 					this.testGetResponse = response.data;
 				})
 				.catch(error => {
-					console.log(error);
+					console.error(error);
 				});
 		},
 		clearTestGetResponse() {
