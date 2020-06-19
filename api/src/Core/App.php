@@ -3,6 +3,7 @@
 namespace Core;
 
 use Http\Router;
+use Data\PDOMySQL;
 
 class App {
 	public const APP_ROOT = __DIR__."/..";
@@ -12,13 +13,14 @@ class App {
 		$this->http = Router::route($this);
 	}
 
-	public function setup():void {
+	private function setup():void {
 		session_start();
 		$this->setDelimiter();
 		$this->autoload();
+		$this->setDatabase();
 	}
 
-	public function setDelimiter() {
+	private function setDelimiter():void {
 		$this->dlm=(self::detectEnvironment()==='local'?'\\':'/');
 	}
 
@@ -29,7 +31,7 @@ class App {
         return "remote";
     }
 
-	public function autoload():void {
+	private function autoload():void {
 		$d = $this->dlm;
 		require_once __DIR__.$d."..".$d."..".$d."vendor".$d."autoload.php";
         spl_autoload_register(function ($class_name) {
@@ -43,5 +45,9 @@ class App {
             }
             return false;
         });
+	}
+
+	private function setDatabase():void {
+		$this->db = new PDOMySQL($this);
 	}
 }
