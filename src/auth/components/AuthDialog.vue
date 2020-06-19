@@ -203,7 +203,7 @@
 					Email me with your thoughts at
 					<a href="mailto:will@levelz.app">will@levelz.app</a>.
 				</p>
-				<p>- Will Forbes, Creator of Lvlz</p>
+				<p>Thanks, Lvlz</p>
 			</v-card>
 		</v-dialog>
 	</div>
@@ -309,7 +309,7 @@ export default {
 			} else {
 				//this.checkUsernameForDelimAdd();
 				this.usernameValidationMsg +=
-					"Can only contain: [ A-Z, a-z, . and _ ]\n";
+					"Can only contain: [ A-Z, a-z, 0-9, . and _ ]\n";
 			}
 
 			if (!username.startsWith(".") && !username.startsWith("_")) {
