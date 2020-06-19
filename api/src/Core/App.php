@@ -5,6 +5,8 @@ namespace Core;
 use Http\Router;
 
 class App {
+	public const APP_ROOT = __DIR__."/..";
+	
 	public function __construct() {
 		$this->setup();
 		$this->http = Router::route($this);
