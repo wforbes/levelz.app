@@ -4,10 +4,13 @@
 		<v-main>
 			<v-container>
 				<v-row>
-					<v-col 
-						offset-md="1" md="10"
-						offset-lg="2" lg="8"
-						offset-xl="3" xl="6"
+					<v-col
+						offset-md="1"
+						md="10"
+						offset-lg="2"
+						lg="8"
+						offset-xl="3"
+						xl="6"
 						cols="12"
 					>
 						<router-view></router-view>
@@ -23,14 +26,13 @@
 import AppBar from "../components/AppBar.vue";
 import Footer from "../components/Footer.vue";
 export default {
-	name: 'App',
+	name: "App",
 	components: {
-		AppBar, Footer
+		AppBar,
+		Footer
 	},
-	data(){
-		return {
-
-		};
-	},
+	data() {
+		return {};
+	}
 };
 </script>
