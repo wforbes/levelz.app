@@ -6,29 +6,6 @@ We try to help you reinforce good habits and level up your life.
 
 Founded in June 2020 (by wforbes, wforbes87).
 
-## Development Roadmap (2020)
-Here are some features and a general roadmap for their completion for the rest of the year. I'll be utilizing Github.com's project tracking features to accomplish these:
-* [x] **Create Vue Project** - Get the Vue.js project set up!
-	* [x] **App Runs On Local** _ Get the app running on localhost via vscode npm local web server, configure routes with history mode, and get a few pages started
-	* [x] **App Hosted On Remote** - Get the app uploaded via ftp to the web host and properly serving, test for config bugs and do some prototyping. 
-* [x] **Create PHP Project** - Get a core PHP project set up!
-  * [x] **App Runs On Local** - Get the app serving from a XAMPP local web server, get the Vue app making successful requests to it (handle local CORS issues between localhost ports), and prototype some ideas.
-  * [x] **App Runs On Remote** - Get the app uploaded via ftp to the web host and ensure the front end can make requests to the back-end!
-* [ ] **User Authentication** - Allow a user to create an account on the app, confirm their account via email, view a basic dashboard, and log in to thier account later
-  * [x] **Signup Form** - Create a component that allows the User to sign up for a Lvlz account by securely transmitting data to the web server.
-  * [ ] **Create Database Entry** - Validate the User's new account info and store it on the database.
-  * [ ] **Confirmation Emails** - Sending out a confirmation email when a new account is created that provides a link to confirm the account.
-  * [ ] **Login Form** - Create a component that allows people that have made an account to log in to it securely with their password.
-* [ ] **Basic User Dashboard** - This dashboard should give controls to modify their information, add a profile picture, and provide links to other features that haven't been built yet like Activity, Notifications, Messages, and Friends. It should also include some UI for 'game' features like their Level, Experience Points, Vital Points, Statistics, Abilities, Spells, and Achievements.
-* [ ] **Prototype Core Features** - Create some barebones versions of the core features envisioned for the app 
-  * [ ] **To-Do List Page** - Prototype a simple to-do list page that allows the user to create a list, add items to the list, keeps track of previously made lists, and explore other parameters/returns.
-  * [ ] **Task Tracker Page** - Prototype a simple task tracker page that allows the user to define a task, add a description to it, create/assign To-Do lists to it, assign it to an Achievement, and explore other parameters/returns.
-  * [ ] **Timer Page** - Prototype a timer page that allows the user to start and stop a timer, keep track of past timers, link timers to a task item or to-do list item, and explore other parameters/returns.
-  * [ ] **Achievement Page** - Prototype an achievement page that allows the user to create a long term goal and define an achievement they may earn by completing that goal. This goal may be composed of Tasks, or be stand-alone.
-  * [ ] **Attributes Page** - Prototype a page that allows the User to define their own Attributes which serve as markers of progress in the completion of Achievements, Tasks and other activities on the app. Allow the user to assign Experience points, Vital points, Stats, Skills, Abilities, Spells and other custom metrics which will be displayed on their Dashboard, in their User Profile, and elsewhere on the app.
-* [ ] **Plan for Alpha Version** - Given all the lessons learned and insights gained throughout building core prototype features; Plan for the Alpha version of the app which provides a more streamlined, user friendly, enjoyable experience. This includes Activity, Notification, and Social features - among other ideas gained through the prototyping process. 
-
-
 ### What is this repo?
 This is the source code for a web app found at [https://levelz.app](https://levelz.app) (and [https://lvlz.app](https://lvlz.app)). 
 It's written with Vue.js v2, and a simple PHP v7.3 backend. We use the front-end UI library Vuetify which provides many of the UI components and we use Vue features like Vuex, Vue-Router, and others that you might find in a typical Vue app. We may use a PHP framework like Laravel in the future.
@@ -58,6 +35,30 @@ src
     |_HomePage.vue
 ~~~
 This structure is subject to change, but I'll try to keep this README updated as the project changes.
+
+---
+
+## Development Roadmap (2020)
+Here are some features and a general roadmap for their completion for the rest of the year. I'll be utilizing Github.com's project tracking features to accomplish these:
+* [x] **Create Vue Project** - Get the Vue.js project set up!
+	* [x] **App Runs On Local** _ Get the app running on localhost via vscode npm local web server, configure routes with history mode, and get a few pages started
+	* [x] **App Hosted On Remote** - Get the app uploaded via ftp to the web host and properly serving, test for config bugs and do some prototyping. 
+* [x] **Create PHP Project** - Get a core PHP project set up!
+  * [x] **App Runs On Local** - Get the app serving from a XAMPP local web server, get the Vue app making successful requests to it (handle local CORS issues between localhost ports), and prototype some ideas.
+  * [x] **App Runs On Remote** - Get the app uploaded via ftp to the web host and ensure the front end can make requests to the back-end!
+* [ ] **User Authentication** - Allow a user to create an account on the app, confirm their account via email, view a basic dashboard, and log in to thier account later
+  * [x] **Signup Form** - Create a component that allows the User to sign up for a Lvlz account by securely transmitting data to the web server.
+  * [ ] **Create Database Entry** - Validate the User's new account info and store it on the database.
+  * [ ] **Confirmation Emails** - Sending out a confirmation email when a new account is created that provides a link to confirm the account.
+  * [ ] **Login Form** - Create a component that allows people that have made an account to log in to it securely with their password.
+* [ ] **Basic User Dashboard** - This dashboard should give controls to modify their information, add a profile picture, and provide links to other features that haven't been built yet like Activity, Notifications, Messages, and Friends. It should also include some UI for 'game' features like their Level, Experience Points, Vital Points, Statistics, Abilities, Spells, and Achievements.
+* [ ] **Prototype Core Features** - Create some barebones versions of the core features envisioned for the app 
+  * [ ] **To-Do List Page** - Prototype a simple to-do list page that allows the user to create a list, add items to the list, keeps track of previously made lists, and explore other parameters/returns.
+  * [ ] **Task Tracker Page** - Prototype a simple task tracker page that allows the user to define a task, add a description to it, create/assign To-Do lists to it, assign it to an Achievement, and explore other parameters/returns.
+  * [ ] **Timer Page** - Prototype a timer page that allows the user to start and stop a timer, keep track of past timers, link timers to a task item or to-do list item, and explore other parameters/returns.
+  * [ ] **Achievement Page** - Prototype an achievement page that allows the user to create a long term goal and define an achievement they may earn by completing that goal. This goal may be composed of Tasks, or be stand-alone.
+  * [ ] **Attributes Page** - Prototype a page that allows the User to define their own Attributes which serve as markers of progress in the completion of Achievements, Tasks and other activities on the app. Allow the user to assign Experience points, Vital points, Stats, Skills, Abilities, Spells and other custom metrics which will be displayed on their Dashboard, in their User Profile, and elsewhere on the app.
+* [ ] **Plan for Alpha Version** - Given all the lessons learned and insights gained throughout building core prototype features; Plan for the Alpha version of the app which provides a more streamlined, user friendly, enjoyable experience. This includes Activity, Notification, and Social features - among other ideas gained through the prototyping process.
 
 ---
 
