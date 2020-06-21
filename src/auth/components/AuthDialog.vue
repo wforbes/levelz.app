@@ -78,20 +78,35 @@
 								</v-col>
 								<v-col cols="12" sm="6" order-sm="2" order="1">
 									<v-card class="elevation-6 pa-4">
-										<span class="text-subtitle-1">
-											To create an account on Lvlz, we just need a couple pieces
-											of info.<br />
-											The good news is we won't spam you and we'll never share
-											your data with anyone.
-											<a @click="showMoreInfo">Click here for more info.</a>
+										<span v-if="signupErrors.length === 0">
+											<h5 class="text-h5">
+												Signup for Lvlz
+											</h5>
+											<span class="text-subtitle-1">
+												To create an account on Lvlz, we just need a couple
+												pieces of info.<br />
+											</span>
+										</span>
+										<span v-else-if="signupErrors.length >= 1">
+											<h5 class="text-h6">
+												Sorry, there
+												<span v-if="signupErrors.length === 1"
+													>was a problem</span
+												>
+												<span v-else-if="signupErrors.length >= 2"
+													>were problems</span
+												>
+												with your signup request:
+											</h5>
+											<span v-html="serverResponse"></span>
 										</span>
 									</v-card>
-									<v-card class="mt-5 pa-4">
-										<p>
-											(6/17/20): Signup feature isn't finished yet, check back
-											in a few days!
-										</p>
-										<p>{{ serverResponse }}</p>
+									<v-card class="elevation-6 mt-5 pa-4">
+										<span class="text-subtitle-1">
+											The good news is we won't spam you and we'll never share
+											your data with anyone.<br />
+											<a @click="showMoreInfo">Click here for more info.</a>
+										</span>
 									</v-card>
 								</v-col>
 							</v-row>
@@ -217,6 +232,7 @@ export default {
 		return {
 			host: "",
 			serverResponse: "",
+			signupErrors: [],
 			tabsKey: 0,
 			moreInfoOpen: false,
 			newEmail: "",
@@ -286,7 +302,21 @@ export default {
 					}
 				})
 				.then(response => {
-					this.serverResponse = response.data;
+					if (response.data["success"]) {
+						this.$store.dispatch({
+							type: "loginUser",
+							userId: response.data["success"]["userId"],
+							userProfileId: response.data["success"]["userProfileId"]
+						});
+					} else if (response.data["errors"]) {
+						this.signupErrors = response.data["errors"];
+						this.serverResponse = "<ul style='list-style:none; padding:0;'>";
+						for (let msg of this.signupErrors) {
+							this.serverResponse +=
+								"<li style='color:red;'><strong>" + msg + "</strong></li>";
+						}
+						this.serverResponse += "</ul>";
+					}
 				});
 		},
 		setEnvironment() {

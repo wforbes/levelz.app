@@ -69,8 +69,8 @@ class Auth {
 		$response[] = $this->notDoneMsg($d);
 
 		if ($this->signupIsValid($d['u'],$d['p'],$d['r'],$d['e'])){
-			$userId = $this->user->createNewUser($d['u'],$d['p'],$d['e']);
-			return ["success"=> ["userId" => $userId] ];
+			$returnValue = $this->user->createNewUser($d['u'],$d['p'],$d['e']);
+			return ["success"=> $returnValue ];
 		} else {
 			return ["errors" => $this->signupErrors];
 		}
