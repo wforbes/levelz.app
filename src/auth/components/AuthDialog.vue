@@ -70,7 +70,7 @@
 													>
 												</v-col>
 												<v-col align="right">
-													<v-btn color="error">Reset</v-btn>
+													<v-btn color="error" @click="resetSignupForm">Reset</v-btn>
 												</v-col>
 											</v-row>
 										</v-container>
@@ -436,6 +436,14 @@ export default {
 		checkUsernameForDelimAdd() {
 			this.usernameValidationMsg +=
 				this.usernameValidationMsg !== "" ? "; " : "";
+		},
+		resetSignupForm() {
+			this.newEmail = "";
+			this.newUsername = "";
+			this.newPassword = "";
+			this.newRepeatPassword = "";
+			this.serverResponse = "";
+			this.signupErrors = [];
 		}
 	}
 };
