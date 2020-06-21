@@ -279,9 +279,10 @@ export default {
 					data: {
 						n: "auth",
 						v: "signup",
-						email: this.newEmail,
-						username: this.newUsername,
-						password: this.newPassword
+						u: this.newUsername,
+						p: this.newPassword,
+						r: this.newRepeatPassword,
+						e: this.newEmail
 					}
 				})
 				.then(response => {
@@ -297,14 +298,14 @@ export default {
 		isValidUsername(username) {
 			if (!username) return false;
 			this.usernameValidationMsg = "";
-			const testRegex = /^[a-zA-Z0-9._]+$/;
-			const numberFirstRegex = /^[a-zA-Z]+$/;
+			const noSpecialCharRegex = /^[a-zA-Z\d._]+$/;
+			const numberFirstRegex = /^[\d]+$/;
 			let formValid = false;
 			let startValid = false;
 			let dotscoreValid = false;
 			let endValid = false;
 			let startNumberValid = false;
-			if (testRegex.test(username)) {
+			if (noSpecialCharRegex.test(username)) {
 				formValid = true;
 			} else {
 				//this.checkUsernameForDelimAdd();
@@ -338,7 +339,7 @@ export default {
 				this.usernameValidationMsg += "Can't contain: [..],[._],[_.] or [__].";
 			}
 
-			if (numberFirstRegex.test(username)) {
+			if (!numberFirstRegex.test(username)) {
 				startNumberValid = true;
 			} else {
 				this.checkUsernameForDelimAdd();

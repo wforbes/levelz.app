@@ -18,7 +18,7 @@ class UserModel extends Model
 		parent::__construct($app);
 	}
 	
-    protected function getModelData():array {
+    public function getModelData():array {
         return [
             "user","id",
             [
@@ -31,4 +31,12 @@ class UserModel extends Model
             ]
         ];
 	}
+
+	public function userExistsByName($u){
+        return $this->app->db->thisExists($this->getModelData()[0], "username", $u);
+	}
+	
+    public function userExistsByEmail($e){
+        return $this->app->db->thisExists($this->getModelData()[0], "email", $e);
+    }
 }
