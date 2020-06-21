@@ -25,9 +25,9 @@ class User {
         $model = $this->model->getModelData()[0];
         $fields = array_keys($this->model->getModelData()[2]);
 		\array_splice($fields, 4, 1);
-		if ($this->app->db->insertNew($model, $fields, $values) === $id) {
-			//$userProfileId = (new UserProfile($this->app))->createNewProfile($userId);
-			//$_SESSION["d"] = ["userId"=>$userId, "userProfileId"=>$userProfileId];
+		if ($this->app->db->insertNew($model, $fields, $values) === true) {
+			$userProfileId = (new UserProfile($this->app))->createNewProfile($id);
+			$_SESSION["d"] = ["userId"=>$id, "userProfileId"=>$userProfileId];
 			return $id;
 		} else {
 			return false;

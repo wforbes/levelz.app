@@ -70,11 +70,9 @@ class Auth {
 
 		if ($this->signupIsValid($d['u'],$d['p'],$d['r'],$d['e'])){
 			$userId = $this->user->createNewUser($d['u'],$d['p'],$d['e']);
-			$response[] = ["success"=> ["Your user account was successfully created"] ];
-			return $response;
+			return ["success"=> ["userId" => $userId] ];
 		} else {
-			$response = ["errors" => $this->signupErrors];
-			return $response;
+			return ["errors" => $this->signupErrors];
 		}
 
 	}
