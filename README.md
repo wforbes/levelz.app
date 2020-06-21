@@ -58,6 +58,10 @@ Here are some features and a general roadmap for their completion for the rest o
   * [ ] **Timer Page** - Prototype a timer page that allows the user to start and stop a timer, keep track of past timers, link timers to a task item or to-do list item, and explore other parameters/returns.
   * [ ] **Achievement Page** - Prototype an achievement page that allows the user to create a long term goal and define an achievement they may earn by completing that goal. This goal may be composed of Tasks, or be stand-alone.
   * [ ] **Attributes Page** - Prototype a page that allows the User to define their own Attributes which serve as markers of progress in the completion of Achievements, Tasks and other activities on the app. Allow the user to assign Experience points, Vital points, Stats, Skills, Abilities, Spells and other custom metrics which will be displayed on their Dashboard, in their User Profile, and elsewhere on the app.
+* [ ] **Optional Prototype Features** - IF TIME ALLOWS, create some optional features and pages which bolster the core features and provide further post alpha possibilities.
+  * [ ] **Financials Page** - Prototype of a simple budget management system which can assist the user with their spending and savings habits, providing savings goals, task budgets and an example of linking up to a bank API for real time account balance information.
+  * [ ] **Inventory Page** - Prototype of a simple inventory management system which provides 
+  * [ ] **Configuration Page** - User accessible configuration page which provides controls for various settings across the app
 * [ ] **Plan for Alpha Version** - Given all the lessons learned and insights gained throughout building core prototype features; Plan for the Alpha version of the app which provides a more streamlined, user friendly, enjoyable experience. This includes Activity, Notification, and Social features - among other ideas gained through the prototyping process.
 
 ---
