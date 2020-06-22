@@ -45,37 +45,64 @@
 		<div class="project-updates">
 			<v-row>
 				<v-col>
+					<!--
 					<div
 						style="display:inline-block; border: 0.1em solid black; border-bottom: 0.1em; padding: 0.2em; border-top-left-radius: 0.2em; border-top-right-radius: 0.2em; "
-					>
+					> -->
+					<v-card class="pa-2" style="display:inline-block;">
 						<h4>Project Updates:</h4>
-					</div>
-					<div
-						style="border: 0.1em solid black; border-bottom: 0.25em solid black; border-radius:0.2em; padding: 1em;"
-					>
+					</v-card>
+					<!--</div> -->
+					<v-card class="pa-3">
 						<ul style="list-style: none; padding:0; margin:0;">
 							<li>
-								<strong>(6/21/2020) Account Signups:</strong> Entering valid
-								information into the Signup Dialog and clicking its Submit
-								button will now create a new User account on our server and
-								navigate to the User dashboard page. If you visit the User
-								dashboard page without signing up, you will see a 'Not Logged
-								In' page.
+								<v-card class="pa-2 mb-3">
+									<strong>(6/21/2020) Account Signups</strong><br />
+									<span>
+										Open the
+										<a @click="openAuthDialog">Authentication Dialog</a> by
+										clicking the key icon in the upper right corner of the
+										screen. While you enter your information into the Signup
+										Form, it's checked that it conforms to our standards. When
+										you get it right, click the Submit button to create a new
+										User account on our server and be navigated to the
+										<a @click="navigateToDashboard">User dashboard page</a>. If
+										you visit the User dashboard page without signing up, you
+										will see a 'Not Logged In' page with a couple buttons to
+										either come back to the home page or open the Authentication
+										Dialog.
+									</span>
+									<br />
+									<strong>Account Logins</strong><br />
+									<span>
+										Users who have already signed up for an account can log in
+										via the Login Tab on the Authentication Dialog.
+									</span>
+								</v-card>
 							</li>
 							<li>
-								<strong>(6/16/2020) Authentication Dialog:</strong> Clicking the
-								key icon in the top right opens a Signup/Login dialog window
-								now. Created a simple email/data policy statement that displays
-								there from the 'Click here for more info' link.
+								<v-card class="pa-2 mb-3">
+									<strong>(6/16/2020) Authentication Dialog</strong><br />
+									<span>
+										Clicking the key icon in the top right of the screen opens a
+										Signup/Login dialog window now. I created a simple
+										email/data policy statement that displays there from the
+										'Click here for more info' link.
+									</span>
+								</v-card>
 							</li>
 							<li>
-								<strong>(6/14/2020) Initial set up:</strong> I've started
-								working on API calls on the
-								<router-link to="/dev">Development Page</router-link>. The
-								server works now!
+								<v-card class="pa-2 mb-3">
+									<strong>(6/14/2020) Initial set up</strong><br />
+									<span>
+										I've started working on API calls on the
+										<router-link to="/dev">Development Page</router-link>. The
+										server works now!
+									</span>
+								</v-card>
 							</li>
 						</ul>
-					</div>
+					</v-card>
 				</v-col>
 			</v-row>
 		</div>
@@ -88,6 +115,14 @@ export default {
 	name: "HomePage",
 	data() {
 		return {};
+	},
+	methods: {
+		openAuthDialog() {
+			this.$store.dispatch("openAuthDialog");
+		},
+		navigateToDashboard() {
+			this.$router.push("dashboard");
+		}
 	}
 };
 </script>
