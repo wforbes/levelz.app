@@ -174,4 +174,46 @@ class PDOMySQL {
 			$i++;
 		}
 	}
+
+	//name: GBI (Get these, By that, In there)
+	//params: These, That, There
+	//desc: creates a sql string, prepares a pdo:statement, pdo:bindParams and pdo:executes; returns a fetchAll array
+	public function gbi($these, $that, $there){
+		$s = "SELECT ";
+		if(!is_array($these)) {
+			$s.=(string)$these." ";
+		}else {
+			foreach ($these as $a) {
+				$s .= $a;
+				if ($a !== end($these)) {
+					$s .= ", ";
+				} else {
+					$s .= " ";
+				}
+			}
+		}
+		$s.= "FROM `".$there."` WHERE ";
+		$i=0;
+		$params = [];
+		foreach($that as $b=>$c){
+			$s .= "$b = ?";
+			if($i === count($that)){
+				$s.=" AND ";
+			}else{
+				$s .= ";";
+			}
+			$params[] = $c;
+			$i++;
+		}
+		$stmt = $this->connection->prepare($s);
+		$paramCount = count($params);
+		for($i=0;$i<$paramCount;$i++) {
+			$pi = $i + 1;
+			$param = $params[$i];
+			$stmt->bindParam($pi, $param);
+		}
+		$stmt->execute();
+		$result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+		return $result;
+	}
 }

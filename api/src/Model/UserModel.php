@@ -32,5 +32,25 @@ class UserModel extends Model
 	
     public function userExistsByEmail($e){
         return $this->app->db->thisExists($this->getModelData()[0], "email", $e);
+	}
+	
+	public function getPasswordHashByUsername($u){
+        return $this->app->db->gbi(['passhash'],['username'=>$u],'user');
+	}
+	
+    public function getPasswordHashByEmail($u){
+        return $this->app->db->gbi(['passhash'],['email'=>$u],'user');
+	}
+	
+	public function getIdByUsername($u){
+        return $this->app->db->gbi(['id'],['username'=>$u],'user');
+	}
+	
+    public function getIdByEmail($u){
+        return $this->app->db->gbi(['id'],['email'=>$u],'user');
+    }
+
+    public function getUsernameById($id){
+        return $this->app->db->gbi(['username'],['id'=>$id],'user');
     }
 }

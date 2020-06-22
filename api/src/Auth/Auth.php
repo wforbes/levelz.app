@@ -3,6 +3,7 @@
 namespace Auth;
 
 use User\User;
+use User\UserProfile;
 use Sec\Sec;
 
 class Auth {
@@ -45,6 +46,13 @@ class Auth {
 	// email must not already be in use
 	private $emailExistsMsg = "Email is already in use";
 
+	private $signupErrors = [];
+	private $loginErrors = [];
+
+	private $loginEmail = "";
+	private $loginUsername = "";
+	private $loginPassword = "";
+
 	public function __construct($app) {
 		$this->app = $app;
 		$this->setLengthMessages();
@@ -58,6 +66,58 @@ class Auth {
 		$this->passwordLengthMsg = "Password must be "
 			.$this->minPasswordLength." - "
 			.$this->maxPasswordLength." characters";
+	}
+
+	//TODO: Break this into smaller functions
+	public function login($d):array {
+		if ($this->loginIsValid($d)) {
+			$userPasswordHash = ($this->loginEmail === '') ? $this->user->getPasswordHashByUsername($this->loginUsername)[0]['passhash'] :
+				$this->user->getPasswordHashByEmail($this->loginEmail)[0]['passhash'];
+
+			if(password_verify($this->loginPassword,$userPasswordHash)){
+				$_SESSION['d']['userId'] = $userId = ($this->loginEmail !== '')?$this->user->getIdByEmail($this->loginEmail)[0]['id']:
+					$this->user->getIdByUsername($this->loginUsername)[0]['id'];
+				
+				$profile = ($userProfile = new UserProfile($this->app))->getProfileByUserId($userId);
+				if($profile){
+					$_SESSION['d']['userProfileId'] = $profile[0]['id'];
+				}else{
+					$_SESSION['d']['userProfileId'] = $userProfile->createNewProfile($userId);
+				}
+				return ['success' =>
+					[
+						"userId" => $_SESSION["d"]["userId"],
+						"userProfileId" => $_SESSION["d"]["userProfileId"]
+					]
+				];
+			} else {
+				$this->loginErrors[] = "There was a problem with that password";
+				return ["errors" => $this->loginErrors];
+			}
+		} else {
+			return ["errors" => $this->loginErrors];
+		}
+
+	}
+
+	private function loginIsValid($d):bool {
+		if ($d['u'] === "") {
+            $this->loginErrors[] = "Username cannot be blank";
+		}
+		if ($d['p'] === "") {
+			$this->loginErrors[] = "Password cannot be blank";
+		}
+		
+		
+		$this->loginEmail = filter_var($d["u"], FILTER_VALIDATE_EMAIL)?Sec::sanitizeEmail($d["u"]):"";
+		$this->loginUsername = ($this->loginEmail === "")?Sec::sanitize($d["u"]):"";
+		$this->loginPassword = Sec::sanitize($d['p']);
+		if($this->loginUsername !== "" && !$this->user->userExistsByName($this->loginUsername)){
+            $this->loginErrors[] = "We don't have an account with that name, would you like to sign up?";
+        } else if($this->loginEmail !== "" && !$this->user->userExistsByEmail($this->loginEmail)){
+			$this->loginErrors[] = "We don't have an account with that email, would you like to sign up?";
+		}
+		return ( \count($this->loginErrors) == 0 );
 	}
 
 	public function signup($d):array {

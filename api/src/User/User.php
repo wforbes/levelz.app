@@ -32,5 +32,25 @@ class User {
 		} else {
 			return false;
 		}
+	}
+	
+	public function getPasswordHashByUsername($u){
+        return $this->model->getPasswordHashByUsername($u);
+	}
+	
+    public function getPasswordHashByEmail($u){
+        return $this->model->getPasswordHashByEmail($u);
+	}
+	
+	public function getIdByUsername($u){
+        return $this->model->getIdByUsername($u);
+	}
+	
+    public function getIdByEmail($u){
+        return $this->model->getIdByEmail($u);
+    }
+
+    public function getUsernameById($id){
+        return $this->model->getUsernameById($id);
     }
 }

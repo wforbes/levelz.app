@@ -70,7 +70,9 @@
 													>
 												</v-col>
 												<v-col align="right">
-													<v-btn color="error" @click="resetSignupForm">Reset</v-btn>
+													<v-btn color="error" @click="resetSignupForm"
+														>Reset</v-btn
+													>
 												</v-col>
 											</v-row>
 										</v-container>
@@ -98,7 +100,7 @@
 												>
 												with your signup request:
 											</h5>
-											<span v-html="serverResponse"></span>
+											<span v-html="signupFeedback"></span>
 										</span>
 									</v-card>
 									<v-card class="elevation-6 mt-5 pa-4">
@@ -119,29 +121,51 @@
 					<v-tab-item :key="1">
 						<v-container>
 							<v-row>
+								<v-col align="center">
+									<div v-if="loginErrors.length >= 1">
+										<h5 class="text-h6">
+											Sorry, there
+											<span v-if="loginErrors.length === 1">was a problem</span>
+											<span v-else-if="loginErrors.length >= 2"
+												>were problems</span
+											>
+											with your login request:
+										</h5>
+										<span v-html="loginFeedback"></span>
+									</div>
+								</v-col>
+							</v-row>
+							<v-row>
 								<v-col cols="12" offset-sm="3" sm="6">
 									<v-form v-model="loginValid">
 										<v-text-field
 											outlined
 											label="Email / Username"
-											v-model="loginEmailUsername"
+											v-model="loginUsername"
 											:rules="[rules.required]"
 										></v-text-field>
 										<v-text-field
 											outlined
 											label="Password"
+											type="password"
 											v-model="loginPassword"
 											:rules="[rules.required]"
 										></v-text-field>
 										<v-container>
 											<v-row>
 												<v-col>
-													<v-btn :disabled="!loginValid" color="success">
+													<v-btn
+														:disabled="!loginValid"
+														color="success"
+														@click="submitLogin"
+													>
 														Log In
 													</v-btn>
 												</v-col>
 												<v-col align="right">
-													<v-btn color="error">Reset</v-btn>
+													<v-btn color="error" @click="resetLoginForm"
+														>Reset</v-btn
+													>
 												</v-col>
 											</v-row>
 										</v-container>
@@ -231,8 +255,10 @@ export default {
 	data() {
 		return {
 			host: "",
-			serverResponse: "",
+			signupFeedback: "",
 			signupErrors: [],
+			loginErrors: [],
+			loginFeedback: "",
 			tabsKey: 0,
 			moreInfoOpen: false,
 			newEmail: "",
@@ -265,7 +291,7 @@ export default {
 			// eslint-disable-next-line no-control-regex
 			emailRegex: /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/,
 			signupValid: true,
-			loginEmailUsername: "",
+			loginUsername: "",
 			loginPassword: "",
 			loginValid: true,
 			x: ""
@@ -288,6 +314,42 @@ export default {
 		},
 		closeMoreInfo() {
 			this.moreInfoOpen = false;
+		},
+		submitLogin() {
+			this.loginErrors = [];
+			axios
+				.post(this.host + "api/", {
+					data: {
+						n: "auth",
+						v: "login",
+						u: this.loginUsername,
+						p: this.loginPassword
+					}
+				})
+				.then(response => {
+					this.loginFeedback = response;
+					if (response.data["success"]) {
+						this.loginFeedback = response.data["success"];
+						this.$store.dispatch({
+							type: "loginUser",
+							userId: response.data["success"]["userId"],
+							userProfileId: response.data["success"]["userProfileId"]
+						});
+						this.closeDialog();
+						if (this.$route.path !== "/dashboard") {
+							this.$router.push("dashboard");
+						}
+					} else if (response.data["errors"]) {
+						this.loginFeedback = response.data["errors"];
+						this.loginErrors = response.data["errors"];
+						this.loginFeedback = "<ul style='list-style:none; padding:0;'>";
+						for (let msg of this.loginErrors) {
+							this.loginFeedback +=
+								"<li style='color:red;'><strong>" + msg + "</strong></li>";
+						}
+						this.loginFeedback += "</ul>";
+					}
+				});
 		},
 		submitSignup() {
 			axios
@@ -314,12 +376,12 @@ export default {
 						}
 					} else if (response.data["errors"]) {
 						this.signupErrors = response.data["errors"];
-						this.serverResponse = "<ul style='list-style:none; padding:0;'>";
+						this.signupFeedback = "<ul style='list-style:none; padding:0;'>";
 						for (let msg of this.signupErrors) {
-							this.serverResponse +=
+							this.signupFeedback +=
 								"<li style='color:red;'><strong>" + msg + "</strong></li>";
 						}
-						this.serverResponse += "</ul>";
+						this.signupFeedback += "</ul>";
 					}
 				});
 		},
@@ -446,8 +508,14 @@ export default {
 			this.newUsername = "";
 			this.newPassword = "";
 			this.newRepeatPassword = "";
-			this.serverResponse = "";
+			this.signupFeedback = "";
 			this.signupErrors = [];
+		},
+		resetLoginForm() {
+			this.loginUsername = "";
+			this.loginPassword = "";
+			this.loginErrors = [];
+			this.loginFeedback = "";
 		}
 	}
 };
