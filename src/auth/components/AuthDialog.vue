@@ -62,16 +62,16 @@
 										<v-container>
 											<v-row>
 												<v-col>
+													<v-btn color="error" @click="resetSignupForm"
+														>Reset</v-btn
+													>
+												</v-col>
+												<v-col align="right">
 													<v-btn
 														@click="submitSignup"
 														:disabled="!signupValid"
 														color="success"
 														>Sign Up</v-btn
-													>
-												</v-col>
-												<v-col align="right">
-													<v-btn color="error" @click="resetSignupForm"
-														>Reset</v-btn
 													>
 												</v-col>
 											</v-row>
@@ -154,6 +154,11 @@
 										<v-container>
 											<v-row>
 												<v-col>
+													<v-btn color="error" @click="resetLoginForm"
+														>Reset</v-btn
+													>
+												</v-col>
+												<v-col align="right">
 													<v-btn
 														:disabled="!loginValid"
 														color="success"
@@ -161,11 +166,6 @@
 													>
 														Log In
 													</v-btn>
-												</v-col>
-												<v-col align="right">
-													<v-btn color="error" @click="resetLoginForm"
-														>Reset</v-btn
-													>
 												</v-col>
 											</v-row>
 										</v-container>

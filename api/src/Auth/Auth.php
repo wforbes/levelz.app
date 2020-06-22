@@ -68,6 +68,24 @@ class Auth {
 			.$this->maxPasswordLength." characters";
 	}
 
+	public function getSessionData($d) {
+		if (session_id() === "") {
+			return [$_SESSION["d"]["userId"], $_SESSION["d"]["userProfileId"] ];
+		} else {
+			return "";
+		}
+		
+	}
+	public function logout($d) {
+		session_unset();
+		session_destroy();
+		if (session_id() === ""){
+			return ["success" => []];
+		} else {
+			return ["errors" => []];
+		}
+	}
+
 	//TODO: Break this into smaller functions
 	public function login($d):array {
 		if ($this->loginIsValid($d)) {
@@ -97,7 +115,6 @@ class Auth {
 		} else {
 			return ["errors" => $this->loginErrors];
 		}
-
 	}
 
 	private function loginIsValid($d):bool {
@@ -107,7 +124,6 @@ class Auth {
 		if ($d['p'] === "") {
 			$this->loginErrors[] = "Password cannot be blank";
 		}
-		
 		
 		$this->loginEmail = filter_var($d["u"], FILTER_VALIDATE_EMAIL)?Sec::sanitizeEmail($d["u"]):"";
 		$this->loginUsername = ($this->loginEmail === "")?Sec::sanitize($d["u"]):"";

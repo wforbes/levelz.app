@@ -9,14 +9,21 @@ export default new Vuex.Store({
 		User
 	},
 	state: {
+		host: "",
 		authDialogOpen: false
 	},
 	getters: {
+		host: state => {
+			return state.host;
+		},
 		authDialogOpen: state => {
 			return state.authDialogOpen;
 		}
 	},
 	actions: {
+		setHost({ commit }, { host }) {
+			commit("setHost", host);
+		},
 		openAuthDialog({ commit }) {
 			commit("setAuthDialogOpen", true);
 		},
@@ -25,6 +32,9 @@ export default new Vuex.Store({
 		}
 	},
 	mutations: {
+		setHost(state, host) {
+			state.host = host;
+		},
 		setAuthDialogOpen(state, setting) {
 			state.authDialogOpen = setting;
 		}

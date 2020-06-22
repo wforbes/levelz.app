@@ -52,5 +52,5 @@ class User {
 
     public function getUsernameById($id){
         return $this->model->getUsernameById($id);
-    }
+	}
 }

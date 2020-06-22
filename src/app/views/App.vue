@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 import AppBar from "../components/AppBar.vue";
 import Footer from "../components/Footer.vue";
 export default {
@@ -32,7 +34,44 @@ export default {
 		Footer
 	},
 	data() {
-		return {};
+		return {
+			host: ""
+		};
+	},
+	created() {
+		axios.defaults.withCredentials = true;
+		this.setEnvironment();
+		this.getSessionData();
+	},
+	methods: {
+		getSessionData() {
+			axios
+				.post(this.host + "api/", {
+					data: {
+						n: "auth",
+						v: "getSessionData"
+					}
+				})
+				.then(response => {
+					if (response.data["userId"]) {
+						this.$store.dispatch({
+							type: "loginUser",
+							userId: response.data["userId"],
+							userProfileId: response.data["userProfileId"]
+						});
+					}
+				});
+		},
+		setEnvironment() {
+			this.host =
+				window.location.host === "localhost:8080"
+					? "http://localhost/levelz.app/"
+					: "";
+			this.$store.dispatch({
+				type: "setHost",
+				host: this.host
+			});
+		}
 	}
 };
 </script>

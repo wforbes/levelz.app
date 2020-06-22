@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export default {
 	state: {
 		userId: "",
@@ -15,6 +17,21 @@ export default {
 		loginUser({ commit }, { userId, userProfileId }) {
 			commit("setUserId", userId);
 			commit("setUserProfileId", userProfileId);
+		},
+		async logoutUser({ commit, rootState }) {
+			await axios
+				.post(rootState.host + "api/", {
+					data: {
+						n: "auth",
+						v: "logout"
+					}
+				})
+				.then(response => {
+					if (response.data["success"]) {
+						commit("clearUserId");
+						commit("clearUserProfileId");
+					}
+				});
 		}
 	},
 	mutations: {

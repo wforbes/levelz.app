@@ -8,11 +8,20 @@
 			</v-row>
 			<v-row>
 				<v-col>
-					<div v-if="!userLoggedIn">
+					<div v-show="!userIsLoggedIn">
 						<NotLoggedIn />
 					</div>
-					<div v-else>
-						<p>Lol Hey!</p>
+					<div v-show="userIsLoggedIn">
+						<v-btn @click="logout">Logout</v-btn>
+						<v-container>
+							<v-row>
+								<v-col>
+									<v-card class="pa-5" height="100">
+										The user dashboard page isn't finished yet, check back in a few days!
+									</v-card>
+								</v-col>
+							</v-row>
+						</v-container>
 					</div>
 				</v-col>
 			</v-row>
@@ -31,10 +40,14 @@ export default {
 	},
 	created() {},
 	computed: {
-		userLoggedIn() {
+		userIsLoggedIn() {
 			return this.$store.getters.userId !== "";
 		}
 	},
-	methods: {}
+	methods: {
+		async logout() {
+			await this.$store.dispatch("logoutUser");
+		}
+	}
 };
 </script>
