@@ -78,6 +78,14 @@
 										Users who have already signed up for an account can log in
 										via the Login Tab on the Authentication Dialog.
 									</span>
+									<br />
+									<strong>Login Sessions and Logouts</strong><br />
+									<span>
+										Your login session should persist through reloading the page
+										or navigating between pages. You can log out via a button on
+										the User Dashboard. You should also be logged out if you
+										close your browser tab or window.
+									</span>
 								</v-card>
 							</li>
 							<li>
