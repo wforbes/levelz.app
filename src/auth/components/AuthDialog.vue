@@ -308,6 +308,10 @@ export default {
 							userId: response.data["success"]["userId"],
 							userProfileId: response.data["success"]["userProfileId"]
 						});
+						this.closeDialog();
+						if (this.$route.path !== "/dashboard") {
+							this.$router.push("dashboard");
+						}
 					} else if (response.data["errors"]) {
 						this.signupErrors = response.data["errors"];
 						this.serverResponse = "<ul style='list-style:none; padding:0;'>";

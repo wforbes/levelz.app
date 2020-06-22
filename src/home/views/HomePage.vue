@@ -19,13 +19,18 @@
 						<h1>What is Levelz?</h1>
 						<p>
 							Levelz is a productivity web app that gamifies the concept of a
-							todo list or task tracking app. We try to help you reinforce good
-							habits and level up your life.
+							todo list or task tracking app. <br />
+							We try to help you reinforce good habits and level up your life.
 						</p>
 						<h1>Project Status</h1>
 						<p>
 							This app is currently in its very early stages of development.<br />
-							We are an open-source project. More info:
+							This is an open-source project. (
+							<a href="http://www.gnu.org/licenses/gpl-3.0.html" target="_blank"
+								>GNU Public License v3.0</a
+							>
+							)<br />
+							More info:
 							<a href="https://github.com/wforbes/levelz.app" target="_blank"
 								>github.com/wforbes/levelz.app</a
 							><br /><br />
@@ -50,15 +55,24 @@
 					>
 						<ul style="list-style: none; padding:0; margin:0;">
 							<li>
-								<strong>(6/16/2020)</strong> Clicking the key icon in the top
-								right opens a Signup/Login dialog window now. Created a simple
-								email/data policy statement that displays there from the 'Click
-								here for more info' link.
+								<strong>(6/21/2020) Account Signups:</strong> Entering valid
+								information into the Signup Dialog and clicking its Submit
+								button will now create a new User account on our server and
+								navigate to the User dashboard page. If you visit the User
+								dashboard page without signing up, you will see a 'Not Logged
+								In' page.
 							</li>
 							<li>
-								<strong>(6/14/2020)</strong> I've started working on API calls
-								on the <router-link to="/dev">Development Page</router-link>.
-								The server works now!
+								<strong>(6/16/2020) Authentication Dialog:</strong> Clicking the
+								key icon in the top right opens a Signup/Login dialog window
+								now. Created a simple email/data policy statement that displays
+								there from the 'Click here for more info' link.
+							</li>
+							<li>
+								<strong>(6/14/2020) Initial set up:</strong> I've started
+								working on API calls on the
+								<router-link to="/dev">Development Page</router-link>. The
+								server works now!
 							</li>
 						</ul>
 					</div>
