@@ -102,7 +102,8 @@ class Auth {
     }
 
     private function checkEmailExists($e):string{
-        return $this->user->userExistsByEmail($e)?$this->emailExistsMsg:"";
+		$msg = $this->emailExistsMsg." ($e)";
+        return $this->user->userExistsByEmail($e)?$msg:"";
 	}
 	//end checkEmail helpers
 
@@ -117,8 +118,9 @@ class Auth {
 	}
 	//checkUsername helpers
 	private function checkUsernameExists($u):string{
-        $e = $this->user->userExistsByName($u);
-        return $e?$this->usernameExistsMsg:'';
+		$e = $this->user->userExistsByName($u);
+		$msg = $this->usernameExistsMsg." ($u)";
+        return $e?$msg:'';
     }
     private function checkUsernameLength($u):string{
 		return strlen($u) < $this->maxUsernameLength 
