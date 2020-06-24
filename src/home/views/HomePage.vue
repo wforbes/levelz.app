@@ -57,6 +57,19 @@
 						<ul style="list-style: none; padding:0; margin:0;">
 							<li>
 								<v-card class="pa-2 mb-3">
+									<strong>(6/24/2020) User Dashboard Layout</strong><br />
+									<span>
+										I worked on laying out the User Dashboard with some
+										placeholder stuff. Included are some concepts on game stats
+										there like: your Level, Class, Experience Points; Vital
+										stats like Health, Endurance, Spirit, and Focus; and base
+										stats like Strength, Stamina, Agility, Dexterity, Wisdom,
+										Intelligence, Charisma, and Luck.
+									</span>
+								</v-card>
+							</li>
+							<li>
+								<v-card class="pa-2 mb-3">
 									<strong>(6/21/2020) Account Signups</strong><br />
 									<span>
 										Open the
