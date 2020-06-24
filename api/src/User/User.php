@@ -27,7 +27,7 @@ class User {
 		\array_splice($fields, 4, 1);
 		if ($this->app->db->insertNew($model, $fields, $values) === true) {
 			$userProfileId = (new UserProfile($this->app))->createNewProfile($id);
-			$returnValue = $_SESSION["d"] = ["userId"=>$id, "userProfileId"=>$userProfileId];
+			$returnValue = $_SESSION["d"] = ["userId"=>$id ];
 			return $returnValue;
 		} else {
 			return false;

@@ -26,19 +26,18 @@ class Post {
 	public function __construct($app)
     {
 		$this->app = $app;
-        $this->setInputData();
+		$this->setInputData();
 		$this->parseNounScript();
 		$this->instantiateNounClass();
 		$this->verbName = filter_var($this->inputData[$this->verbKey], FILTER_SANITIZE_STRING);
 		$this->payload = $this->parseNonNVData();
 		$result = $this->doVerb($this->verbName, $this->payload);
-
-        Post::reply($result);
-        exit();
-    }
+		Post::reply($result);
+		exit();
+	}
 
 	public static function reply($s) {
-        echo json_encode((is_array($s))?($s):([$s]));
+		echo json_encode((is_array($s))?($s):([$s]));
 	}
 	
 	//name: setInputData
@@ -49,13 +48,13 @@ class Post {
 	public function setInputData() {
 		if (empty($_POST[$this->dataKey])) {
 			$input = file_get_contents("php://input");
-            if ($input) {
+			if ($input) {
 				$json = json_decode($input, true);
 				$this->inputData = $_POST[$this->dataKey] = $json[$this->dataKey];
 			} else {
 				//TODO: error - No data provided to Post
 			}
-        } else {
+		} else {
 			$this->inputData = $_POST[$this->dataKey];
 		}
 	}
@@ -66,7 +65,7 @@ class Post {
 			$this->nounName = ucFirst(
 				filter_var($this->inputData[$this->nounKey], FILTER_SANITIZE_STRING)
 			);
-			$this->nounNamespace = $this->nounName; 
+			$this->nounNamespace = $this->nounName;
 		} else {
 			if (\count($this->inputData[$this->nounKey]) === 2) {
 				$this->nounNamespace = ucfirst(
@@ -131,21 +130,21 @@ class Post {
 	}
 
 	private function instantiateNounClass() {
-        $class = "\\".$this->nounNamespace."\\".$this->nounName;
-        $this->nounClass = new $class($this->app);
+		$class = "\\".$this->nounNamespace."\\".$this->nounName;
+		$this->nounClass = new $class($this->app);
 	}
-	
+
 	private function parseNonNVData() {
-        $d = [];
-        foreach($this->inputData as $k=>$v){
-            if($k!=='n'||$k!=='v'){
-                $d[$k] = $v;
-            }
-        }
-        return $d;
+		$d = [];
+		foreach($this->inputData as $k=>$v){
+			if($k !== $this->nounKey && $k!== $this->verbKey){
+				$d[$k] = $v;
+			}
+		}
+		return $d;
 	}
-	
+
 	private function doVerb($v, $d){
-        return $this->nounClass->$v($d);
-    }
+		return $this->nounClass->$v($d);
+	}
 }

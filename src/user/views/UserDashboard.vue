@@ -3,26 +3,33 @@
 		<v-container>
 			<v-row>
 				<v-col>
-					<h1>User Dashboard</h1>
+					<h1>Dashboard</h1>
+				</v-col>
+				<v-col v-if="userLoginStatus === 'loggedIn'" align="right">
+					<div class="pr-5">
+						<v-btn @click="logout">Logout</v-btn>
+					</div>
 				</v-col>
 			</v-row>
 			<v-row>
 				<v-col>
-					<div v-show="!userIsLoggedIn">
+					<div v-if="userLoginStatus === 'loggedOut'">
 						<NotLoggedIn />
 					</div>
-					<div v-show="userIsLoggedIn">
-						<v-btn @click="logout">Logout</v-btn>
-						<v-container>
-							<v-row>
-								<v-col>
-									<v-card class="pa-5" height="100">
-										The user dashboard page isn't finished yet, check back in a few days!
-									</v-card>
-								</v-col>
-							</v-row>
-						</v-container>
+					<div v-if="userLoginStatus === 'loggedIn'">
+						<v-card class="pa-0" height="100">
+							<v-container>
+								<v-row>
+									<v-col cols="6" class="pa-0">
+										<v-card class="ma-0">
+											
+										</v-card>
+									</v-col>
+								</v-row>
+							</v-container>
+						</v-card>
 					</div>
+					<div v-if="userLoginStatus === 'loading'"></div>
 				</v-col>
 			</v-row>
 		</v-container>
@@ -38,15 +45,17 @@ export default {
 	data() {
 		return {};
 	},
-	created() {},
+	created() {
+		//console.log("UserDashboard created");
+	},
 	computed: {
-		userIsLoggedIn() {
-			return this.$store.getters.userId !== "";
+		userLoginStatus() {
+			return this.$store.getters.loginStatus;
 		}
 	},
 	methods: {
-		async logout() {
-			await this.$store.dispatch("logoutUser");
+		logout() {
+			this.$store.dispatch("logoutUser");
 		}
 	}
 };

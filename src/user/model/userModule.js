@@ -1,25 +1,45 @@
 import axios from "axios";
+//import U from "../../lib/util/U.js";
 
 export default {
 	state: {
+		loginStatus: "loading",
 		userId: "",
-		userProfileId: ""
+		userProfile: Object
 	},
 	getters: {
 		userId: state => {
 			return state.userId;
 		},
-		userProfileId: state => {
-			return state.userProfileId;
+		loginStatus: state => {
+			return state.loginStatus;
 		}
 	},
 	actions: {
-		loginUser({ commit }, { userId, userProfileId }) {
-			commit("setUserId", userId);
-			commit("setUserProfileId", userProfileId);
+		loadUserProfile({ commit, rootState }, { userId }) {
+			axios
+				.post(rootState.host + "api/", {
+					data: {
+						n: ["user", "UserProfile"],
+						v: "getProfileByUserId",
+						userId: userId
+					}
+				})
+				.then(response => {
+					if (response.data["success"]) {
+						commit("setUserProfile", response);
+					}
+				});
 		},
-		async logoutUser({ commit, rootState }) {
-			await axios
+		setLoginStatus({ commit }, { status }) {
+			commit("setLoginStatus", status);
+		},
+		loginUser({ commit }, { userId }) {
+			commit("setUserId", userId);
+			commit("setLoginStatus", "loggedIn");
+		},
+		logoutUser({ commit, rootState }) {
+			axios
 				.post(rootState.host + "api/", {
 					data: {
 						n: "auth",
@@ -29,7 +49,7 @@ export default {
 				.then(response => {
 					if (response.data["success"]) {
 						commit("clearUserId");
-						commit("clearUserProfileId");
+						commit("setLoginStatus", "loggedOut");
 					}
 				});
 		}
@@ -38,14 +58,15 @@ export default {
 		clearUserId(state) {
 			state.userId = "";
 		},
-		clearUserProfileId(state) {
-			state.userProfileId = "";
-		},
 		setUserId(state, userId) {
 			state.userId = userId;
 		},
-		setUserProfileId(state, userProfileId) {
-			state.userProfileId = userProfileId;
+		setLoginStatus(state, status) {
+			state.loginStatus = status;
+		},
+		setUserProfileData(state, response) {
+			console.log(response);
+			state.userProfile = {};
 		}
 	}
 };

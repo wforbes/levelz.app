@@ -334,8 +334,7 @@ export default {
 						this.loginFeedback = response.data["success"];
 						this.$store.dispatch({
 							type: "loginUser",
-							userId: response.data["success"]["userId"],
-							userProfileId: response.data["success"]["userProfileId"]
+							userId: response.data["success"]["userId"]
 						});
 						this.closeDialog();
 						if (this.$route.path !== "/dashboard") {
@@ -369,8 +368,7 @@ export default {
 					if (response.data["success"]) {
 						this.$store.dispatch({
 							type: "loginUser",
-							userId: response.data["success"]["userId"],
-							userProfileId: response.data["success"]["userProfileId"]
+							userId: response.data["success"]["userId"]
 						});
 						this.closeDialog();
 						if (this.$route.path !== "/dashboard") {

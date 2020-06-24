@@ -21,7 +21,9 @@ class UserProfile
         return $this->app->db->insertNew($model, $fields, $values)?$id:false;
     }
 
-    public function getProfileByUserId($id){
-        return $this->model->getProfileByUserId($id);
+    public function getProfileByUserId($d){
+		if (isset($d["userId"])) {
+			return $this->model->getProfileByUserId($d["userId"]);
+		}
     }
 }

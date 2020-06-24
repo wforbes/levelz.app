@@ -68,9 +68,9 @@ class Auth {
 			.$this->maxPasswordLength." characters";
 	}
 
-	public function getSessionData($d) {
-		if (session_id() === "") {
-			return [$_SESSION["d"]["userId"], $_SESSION["d"]["userProfileId"] ];
+	public function checkSession($d) {
+		if (session_id() !== "") {
+			return [ "userId" => $_SESSION["d"]["userId"] ];
 		} else {
 			return "";
 		}
@@ -104,8 +104,7 @@ class Auth {
 				}
 				return ['success' =>
 					[
-						"userId" => $_SESSION["d"]["userId"],
-						"userProfileId" => $_SESSION["d"]["userProfileId"]
+						"userId" => $_SESSION["d"]["userId"]
 					]
 				];
 			} else {
