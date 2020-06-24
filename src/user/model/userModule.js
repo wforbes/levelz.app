@@ -38,11 +38,6 @@ export default {
 							userEmail: response.data["sessionData"]["userEmail"],
 							userProfileId: response.data["sessionData"]["userProfileId"]
 						});
-						/*
-						dispatch({
-							type: "loadUserProfile",
-							userId: response.data["userId"]
-						});*/
 					} else {
 						dispatch({
 							type: "setLoginStatus",
