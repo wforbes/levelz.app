@@ -58,6 +58,7 @@
 											v-model="newRepeatPassword"
 											type="password"
 											:rules="[rules.required, rules.passwordMatch]"
+											@keypress.enter="submitSignup"
 										></v-text-field>
 										<v-container>
 											<v-row>
@@ -150,6 +151,7 @@
 											type="password"
 											v-model="loginPassword"
 											:rules="[rules.required]"
+											@keypress.enter="submitLogin"
 										></v-text-field>
 										<v-container>
 											<v-row>
