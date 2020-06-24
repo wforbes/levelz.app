@@ -97,8 +97,8 @@ class Auth {
 				if ($this->loginEmail !== "") {
 					$_SESSION["d"]["userId"] = $userId = 
 						$this->user->getIdByEmail($this->loginEmail)[0]["id"];
-					$_SESSION["d"]["username"] = $this->loginEmail;
-					$_SESSION["d"]["userEmail"] = $this->user->getUsernameById($userId)[0]["username"];
+					$_SESSION["d"]["username"] = $this->user->getUsernameById($userId)[0]["username"];
+					$_SESSION["d"]["userEmail"] = $this->loginEmail;
 				} else {
 					$_SESSION["d"]["userId"] = $userId =
 						$this->user->getIdByUsername($this->loginUsername)[0]["id"];
