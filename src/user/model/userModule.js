@@ -16,6 +16,9 @@ export default {
 		loginStatus: state => {
 			return state.loginStatus;
 		},
+		username: state => {
+			return state.username;
+		},
 		userProfile: state => {
 			return state.userProfile;
 		}
