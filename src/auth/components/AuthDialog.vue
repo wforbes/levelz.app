@@ -334,7 +334,10 @@ export default {
 						this.loginFeedback = response.data["success"];
 						this.$store.dispatch({
 							type: "loginUser",
-							userId: response.data["success"]["userId"]
+							userId: response.data["success"]["userId"],
+							username: response.data["success"]["username"],
+							userEmail: response.data["success"]["userEmail"],
+							userProfileId: response.data["success"]["userProfileId"]
 						});
 						this.closeDialog();
 						if (this.$route.path !== "/dashboard") {
@@ -368,7 +371,10 @@ export default {
 					if (response.data["success"]) {
 						this.$store.dispatch({
 							type: "loginUser",
-							userId: response.data["success"]["userId"]
+							userId: response.data["success"]["userId"],
+							username: response.data["success"]["username"],
+							userEmail: response.data["success"]["userEmail"],
+							userProfileId: response.data["success"]["userProfileId"]
 						});
 						this.closeDialog();
 						if (this.$route.path !== "/dashboard") {

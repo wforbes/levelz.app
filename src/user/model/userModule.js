@@ -5,7 +5,9 @@ export default {
 	state: {
 		loginStatus: "loading",
 		userId: "",
-		userProfile: Object
+		username: "",
+		userEmail: "",
+		userProfile: {}
 	},
 	getters: {
 		userId: state => {
@@ -13,32 +15,74 @@ export default {
 		},
 		loginStatus: state => {
 			return state.loginStatus;
+		},
+		userProfile: state => {
+			return state.userProfile;
 		}
 	},
 	actions: {
-		loadUserProfile({ commit, rootState }, { userId }) {
+		initSession({ dispatch, rootState }) {
+			axios
+				.post(rootState.host + "api/", {
+					data: {
+						n: "auth",
+						v: "checkSession"
+					}
+				})
+				.then(response => {
+					if (response.data["sessionData"]) {
+						dispatch({
+							type: "loginUser",
+							userId: response.data["sessionData"]["userId"],
+							username: response.data["sessionData"]["username"],
+							userEmail: response.data["sessionData"]["userEmail"],
+							userProfileId: response.data["sessionData"]["userProfileId"]
+						});
+						/*
+						dispatch({
+							type: "loadUserProfile",
+							userId: response.data["userId"]
+						});*/
+					} else {
+						dispatch({
+							type: "setLoginStatus",
+							status: "loggedOut"
+						});
+					}
+				});
+		},
+		loadUserProfile({ commit, rootState }, { userProfileId }) {
 			axios
 				.post(rootState.host + "api/", {
 					data: {
 						n: ["user", "UserProfile"],
-						v: "getProfileByUserId",
-						userId: userId
+						v: "getProfileById",
+						userProfileId: userProfileId
 					}
 				})
 				.then(response => {
-					if (response.data["success"]) {
-						commit("setUserProfile", response);
+					if (response.data[0]) {
+						commit("setUserProfile", response.data[0]);
 					}
 				});
 		},
 		setLoginStatus({ commit }, { status }) {
 			commit("setLoginStatus", status);
 		},
-		loginUser({ commit }, { userId }) {
+		loginUser(
+			{ commit, dispatch },
+			{ userId, username, userEmail, userProfileId }
+		) {
 			commit("setUserId", userId);
+			commit("setUsername", username);
+			commit("setUserEmail", userEmail);
+			dispatch({
+				type: "loadUserProfile",
+				userProfileId: userProfileId
+			});
 			commit("setLoginStatus", "loggedIn");
 		},
-		logoutUser({ commit, rootState }) {
+		logoutUser({ commit, dispatch, rootState }) {
 			axios
 				.post(rootState.host + "api/", {
 					data: {
@@ -48,25 +92,45 @@ export default {
 				})
 				.then(response => {
 					if (response.data["success"]) {
-						commit("clearUserId");
+						dispatch("clearUserData");
 						commit("setLoginStatus", "loggedOut");
 					}
 				});
+		},
+		clearUserData({ commit }) {
+			commit("clearUserId");
+			commit("clearUsername");
+			commit("clearUserEmail");
+			commit("clearUserProfile");
 		}
 	},
 	mutations: {
 		clearUserId(state) {
 			state.userId = "";
 		},
+		clearUsername(state) {
+			state.username = "";
+		},
+		clearUserEmail(state) {
+			state.userEmail = "";
+		},
+		clearUserProfile(state) {
+			state.userProfile = {};
+		},
 		setUserId(state, userId) {
 			state.userId = userId;
+		},
+		setUsername(state, username) {
+			state.username = username;
+		},
+		setUserEmail(state, userEmail) {
+			state.userEmail = userEmail;
 		},
 		setLoginStatus(state, status) {
 			state.loginStatus = status;
 		},
-		setUserProfileData(state, response) {
-			console.log(response);
-			state.userProfile = {};
+		setUserProfile(state, profile) {
+			state.userProfile = Object.assign({}, profile);
 		}
 	}
 };

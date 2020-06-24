@@ -39,38 +39,11 @@ export default {
 		};
 	},
 	async created() {
-		//console.log("App created");
 		axios.defaults.withCredentials = true;
 		this.setEnvironment();
-		const session = await this.getUserData();
-		this.setUserData(session);
+		this.$store.dispatch("initSession");
 	},
 	methods: {
-		setUserData(session) {
-			if (session.data["userId"]) {
-				this.$store.dispatch({
-					type: "loginUser",
-					userId: session.data["userId"]
-				});
-				this.$store.dispatch({
-					type: "loadUserProfile",
-					userId: session.data["userId"]
-				});
-			} else {
-				this.$store.dispatch({
-					type: "setLoginStatus",
-					status: "loggedOut"
-				});
-			}
-		},
-		async getUserData() {
-			return axios.post(this.host + "api/", {
-				data: {
-					n: "auth",
-					v: "checkSession"
-				}
-			});
-		},
 		setEnvironment() {
 			this.host =
 				window.location.host === "localhost:8080"

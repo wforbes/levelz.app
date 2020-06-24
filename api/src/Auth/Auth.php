@@ -69,8 +69,8 @@ class Auth {
 	}
 
 	public function checkSession($d) {
-		if (session_id() !== "") {
-			return [ "userId" => $_SESSION["d"]["userId"] ];
+		if (!empty($_SESSION)) {
+			return [ "sessionData" => $_SESSION["d"] ];
 		} else {
 			return "";
 		}
@@ -89,13 +89,22 @@ class Auth {
 	//TODO: Break this into smaller functions
 	public function login($d):array {
 		if ($this->loginIsValid($d)) {
-			$userPasswordHash = ($this->loginEmail === '') ? $this->user->getPasswordHashByUsername($this->loginUsername)[0]['passhash'] :
+			$userPasswordHash = ($this->loginEmail === '') ? 
+				$this->user->getPasswordHashByUsername($this->loginUsername)[0]['passhash'] :
 				$this->user->getPasswordHashByEmail($this->loginEmail)[0]['passhash'];
 
 			if(password_verify($this->loginPassword,$userPasswordHash)){
-				$_SESSION['d']['userId'] = $userId = ($this->loginEmail !== '')?$this->user->getIdByEmail($this->loginEmail)[0]['id']:
-					$this->user->getIdByUsername($this->loginUsername)[0]['id'];
-				
+				if ($this->loginEmail !== "") {
+					$_SESSION["d"]["userId"] = $userId = 
+						$this->user->getIdByEmail($this->loginEmail)[0]["id"];
+					$_SESSION["d"]["username"] = $this->loginEmail;
+					$_SESSION["d"]["userEmail"] = $this->user->getUsernameById($userId)[0]["username"];
+				} else {
+					$_SESSION["d"]["userId"] = $userId =
+						$this->user->getIdByUsername($this->loginUsername)[0]["id"];
+					$_SESSION["d"]["username"] = $this->loginUsername;
+					$_SESSION["d"]["userEmail"] = $this->user->getEmailById($userId)[0]["email"];
+				}
 				$profile = ($userProfile = new UserProfile($this->app))->getProfileByUserId($userId);
 				if($profile){
 					$_SESSION['d']['userProfileId'] = $profile[0]['id'];
@@ -104,7 +113,10 @@ class Auth {
 				}
 				return ['success' =>
 					[
-						"userId" => $_SESSION["d"]["userId"]
+						"userId" => $_SESSION["d"]["userId"],
+						"username" => $_SESSION["d"]["username"],
+						"userEmail" => $_SESSION["d"]["userEmail"],
+						"userProfileId" => $_SESSION["d"]["userProfileId"],
 					]
 				];
 			} else {
@@ -144,7 +156,7 @@ class Auth {
 		$response[] = $this->notDoneMsg($d);
 
 		if ($this->signupIsValid($d['u'],$d['p'],$d['r'],$d['e'])){
-			$returnValue = $this->user->createNewUser($d['u'],$d['p'],$d['e']);
+			$returnValue = $_SESSION["d"] = $this->user->createNewUser($d['u'],$d['p'],$d['e']);
 			return ["success"=> $returnValue ];
 		} else {
 			return ["errors" => $this->signupErrors];

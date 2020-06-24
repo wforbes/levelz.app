@@ -22,8 +22,15 @@ class UserProfile
     }
 
     public function getProfileByUserId($d){
-		if (isset($d["userId"])) {
+		if (\is_array($d) && isset($d["userId"])) {
 			return $this->model->getProfileByUserId($d["userId"]);
 		}
+		return $this->model->getProfileByUserId($d);
+	}
+	public function getProfileById($d){
+		if (\is_array($d) && isset($d["userProfileId"])) {
+			return $this->model->getProfileById($d["userProfileId"]);
+		}
+		return $this->model->getProfileById($d);
     }
 }

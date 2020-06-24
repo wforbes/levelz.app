@@ -27,8 +27,12 @@ class User {
 		\array_splice($fields, 4, 1);
 		if ($this->app->db->insertNew($model, $fields, $values) === true) {
 			$userProfileId = (new UserProfile($this->app))->createNewProfile($id);
-			$returnValue = $_SESSION["d"] = ["userId"=>$id ];
-			return $returnValue;
+			return [ 
+				"userId"=>$id, 
+				"username"=>$u, 
+				"userEmail"=>$e, 
+				"userProfileId"=>$userProfileId 
+			];
 		} else {
 			return false;
 		}
@@ -50,7 +54,11 @@ class User {
         return $this->model->getIdByEmail($u);
     }
 
-    public function getUsernameById($id){
+    public function getUsernameById($id) {
         return $this->model->getUsernameById($id);
+	}
+
+	public function getEmailById($id) {
+		return $this->model->getEmailById($id);
 	}
 }

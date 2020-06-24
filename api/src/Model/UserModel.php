@@ -38,19 +38,23 @@ class UserModel extends Model
         return $this->app->db->gbi(['passhash'],['username'=>$u],'user');
 	}
 	
-    public function getPasswordHashByEmail($u){
-        return $this->app->db->gbi(['passhash'],['email'=>$u],'user');
+    public function getPasswordHashByEmail($e){
+        return $this->app->db->gbi(['passhash'],['email'=>$e],'user');
 	}
 	
 	public function getIdByUsername($u){
         return $this->app->db->gbi(['id'],['username'=>$u],'user');
 	}
 	
-    public function getIdByEmail($u){
-        return $this->app->db->gbi(['id'],['email'=>$u],'user');
+    public function getIdByEmail($e){
+        return $this->app->db->gbi(['id'],['email'=>$e],'user');
     }
 
     public function getUsernameById($id){
         return $this->app->db->gbi(['username'],['id'=>$id],'user');
-    }
+	}
+	
+	public function getEmailById($id) {
+		return $this->app->db->gbi(['email'],['id'=>$id],'user');
+	}
 }
