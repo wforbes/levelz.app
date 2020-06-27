@@ -44,7 +44,7 @@
 														Title:
 													</v-col>
 													<v-col class="ma-0 pa-0">
-														{{ this.fakeProfile.title }}
+														{{ this.userProfile.title }}
 													</v-col>
 												</v-row>
 												<v-row>
@@ -52,7 +52,7 @@
 														Headline:
 													</v-col>
 													<v-col class="ma-0 pa-0">
-														{{ this.fakeProfile.headline }}
+														{{ this.userProfile.headline }}
 													</v-col>
 												</v-row>
 												<v-row>
@@ -60,7 +60,7 @@
 														Location:
 													</v-col>
 													<v-col class="ma-0 pa-0">
-														{{ this.fakeProfile.location }}
+														{{ this.userProfile.location }}
 													</v-col>
 												</v-row>
 												<v-row>
@@ -68,7 +68,7 @@
 														Bio:
 													</v-col>
 													<v-col class="ma-0 pa-0">
-														{{ this.fakeProfile.bio }}
+														{{ this.userProfile.bio }}
 													</v-col>
 												</v-row>
 												<v-row>
@@ -76,7 +76,7 @@
 														Joined:
 													</v-col>
 													<v-col class="ma-0 pa-0">
-														{{ this.fakeProfile.joined }}
+														{{ this.userProfile.joined }}
 													</v-col>
 												</v-row>
 											</v-col>
@@ -93,7 +93,9 @@
 											<v-tab :key="1">
 												Options
 											</v-tab>
-											<v-tab-item :key="1"></v-tab-item>
+											<v-tab-item :key="1">
+												<OptionMenu />
+											</v-tab-item>
 										</v-tabs>
 									</v-col>
 								</v-row>
@@ -380,22 +382,23 @@
 //import U from "../../lib/util/U.js";
 import NotLoggedIn from "../../app/views/NotLoggedIn.vue";
 import FeatureMenu from "../components/FeatureMenu.vue";
+import OptionMenu from "../components/OptionMenu.vue";
 export default {
 	name: "UserDashboard",
 	components: {
 		NotLoggedIn,
-		FeatureMenu
+		FeatureMenu,
+		OptionMenu
 	},
 	data() {
 		return {
 			menuTabs: 0,
 			fakeProfile: {
-				title: "Pop-Tart Lover",
-				headline: "I like pop-tarts",
-				location: "Palmdale, CA",
-				bio:
-					"I spend all my time coding, kissing my girlfriend, and falling off my skateboard",
-				joined: "June 21, 2020 at 6:36pm"
+				title: "",
+				headline: "",
+				location: "",
+				bio: "",
+				joined: ""
 			},
 			player: {
 				level: 1,
