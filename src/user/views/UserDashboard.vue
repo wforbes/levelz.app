@@ -76,7 +76,7 @@
 														Joined:
 													</v-col>
 													<v-col class="ma-0 pa-0">
-														{{ this.fakeProfile.joinedDate }}
+														{{ this.fakeProfile.joined }}
 													</v-col>
 												</v-row>
 											</v-col>
@@ -90,6 +90,10 @@
 											<v-tab-item :key="0">
 												<FeatureMenu />
 											</v-tab-item>
+											<v-tab :key="1">
+												Options
+											</v-tab>
+											<v-tab-item :key="1"></v-tab-item>
 										</v-tabs>
 									</v-col>
 								</v-row>

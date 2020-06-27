@@ -8,9 +8,10 @@
 					width="100%"
 					class="pa-0 ma-0 elevation-5"
 					align="center"
+					color="primary"
 				>
 					<div
-						style="background-color:#209CEE; padding-top:0.5em; padding-bottom:0.5em; border-radius:1em;"
+						style="padding-top:0.5em; padding-bottom:0.5em; border-radius:1em;"
 					>
 						<v-container class="ma-0 pa-0">
 							<v-row class="ma-0 pa-0">
