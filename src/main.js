@@ -4,6 +4,18 @@ import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
+import PerfectScrollbar from "vue2-perfect-scrollbar";
+import "vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css";
+import "@fortawesome/fontawesome-free/css/all.css";
+/*
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faScroll } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+*/
+Vue.use(PerfectScrollbar);
+
+//library.add(faScroll);
+//Vue.use("font-awesome-icon", FontAwesomeIcon);
 
 Vue.config.productionTip = false;
 
