@@ -37,9 +37,9 @@
 										<h3>Project Status</h3>
 										<p>
 											This app is currently in its very early stages of
-											development. During 2020 I'll just be adding little features
-											to test out ideas, then reassess the app moving forward next
-											year.<br />
+											development. During 2020 I'll just be adding little
+											features to test out ideas, then reassess the app moving
+											forward next year.<br />
 											This is an open-source project. (
 											<a
 												href="http://www.gnu.org/licenses/gpl-3.0.html"
@@ -151,10 +151,10 @@
 </template>
 <style>
 .v-expansion-panel-header {
-	color:white;
+	color: white;
 }
 .panel-expander-icon {
-	color:white !important;
+	color: white !important;
 }
 .panel-inner-content {
 	margin: 1em;
