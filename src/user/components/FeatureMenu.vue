@@ -1,7 +1,7 @@
 <template>
 	<v-container class="ma-0 pa-0">
 		<v-row class="ma-0 pa-0">
-			<v-col cols="4" v-for="(item, i) in featureMenuItems" :key="i">
+			<v-col class="pa-1" cols="4" v-for="(item, i) in featureMenuItems" :key="i">
 				<v-card
 					ripple
 					rounded="xl"
@@ -21,7 +21,7 @@
 									</v-icon>
 								</v-col>
 								<v-col cols="12" class="ma-0 pa-0">
-									<span style="color:white" class="text-h6">
+									<span style="color:white" class="text-subtitle-1">
 										{{ item.text }}
 									</span>
 								</v-col>
