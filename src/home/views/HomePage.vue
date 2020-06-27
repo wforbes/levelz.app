@@ -16,13 +16,15 @@
 			<v-container fluid>
 				<v-row>
 					<v-col>
-						<h1>What is Levelz?</h1>
-						<p>
-							Levelz is a productivity web app that gamifies the concept of a
-							todo list or task tracking app. <br />
-							We try to help you reinforce good habits and level up your life.
-						</p>
-						<v-expansion-panels focusable accordion>
+						<v-card class="pa-3 mb-4">
+							<h1>What is Levelz?</h1>
+							<p>
+								Levelz is a productivity web app that gamifies the concept of a
+								todo list or task tracking app. <br />
+								We try to help you reinforce good habits and level up your life.
+							</p>
+						</v-card>
+						<v-expansion-panels v-model="openPanels" focusable accordion>
 							<v-expansion-panel>
 								<v-expansion-panel-header ripple color="primary">
 									<span><strong>Project Status</strong></span>
@@ -163,7 +165,9 @@
 export default {
 	name: "HomePage",
 	data() {
-		return {};
+		return {
+			openPanels: 0
+		};
 	},
 	methods: {
 		openAuthDialog() {
