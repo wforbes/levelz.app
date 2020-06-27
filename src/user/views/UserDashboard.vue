@@ -29,51 +29,69 @@
 											</v-col>
 										</v-row>
 										<v-row>
-											<v-col>
+											<v-col cols="3">
 												<v-row>
 													<v-img
 														src="../../assets/profilePic.png"
-														max-width="150"
+														max-width="100"
 														class="elevation-3"
 													></v-img>
 												</v-row>
 											</v-col>
-											<v-col class="ma-0">
-												<v-row>
-													<span>
-														Title: <strong>{{ this.userProfile.title }}</strong>
-													</span>
+											<v-col cols="7" class="ma-0 pa-0">
+												<v-row class="ma-0 pa-0">
+													<v-col align="right" class="ma-0 pa-0">
+														Title:
+													</v-col>
+													<v-col class="ma-0 pa-0">
+														{{ this.fakeProfile.title }}
+													</v-col>
 												</v-row>
 												<v-row>
-													<span>
-														Headline:<strong>{{
-															this.userProfile.headline
-														}}</strong>
-													</span>
+													<v-col align="right" class="ma-0 pa-0">
+														Headline:
+													</v-col>
+													<v-col class="ma-0 pa-0">
+														{{ this.fakeProfile.headline }}
+													</v-col>
 												</v-row>
 												<v-row>
-													<span>
-														Location:<strong>{{
-															this.userProfile.location
-														}}</strong>
-													</span>
+													<v-col align="right" class="ma-0 pa-0">
+														Location:
+													</v-col>
+													<v-col class="ma-0 pa-0">
+														{{ this.fakeProfile.location }}
+													</v-col>
 												</v-row>
 												<v-row>
-													<span>
-														Bio:<strong>{{ this.userProfile.bio }}</strong>
-													</span>
+													<v-col align="right" class="ma-0 pa-0">
+														Bio:
+													</v-col>
+													<v-col class="ma-0 pa-0">
+														{{ this.fakeProfile.bio }}
+													</v-col>
 												</v-row>
 												<v-row>
-													<span>
-														Joined:<strong>{{
-															this.userProfile.joinedDate
-														}}</strong>
-													</span>
+													<v-col align="right" class="ma-0 pa-0">
+														Joined:
+													</v-col>
+													<v-col class="ma-0 pa-0">
+														{{ this.fakeProfile.joinedDate }}
+													</v-col>
 												</v-row>
 											</v-col>
 										</v-row>
 									</v-col>
-									<v-col></v-col>
+									<v-col class="pa-0 ma-0">
+										<v-tabs dark v-model="menuTabs">
+											<v-tab :key="0">
+												Features
+											</v-tab>
+											<v-tab-item :key="0">
+												<FeatureMenu />
+											</v-tab-item>
+										</v-tabs>
+									</v-col>
 								</v-row>
 								<v-row>
 									<v-col>
@@ -167,7 +185,8 @@
 																				}}
 																				/
 																				{{
-																					player.stats.vitals.endurancePoints.total
+																					player.stats.vitals.endurancePoints
+																						.total
 																				}}</span
 																			>
 																		</v-row>
@@ -202,7 +221,8 @@
 																				}}
 																				/
 																				{{
-																					player.stats.vitals.spiritualPoints.total
+																					player.stats.vitals.spiritualPoints
+																						.total
 																				}}</span
 																			>
 																		</v-row>
@@ -347,16 +367,32 @@
 		</v-container>
 	</div>
 </template>
+<style>
+.ps {
+	height: 242px;
+}
+</style>
 <script>
 //import U from "../../lib/util/U.js";
 import NotLoggedIn from "../../app/views/NotLoggedIn.vue";
+import FeatureMenu from "../components/FeatureMenu.vue";
 export default {
 	name: "UserDashboard",
 	components: {
-		NotLoggedIn
+		NotLoggedIn,
+		FeatureMenu
 	},
 	data() {
 		return {
+			menuTabs: 0,
+			fakeProfile: {
+				title: "Pop-Tart Lover",
+				headline: "I like pop-tarts",
+				location: "Palmdale, CA",
+				bio:
+					"I spend all my time coding, kissing my girlfriend, and falling off my skateboard",
+				joined: "June 21, 2020 at 6:36pm"
+			},
 			player: {
 				level: 1,
 				job: "Apprentice",
