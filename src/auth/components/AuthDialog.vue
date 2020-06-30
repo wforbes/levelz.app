@@ -340,7 +340,7 @@ export default {
 							userProfileId: response.data["success"]["userProfileId"]
 						});
 						this.closeDialog();
-						if (this.$route.path !== "/dashboard") {
+						if (this.$route.path === "/") {
 							this.$router.push("dashboard");
 						}
 					} else if (response.data["errors"]) {
