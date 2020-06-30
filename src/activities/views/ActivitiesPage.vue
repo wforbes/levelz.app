@@ -2,10 +2,10 @@
 	<div>
 		<v-container>
 			<v-row>
-				<v-col>
+				<v-col cols="8">
 					<h1>Activites</h1>
 				</v-col>
-				<v-col v-if="userLoginStatus === 'loggedIn'" align="right">
+				<v-col v-if="userLoginStatus === 'loggedIn'" cols="4" align="right">
 					<div class="pr-5">
 						<v-btn @click="logout">Logout</v-btn>
 					</div>
@@ -17,15 +17,14 @@
 						<NotLoggedIn />
 					</div>
 					<div v-if="userLoginStatus === 'loggedIn'">
-						<v-card class="pa-2" min-height="420">
-							<v-container>
-								<v-row>
-									<v-col cols="12" sm="6">
-										Prototype Activity
-									</v-col>
-								</v-row>
-							</v-container>
-						</v-card>
+						<v-container>
+							<v-row>
+								<v-col cols="12" sm="6">
+									<v-btn>New Activity</v-btn>
+								</v-col>
+							</v-row>
+						</v-container>
+						<!--<v-card class="pa-2" min-height="420"></v-card>-->
 					</div>
 				</v-col>
 			</v-row>
