@@ -27,6 +27,31 @@ const routes = [
 		path: "/activities",
 		name: "ActivitesPage",
 		component: () => import("../activities/views/ActivitiesPage.vue")
+	},
+	{
+		path: "/tasks",
+		name: "TasksPage",
+		component: () => import("../tasks/views/TasksPage.vue")
+	},
+	{
+		path: "/quests",
+		name: "QuestsPage",
+		component: () => import("../quests/views/QuestsPage.vue")
+	},
+	{
+		path: "/inventory",
+		name: "InventoryPage",
+		component: () => import("../inventory/views/InventoryPage.vue")
+	},
+	{
+		path: "/financials",
+		name: "FinancialsPage",
+		component: () => import("../financials/views/FinancialsPage.vue")
+	},
+	{
+		path: "/travel",
+		name: "TravelPage",
+		component: () => import("../travel/views/TravelPage.vue")
 	}
 ];
 
