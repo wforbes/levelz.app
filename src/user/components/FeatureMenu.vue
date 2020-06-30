@@ -13,7 +13,7 @@
 					width="100%"
 					class="pa-0 ma-0 elevation-5"
 					color="primary"
-					:href="item.pathName"
+					@click="navigateToPath(item.pathName)"
 				>
 					<div
 						style="padding-top:0.5em; padding-bottom:0.5em; border-radius:1em;"
@@ -77,6 +77,15 @@ export default {
 				}
 			]
 		};
+	},
+	methods: {
+		navigateToPath(pathName) {
+			if (
+				this.$router.resolve({ path: pathName }).resolved.matched.length > 0
+			) {
+				this.$router.push(pathName);
+			}
+		}
 	}
 };
 </script>
