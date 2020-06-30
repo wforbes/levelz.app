@@ -384,7 +384,7 @@ import NotLoggedIn from "../../app/views/NotLoggedIn.vue";
 import FeatureMenu from "../components/FeatureMenu.vue";
 import OptionMenu from "../components/OptionMenu.vue";
 export default {
-	name: "UserDashboard",
+	name: "DashboardPage",
 	components: {
 		NotLoggedIn,
 		FeatureMenu,
