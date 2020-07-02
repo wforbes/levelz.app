@@ -77,15 +77,17 @@
 								<v-container>
 									<v-row>
 										<v-col cols="12">
-											<v-form>
+											<h3>Basic Info</h3>
+											<v-form v-model="basicInfoFormValid">
 												<v-text-field
 													outlined
 													label="Activity Name"
 													v-model="newActivity.name"
+													:rules="[rules.required]"
 												></v-text-field>
 												<v-textarea
 													outlined
-													label="Activity Description"
+													label="Activity Description (Optional)"
 													v-model="newActivity.description"
 												></v-textarea>
 											</v-form>
@@ -97,7 +99,11 @@
 														</v-btn>
 													</v-col>
 													<v-col align="right">
-														<v-btn color="primary" @click="stepProgress = 3">
+														<v-btn
+															color="primary"
+															:disabled="!basicInfoFormValid"
+															@click="stepProgress = 3"
+														>
 															Continue &gt;
 														</v-btn>
 													</v-col>
@@ -111,13 +117,45 @@
 								<v-container>
 									<v-row>
 										<v-col cols="12">
-											<v-card>
-												Add Actions.. (work in progress 7/1/2020 )
+											<h3>Add Actions</h3>
+											<v-container>
+												<v-row>
+													<v-col>
+														<p>Click 'Add Action' to get started!</p>
+														<v-btn @click="openNewActionDialog">
+															Add Action
+														</v-btn>
+													</v-col>
+												</v-row>
+											</v-container>
+											<v-card
+												v-if="newActivity.actions.length > 0"
+												class="px-3"
+											>
+												<v-card-title>
+													Activity Actions
+												</v-card-title>
+												<v-list>
+													<v-list-item
+														v-for="action in newActivity.actions"
+														:key="action.id"
+														style="margin-bottom:0.5em"
+														class="elevation-5"
+													>
+														<v-list-item-content>
+															{{ action.name }}
+														</v-list-item-content>
+													</v-list-item>
+												</v-list>
 											</v-card>
+											<p>
+												(work in progress 7/2/2020: Still more work to do on
+												Activities! Changes aren't saved in the database yet.)
+											</p>
 											<v-container class="pa-0">
 												<v-row>
 													<v-col>
-														<v-btn color="secondary" @click="stepProgress = 3">
+														<v-btn color="secondary" @click="stepProgress = 2">
 															&lt; Previous
 														</v-btn>
 													</v-col>
@@ -132,11 +170,167 @@
 									</v-row>
 								</v-container>
 							</v-stepper-content>
+							<v-stepper-content step="4">
+								<v-container>
+									<v-row>
+										<v-col cols="12">
+											<h3>Add Bonuses</h3>
+											<v-container>
+												<v-row>
+													<v-col>
+														<p>Click 'Add Completion Bonus' to get started!</p>
+														<v-btn @click="openNewBonusDialog">
+															Add Completion Bonus
+														</v-btn>
+													</v-col>
+												</v-row>
+											</v-container>
+											<v-card v-if="newActivity.bonuses.length > 0">
+												<v-card-title>
+													Activity Bonuses
+												</v-card-title>
+												<v-list>
+													<v-list-tile
+														v-for="bonus in newActivity.bonuses"
+														:key="bonus.id"
+													>
+														<v-list-tile-content> </v-list-tile-content>
+													</v-list-tile>
+												</v-list>
+											</v-card>
+											<p>
+												(work in progress 7/2/2020: Haven't started coding
+												Bonuses yet! Check back soon.)
+											</p>
+											<v-container class="pa-0">
+												<v-row>
+													<v-col>
+														<v-btn color="secondary" @click="stepProgress = 3">
+															&lt; Previous
+														</v-btn>
+													</v-col>
+													<v-col align="right">
+														<v-btn color="primary" @click="stepProgress = 5">
+															Continue &gt;
+														</v-btn>
+													</v-col>
+												</v-row>
+											</v-container>
+										</v-col>
+									</v-row>
+								</v-container>
+							</v-stepper-content>
+							<v-stepper-content step="5">
+								<v-container>
+									<v-row>
+										<v-col cols="12">
+											<h3>Add To Task</h3>
+											<v-container>
+												<v-row>
+													<v-col>
+														<p>
+															Click 'Create New Task' to add this Activity to a
+															new Task, select a Task from the list, or skip
+															this step!
+														</p>
+														<v-btn @click="openNewTaskDialog">
+															Create New Task
+														</v-btn>
+													</v-col>
+												</v-row>
+											</v-container>
+											<v-card v-if="tasks.length > 0">
+												<v-card-title>
+													Tasks
+												</v-card-title>
+												<v-list>
+													<v-list-tile v-for="task in task" :key="task.id">
+														<v-list-tile-content> </v-list-tile-content>
+													</v-list-tile>
+												</v-list>
+											</v-card>
+											<p>
+												(work in progress 7/2/2020: Haven't started coding Tasks
+												yet. Check back soon!)
+											</p>
+											<v-container class="pa-0">
+												<v-row>
+													<v-col>
+														<v-btn color="secondary" @click="stepProgress = 4">
+															&lt; Previous
+														</v-btn>
+													</v-col>
+													<v-col align="right">
+														<v-btn color="primary" @click="stepProgress = 6">
+															Continue &gt;
+														</v-btn>
+													</v-col>
+												</v-row>
+											</v-container>
+										</v-col>
+									</v-row>
+								</v-container>
+							</v-stepper-content>
+							<v-stepper-content step="6">
+								<v-container>
+									<v-row>
+										<v-col cols="12">
+											<v-container>
+												<v-row>
+													<v-col>
+														<h3>Confirm Your New Activity</h3>
+													</v-col>
+												</v-row>
+											</v-container>
+											<v-card>
+												<v-card-title>
+													{{ newActivity.name }}
+												</v-card-title>
+												<v-card-text>
+													{{ newActivity.description }}
+												</v-card-text>
+
+												<v-list>
+													<v-list-tile
+														v-for="bonus in newActivity.bonuses"
+														:key="bonus.id"
+													>
+														<v-list-tile-content> </v-list-tile-content>
+													</v-list-tile>
+												</v-list>
+											</v-card>
+											<p>
+												(work in progress 7/2/2020: Only just started coding
+												Activities. Check back soon! )
+											</p>
+											<v-container class="pa-0">
+												<v-row>
+													<v-col>
+														<v-btn color="secondary" @click="stepProgress = 5">
+															&lt; Previous
+														</v-btn>
+													</v-col>
+													<v-col align="right">
+														<v-btn color="success" @click="saveNewActivity">
+															Save Activity
+														</v-btn>
+													</v-col>
+												</v-row>
+											</v-container>
+										</v-col>
+									</v-row>
+								</v-container>
+							</v-stepper-content>
 						</v-stepper-items>
 					</div>
 				</v-stepper>
 			</v-card>
 		</v-dialog>
+		<NewActionDialog
+			:newActionDialogOpen="newActionDialogOpen"
+			@saveNewAction="saveNewAction"
+			@closeNewActionDialog="closeNewActionDialog"
+		/>
 	</div>
 </template>
 <style>
@@ -149,31 +343,60 @@
 }
 </style>
 <script>
+import NewActionDialog from "../components/NewActionDialog.vue";
 export default {
 	name: "NewActivityDialog",
 	props: ["newActivityDialogOpen"],
+	components: {
+		NewActionDialog
+	},
 	data() {
 		return {
 			toolbarTitle: "Create New Activity",
 			stepProgress: 1,
+			rules: {
+				required: value => !!value || "This can't be blank."
+			},
+			basicInfoFormValid: true,
+			newActionDialogOpen: false,
+			newBonusDialogOpen: false,
 			newActivity: {
 				name: "",
 				description: "",
-				actions: []
+				actions: [],
+				bonuses: []
 			},
-			actionOptions: {
-				type: ["simple", "gradable"],
-				grades: ["failed", "poor", "average", "good", "excellent", "perfect"]
-			},
-			newAction: {
-				name: "",
-				type: ""
-			}
+			tasks: []
 		};
 	},
 	methods: {
+		saveNewActivity() {
+			this.$emit("saveNewActivity", this.newActivity);
+		},
 		closeNewActivityDialog() {
 			this.$emit("closeNewActivityDialog");
+		},
+		openNewActionDialog() {
+			this.newActionDialogOpen = true;
+		},
+		saveNewAction(newAction) {
+			this.newActivity.actions.push(newAction);
+			this.newActionDialogOpen = false;
+		},
+		closeNewActionDialog() {
+			this.newActionDialogOpen = false;
+		},
+		openNewBonusDialog() {
+			this.newBonusDialogOpen = true;
+		},
+		closeNewBonusDialog() {
+			this.newBonusDialogOpen = false;
+		},
+		openNewTaskDialog() {
+			this.newTaskDialogOpen = true;
+		},
+		closeNewTaskDialog() {
+			this.newTaskDialogOpen = false;
 		}
 	}
 };

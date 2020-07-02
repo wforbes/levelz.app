@@ -38,10 +38,11 @@
 										<strong>Level Up</strong>!
 									</p>
 									<p>
-										If your <strong>Activities</strong> are a part of a larger
-										goal, you can add them to <strong>Tasks</strong> so that
-										they count toward your bigger goals and add them into your
-										routine.
+										<strong>Coming soon:</strong> If your
+										<strong>Activities</strong> are a part of a larger goal,
+										will be able to add them to <strong>Tasks</strong> so that
+										they count toward Task progress, and they can be added into
+										your routine!
 									</p>
 								</v-col>
 							</v-row>
@@ -53,6 +54,7 @@
 		</v-container>
 		<NewActivityDialog
 			:newActivityDialogOpen="newActivityDialogOpen"
+			@saveNewActivity="saveNewActivity"
 			@closeNewActivityDialog="closeNewActivityDialog"
 		/>
 	</div>
@@ -80,6 +82,10 @@ export default {
 	methods: {
 		openNewActivityDialog() {
 			this.newActivityDialogOpen = true;
+		},
+		saveNewActivity(newActivity) {
+			console.log(newActivity);
+			this.newActivityDialogOpen = false;
 		},
 		closeNewActivityDialog() {
 			this.newActivityDialogOpen = false;

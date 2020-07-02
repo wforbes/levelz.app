@@ -10,6 +10,11 @@ class U {
 			(v.constructor === Object && Object.keys(v).length === 0)
 		);
 	}
+	static ucFirst(s) {
+		if (typeof s === "string") {
+			return s.charAt(0).toUpperCase() + s.slice(1);
+		}
+	}
 }
 
 export default U;
