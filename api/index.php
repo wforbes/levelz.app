@@ -4,7 +4,7 @@ if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
 	header("Access-Control-Allow-Origin: http://localhost:8080");
 	header("Access-Control-Allow-Methods: POST, GET, DELETE, PUT, PATCH, OPTIONS");
 	header("Access-Control-Allow-Headers: token, Content-Type");
-	//header("Access-Control-Allow-Credentials: true"); //https://forum.vuejs.org/t/no-session-cookies-on-localhost-apache-with-vue-axios/84903/4
+	header("Access-Control-Allow-Credentials: true"); //https://forum.vuejs.org/t/no-session-cookies-on-localhost-apache-with-vue-axios/84903/4
 	header("Access-Control-Max-Age: 1728000");
 	header("Content-Length: 0");
 	header("Content-Type: text/plain");
