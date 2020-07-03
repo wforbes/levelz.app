@@ -221,17 +221,29 @@ export default {
 				name: "",
 				type: {
 					gradeType: {}
-				}
+				},
+				bonuses: []
+			},
+			emptyAction: {
+				name: "",
+				type: {
+					gradeType: {}
+				},
+				bonuses: []
 			},
 			savedActions: []
 		};
 	},
 	methods: {
 		saveNewAction() {
-			this.$emit("saveNewAction", this.newAction);
+			const newAction = Object.assign({}, this.newAction);
+			this.$emit("saveNewAction", newAction);
+			this.newAction = Object.assign({}, this.emptyAction);
 		},
 		closeNewActionDialog() {
+			//TODO: confirm close dialog
 			this.$emit("closeNewActionDialog");
+			this.newAction = Object.assign({}, this.emptyAction);
 		},
 		//TODO: add this to MIXIN
 		ucFirst(s) {

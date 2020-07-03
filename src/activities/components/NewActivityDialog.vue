@@ -3,14 +3,22 @@
 		<v-dialog v-model="newActivityDialogOpen" persistent fullscreen>
 			<v-card class="elevation-12">
 				<v-toolbar dark dense flat>
-					<v-toolbar-title>{{ toolbarTitle }}</v-toolbar-title>
+					<v-toolbar-title v-if="stepProgress <= 1">
+						Create New Activity
+					</v-toolbar-title>
+					<v-toolbar-title v-if="stepProgress > 1 && newActivity.name === ''">
+						Creating A New Activity
+					</v-toolbar-title>
+					<v-toolbar-title v-if="newActivity.name !== ''">
+						Creating The "{{ newActivity.name }}" Activity
+					</v-toolbar-title>
 					<v-spacer></v-spacer>
 					<v-btn @click="closeNewActivityDialog" icon>
 						<v-icon>mdi-close</v-icon>
 					</v-btn>
 				</v-toolbar>
 				<v-stepper v-model="stepProgress">
-					<v-stepper-header>
+					<!-- <v-stepper-header>
 						<v-stepper-step :complete="stepProgress > 1" step="1">
 							Instructions
 						</v-stepper-step>
@@ -34,9 +42,9 @@
 						<v-stepper-step step="6">
 							Confirm Details
 						</v-stepper-step>
-					</v-stepper-header>
+					</v-stepper-header> -->
 					<div class="v-stepper-full-height">
-						<v-stepper-items style="margin:0;">
+						<v-stepper-items style="margin: 0 auto; max-width: 600px;">
 							<v-stepper-content step="1">
 								<v-container>
 									<v-row>
@@ -48,9 +56,8 @@
 												optional Description.
 											</p>
 											<p>
-												Then, you'll add one or more Actions to your new
-												Activity to help track your progress while completing
-												your new Activity.
+												Then, you'll add one or more Actions to help track your
+												progress while completing your new Activity.
 											</p>
 											<p>
 												Next, you'll add some bonuses that completing this
@@ -77,20 +84,22 @@
 								<v-container>
 									<v-row>
 										<v-col cols="12">
-											<h3>Basic Info</h3>
-											<v-form v-model="basicInfoFormValid">
-												<v-text-field
-													outlined
-													label="Activity Name"
-													v-model="newActivity.name"
-													:rules="[rules.required]"
-												></v-text-field>
-												<v-textarea
-													outlined
-													label="Activity Description (Optional)"
-													v-model="newActivity.description"
-												></v-textarea>
-											</v-form>
+											<h3>Basic Activity Info</h3>
+											<v-card class="pa-5 mt-5 mb-5">
+												<v-form v-model="basicInfoFormValid">
+													<v-text-field
+														outlined
+														label="Activity Name"
+														v-model="newActivity.name"
+														:rules="[rules.required]"
+													></v-text-field>
+													<v-textarea
+														outlined
+														label="Activity Description (Optional)"
+														v-model="newActivity.description"
+													></v-textarea>
+												</v-form>
+											</v-card>
 											<v-container class="pa-0">
 												<v-row>
 													<v-col>
@@ -148,10 +157,6 @@
 													</v-list-item>
 												</v-list>
 											</v-card>
-											<p>
-												(work in progress 7/2/2020: Still more work to do on
-												Activities! Changes aren't saved in the database yet.)
-											</p>
 											<v-container class="pa-0">
 												<v-row>
 													<v-col>
@@ -198,10 +203,6 @@
 													</v-list-tile>
 												</v-list>
 											</v-card>
-											<p>
-												(work in progress 7/2/2020: Haven't started coding
-												Bonuses yet! Check back soon.)
-											</p>
 											<v-container class="pa-0">
 												<v-row>
 													<v-col>
@@ -249,10 +250,6 @@
 													</v-list-tile>
 												</v-list>
 											</v-card>
-											<p>
-												(work in progress 7/2/2020: Haven't started coding Tasks
-												yet. Check back soon!)
-											</p>
 											<v-container class="pa-0">
 												<v-row>
 													<v-col>
@@ -278,31 +275,75 @@
 											<v-container>
 												<v-row>
 													<v-col>
-														<h3>Confirm Your New Activity</h3>
+														<h3>Ok, we're all set. Does this look right?</h3>
 													</v-col>
 												</v-row>
 											</v-container>
 											<v-card>
 												<v-card-title>
-													{{ newActivity.name }}
+													<strong>{{ newActivity.name }}</strong>
 												</v-card-title>
 												<v-card-text>
 													{{ newActivity.description }}
 												</v-card-text>
-
+												<v-card-title>
+													<span>Actions:</span>
+												</v-card-title>
 												<v-list>
-													<v-list-tile
-														v-for="bonus in newActivity.bonuses"
-														:key="bonus.id"
+													<v-list-item
+														v-for="action in newActivity.actions"
+														:key="action.id"
+														style="margin-bottom:0.5em"
+														class="elevation-5 mx-5"
 													>
-														<v-list-tile-content> </v-list-tile-content>
-													</v-list-tile>
+														<!-- TODO: Move to ActionTile component? -->
+														<v-list-item-content>
+															<span>
+																Name: <strong>{{ action.name }}</strong>
+															</span>
+															<br />
+															<span>
+																Type:
+																<strong>{{ action.type.name }}</strong>
+															</span>
+															<br />
+															<br />
+															<div v-if="action.type.gradeType !== undefined">
+																<span
+																	v-for="(quality, index) in action.type
+																		.gradeType.qualities"
+																	:key="quality.scale"
+																>
+																	{{ quality.name }} ({{ quality.scale }})<span
+																		v-if="
+																			action.type.gradeType.qualities.length >
+																				1 &&
+																				index !==
+																					action.type.gradeType.qualities
+																						.length -
+																						1
+																		"
+																		>,&nbsp;</span
+																	> </span
+																><br />
+															</div>
+															<div v-if="action.bonuses.length > 0">
+																<v-card-title>
+																	<span>Bonuses:</span>
+																</v-card-title>
+																<v-list>
+																	<v-list-item
+																		v-for="bonus in newActivity.bonuses"
+																		:key="bonus.id"
+																	>
+																		<v-list-item-content></v-list-item-content>
+																	</v-list-item>
+																</v-list>
+															</div>
+														</v-list-item-content>
+													</v-list-item>
 												</v-list>
 											</v-card>
-											<p>
-												(work in progress 7/2/2020: Only just started coding
-												Activities. Check back soon! )
-											</p>
 											<v-container class="pa-0">
 												<v-row>
 													<v-col>
@@ -339,7 +380,8 @@
 	padding: 0;
 }
 .v-stepper-full-height {
-	height: calc(100vh - 120px);
+	/* height: calc(100vh - 120px); --if using stepper header */
+	height: calc(100vh - 48px);
 }
 </style>
 <script>
@@ -352,7 +394,6 @@ export default {
 	},
 	data() {
 		return {
-			toolbarTitle: "Create New Activity",
 			stepProgress: 1,
 			rules: {
 				required: value => !!value || "This can't be blank."
@@ -380,7 +421,8 @@ export default {
 			this.newActionDialogOpen = true;
 		},
 		saveNewAction(newAction) {
-			this.newActivity.actions.push(newAction);
+			const action = newAction;
+			this.newActivity.actions.push(action);
 			this.newActionDialogOpen = false;
 		},
 		closeNewActionDialog() {
