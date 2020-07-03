@@ -42,9 +42,9 @@ Simple example:
 ~~~
 src
 |_Anything
-  |_Anything
+  |_Anything.php
 |_Something
-  |_Something
+  |_Something.php
 ~~~
 
 Then allows you to:
@@ -75,11 +75,11 @@ Here are some features I'm working on and a general roadmap for their completion
 * [x] **Create PHP Project (June 2020)** - Get a core PHP project set up!
   * [x] **App Runs On Local** - Get the app serving from a XAMPP local web server, get the Vue app making successful requests to it (handle local CORS issues between localhost ports), and prototype some ideas.
   * [x] **App Runs On Remote** - Get the app uploaded via ftp to the web host and ensure the front end can make requests to the back-end!
-* [ ] **User Authentication (June 2020)** - Allow a user to create an account on the app, confirm their account via email, view a basic dashboard, and log in to thier account later
+* [X] **User Authentication (June 2020)** - Allow a user to create an account on the app, confirm their account via email, view a basic dashboard, and log in to thier account later
   * [x] **Signup Form** - Create a component that allows the User to sign up for a Lvlz account by securely transmitting data to the web server.
-  * [ ] **Create Database Entry** - Validate the User's new account info and store it on the database.
+  * [X] **Create Database Entry** - Validate the User's new account info and store it on the database.
   * [ ] **Confirmation Emails** - Sending out a confirmation email when a new account is created that provides a link to confirm the account.
-  * [ ] **Login Form** - Create a component that allows people that have made an account to log in to it securely with their password.
+  * [X] **Login Form** - Create a component that allows people that have made an account to log in to it securely with their password.
 * [ ] **Basic User Dashboard (July 2020)** - This dashboard should give controls to modify their information, add a profile picture, and provide links to other features that haven't been built yet like Activity, Notifications, Messages, and Friends. It should also include some UI for 'game' features like their Level, Experience Points, Vital Points, Statistics, Abilities, Spells, and Achievements.
 * [ ] **Prototype Core Features (December 2020)** - Create some barebones versions of the core features envisioned for the app.
   * [ ] **To-Do List Page** - Prototype a simple to-do list page that allows the user to create a list, add items to the list, keeps track of previously made lists, and explore other parameters/returns.
@@ -94,7 +94,7 @@ Here are some features I'm working on and a general roadmap for their completion
   * [ ] **User Configuration Page** - Prototype a user accessible configuration page which provides controls for various settings across the app
 * [ ] **Release Alpha Version (2021)** - Given all the lessons learned and insights gained throughout building core prototype features; Plan for the Alpha version of the app which provides a more streamlined, user friendly, enjoyable experience. This includes Activity, Notification, and Social features - among other ideas gained through the prototyping process.
   * [ ] **Prototype Test Program** - Recruit friends and acquaintances to commit to using the app regularly, get their bug reports and feedback, then work through coding all the issues and ideas they find.
-  * [ ] **Forums** - Add a forum to the Levelz.app website which allows users to share their ideas and report bugs in a community setting.
+  * [ ] **Forums** - Add a forum to the Levelz.app website which allows users to share their ideas, connect with each other outside of the app, and report bugs in a community setting.
 
 ---
 
@@ -102,7 +102,7 @@ Here are some features I'm working on and a general roadmap for their completion
 
 **Levelz.app is licensed under the GNU Public License v3.0 which you can read about [here](http://www.gnu.org/licenses/gpl-3.0.html).**
 
-Essentially, you are free to use, distribute, modify, or sell your own versions of this software - as long as that source remains Open! We simply restrict the closed-source use of it, and respectfully request that you notify us of where you use it and where your source can be found - by emailing [will@levelz.app](mailto:will@levelz.app).
+Essentially, you are free to use, distribute, modify, or sell your own versions of this software - as long as that source remains Open! **We simply restrict the closed-source use of it**, and respectfully request that you notify us of where you use it and where your source can be found - by emailing [will@levelz.app](mailto:will@levelz.app) or reaching out to Will Forbes.
 
 By making this repository public I'm aware that other developers or companies may use this source code to launch their own competing projects. While I would encourage you to please contribute to this project instead, partner with us, and combine our efforts, we understand if you don't. Just make sure you keep your source OPEN!
 
@@ -110,11 +110,11 @@ By making this repository public I'm aware that other developers or companies ma
 This project has an aim to include an open source attitude toward user contributions. At any point you are free to fork or clone this project and use it as a reference to further your learning path. We strongly support young developers and creators in their career. This project's creator (wforbes) is happy to discuss any details with you. Message any time.
 
 ##### Contributing to the project
-While right now our goal is to provide Levelz.app primarily as an online service, we're very interested in finding ways for our users to simply 'install' it to their web browser using Progressive Web App tech and persist their own data via IndexedDB and snapshot style json flat-files, to make use of Levelz.app in an offline private capacity.
+While right now our goal is to provide Levelz.app primarily as an online service, we're very interested in finding ways for our users to simply 'install' it to their web browser to make use of Levelz.app in an offline private capacity. This would be done by  persisting their own data via IndexedDB and snapshot style json flat-files, or other PWA tech.
 
-That being the case, we realize that you may want to alter or change the app to your own liking if you've got the coding skills to do it. You may find a bug, or see a way to improve the app - we encourage you to make a Pull Request so we can check it out!
+That being the case, we realize that you may want to alter or change the app to your own liking if you've got the coding skills to do it. You may find a bug, or see a way to improve the app - we encourage you to make a Pull Request so we can check it out and incorporate it to our source!
 
-Equally, you may be interested in becoming a regular contributor and joining our development team. Currently, Levelz.app is not monetized so our ability to pay you for your work is extremely limited. Any Pull Requests right now should be made with the spirit of Open-Source, and if your changes are merged in they will retain our Open-Source licensing indefinitely. With that said, small compensation isn't out of the question. I don't mind sending you $10 for a cup of coffee for your pull request :)
+Equally, you may be interested in becoming a regular contributor and joining our development team. Currently, Levelz.app is not monetized so our ability to pay you for your work is extremely limited. Any Pull Requests right now should be made with the spirit of Open-Source, and if your changes are merged in they will retain our Open-Source licensing indefinitely. With that said, small compensation isn't out of the question. I don't mind sending you $10 to treat you to a cup of coffee for your pull request :)
 
 It is not our goal to benefit monetarily from the free work of others. When (or if) the time comes that we do become a monetized project/company, any open source contributors will be the first in line to benefit from this change with job interviews, job offers, or direct scaled reimbursement for your contributions. This also includes contributions of copy-writing, design concepts, or artwork - all of which can be sent to [will@levelz.app](mailto:will@levelz.app), if they aren't appropriate for a Pull Request.
 
