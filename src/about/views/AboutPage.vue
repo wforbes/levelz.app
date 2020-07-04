@@ -1,17 +1,22 @@
 <template>
 	<div>
-		<div style="text-align:center;">
+		<!-- <div style="text-align:center;">
 			<span class="display-1" style="display:inline;">
 				About Lvlz.app
 			</span>
-		</div>
+		</div> -->
 		<v-container fluid>
+			<v-row>
+				<v-col>
+					<h1>About Lvlz.app</h1>
+				</v-col>
+			</v-row>
 			<v-row>
 				<v-col>
 					<v-card class="pa-3 mb-4">
 						<p>
-							Levelz is a web app that looks to help you reinforce your good
-							habits, stay productive, and level up in life!
+							Levelz is a productivity web app that looks to help you reinforce
+							your good habits, stay productive, and level up in life!
 						</p>
 						<p>
 							It's a very new app! Hardly even a prototype. This prototype
