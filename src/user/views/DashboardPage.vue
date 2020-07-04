@@ -5,11 +5,6 @@
 				<v-col>
 					<h1>Dashboard</h1>
 				</v-col>
-				<v-col v-if="userLoginStatus === 'loggedIn'" align="right">
-					<div class="pr-5">
-						<v-btn @click="logout">Logout</v-btn>
-					</div>
-				</v-col>
 			</v-row>
 			<v-row>
 				<v-col>
