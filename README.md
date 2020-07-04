@@ -17,7 +17,7 @@ src
 |_app
   |_store
     |_appModule.js
-  |_model
+  |_models
     |_Authorizer.js
   |_components
     |_AppBar.vue
@@ -27,7 +27,7 @@ src
 |_home
   |_store
     |_homeModule.js
-  |_model
+  |_models
     |_NewsFeedItem.js
   |_components
     |_NewsFeed.vue
@@ -81,25 +81,26 @@ Here are some features I'm working on and a general roadmap for their completion
   * [ ] **Confirmation Emails** - Sending out a confirmation email when a new account is created that provides a link to confirm the account.
   * [X] **Login Form** - Create a component that allows people that have made an account to log in to it securely with their password.
 * [ ] **Basic User Dashboard (July 2020)** - This dashboard should give controls to modify their information, add a profile picture, and provide links to other features that haven't been built yet like Activity, Notifications, Messages, and Friends. It should also include some UI for 'game' features like their Level, Experience Points, Vital Points, Statistics, Abilities, Spells, and Achievements.
-  * [ ] **Features Menu** - Create a component that provides links to all the Core Features of the app.
+  * [X] **Features Menu** - Create a component that provides links to all the Core Features of the app.
   * [ ] **Profile Picture Uploads** - Create a component that allows users to upload a profile picture to the app, delete their profile picture, and another component that displays their profile picture throughout the app
   * [ ] **Profile Information** - Create a component that allows users to add and update their basic profile information.
 * [ ] **Prototype Core Features (December 2020)** - Create some barebones versions of the core features envisioned for the app.
   * [ ] **Activites Page/Component (July 2020)** - Prototype a simple Activities page that allows the user to create a simple Activity, add Actions to it, keeps track of previously made lists, and explore other parameters/returns.
   * [ ] **Task Page/Component (August 2020)** - Prototype a simple task tracker page that allows the user to define a task, add a description to it, create/assign Activities to it, and explore other associated features.
+  * [ ] **Inventory Page (September 2020)** - Prototype a simple inventory management system which provides some tools for tracking a user's physical real world equipment and possessions, then coordinating their use with tasks and activities on the app.
   * [ ] **Achievement Page/Component (October 2020)** - Prototype an achievement page that allows the user to see the Rewards they've earned and are working on, define their own Rewards, and explore creating a Rewards component that can be displayed throughout the app.
-  * [ ] **User Profile Page (November 2020)** - Prototype a User Profile page that displays information about the User to any visitor of the app, with the option to make some or all of it private.
+  * [ ] **User Profile Page (November 2020)** - Prototype a User Profile page that displays information about the User to any visitor of the app, with the option to make some or all of it private. Information would include Profile Picture, Basic Profile Data, Tasks/Activities, Attributes, Achievements. Links to message or add as friend visible to other Users.
   * [ ] **Attributes Page (December 2020)** - Prototype a page that allows the User to define their own Attributes which serve as markers of progress in the completion of Achievements, Tasks and other activities on the app. Allow the user to assign Experience points, Vital points, Stats, Skills, Abilities, Spells and other custom metrics which will be displayed on their Dashboard, in their User Profile, and elsewhere on the app.
 * [ ] **Additional Prototype Features (2021)** - Create some optional features and pages which bolster the core features and provide further post alpha possibilities.
   * [ ] **Friends Page/Components** - Prototype a Friends page that allows Users to add each other as friends, see a list of their current friends, remove friendships, block other Users.
   * [ ] **Messages Page/Components** - Prototype a Messages page that allows Users to send messages to each other, see a list of the message conversations with each friend with consideration to Friendships (list messages from friends seperately from non-friends), and explore associated features.
   * [ ] **Financials Page** - Prototype a simple budget management system which can assist the user with their spending and savings habits, providing savings goals, task budgets and an example of linking up to a bank API for real time account balance information.
   * [ ] **Travel Page** - Prototype a simple travel and explorating page which allows the user to plan and record their adventures into the big wide world out there.
-  * [ ] **Inventory Page** - Prototype a simple inventory management system which provides some tools for tracking a user's physical real world equipment and possessions, then coordinating their use with tasks and activities on the app.
   * [ ] **User Configuration Page** - Prototype a user accessible configuration page which provides controls for various settings across the app
-* [ ] **Release Alpha Version (January 2022)** - Given all the lessons learned and insights gained throughout building core prototype features; Plan for the Alpha version of the app which provides a more streamlined, user friendly, enjoyable experience. This includes Activity, Notification, and Social features - among other ideas gained through the prototyping process.
-  * [ ] **Prototype Test Program** - Recruit friends and acquaintances to commit to using the app regularly, get their bug reports and feedback, then work through coding all the issues and ideas they find.
-  * [ ] **Forums** - Add a forum to the Levelz.app website which allows users to share their ideas, connect with each other outside of the app, and report bugs in a community setting.
+  * [ ] **UI / UX Redesign** - Redesign the user interface of the app and give it an attractive, easy to use, user experience
+* [ ] **Release Alpha Version (January 2022)** - Given all the lessons learned and insights gained throughout building core prototype features; Plan for the Alpha version of the app which provides a more streamlined, user friendly, enjoyable experience. This includes improving Activity, Rewards, and Social features - among other ideas gained through the prototyping process.
+  * [ ] **Prototype Test Program (2022)** - Advertise the app a little, recruit people to test the app, get their bug reports and feedback, then work through coding all the issues and ideas they find.
+  * [ ] **Forums (2022)** - Add a forum to the Levelz.app website which allows users to share their ideas, connect with each other outside of the app, and report bugs in a community setting.
 
 ---
 
