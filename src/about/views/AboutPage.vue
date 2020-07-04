@@ -39,31 +39,36 @@
 						<h2>Making life as fun as a video game!</h2>
 						<p>
 							I always found it interesting that it was so easy to spend
-							hundreds of hours playing video games. Leveling up my character or
-							earning new items in the game. In RPG games like Skyrim, you also
-							level up your character's skills and spells, in FPS games like
-							Call of Duty you level up your weapon abilities and unlock new
-							skills, but it takes time. It takes alot of time. Whether you
-							realize it or not, it also takes alot of work, even if that work
-							is fun.
+							hundreds of hours playing video games, yet doing more productive
+							things in life can be much more challenging. In many games you can
+							level up your character or earn new virtual items. In RPG games
+							like Skyrim, you also level up your character's skills and spells.
+							In FPS games like Call of Duty you level up your weapon abilities
+							and unlock new attachments, but it takes time. It takes alot of
+							time. Whether you realize it or not, it also takes alot of work,
+							even if that work is fun.
 						</p>
 						<p>
 							Meanwhile, we have things in our lives that we need to level up.
 							We have skills we'd like to improve, like learning a new career
-							skill, or getting better at a hobby. Subjects we have to study for
-							school, chores around our home that we've got to do regularly, and
-							things to keep up with to keep our life moving forward. So I'm
-							making Levelz to bridge that gap between the fun we have in video
-							games and the fun we can have while doing our simple everyday
-							tasks.
+							skill, getting better at a hobby, working out more to stay in
+							shape, or accomplishing something meaningful. We have to study for
+							school, do chores around our home regularly, and loads of other
+							things to keep moving forward in life.
 						</p>
 						<p>
-							So as you complete the things you're tracking on Lvlz, you'll earn
-							Experience Points and other bonuses. Over time, the Experience
-							Points that you earn will cause you to Level Up! Those other
-							bonuses might be things like increasing one of your statistics,
-							improving one of your skill levels, or earning a new in-app item
-							like a piece of armor, a weapon, or some other loot!
+							So I'm making Levelz to bridge that gap between the fun we have in
+							video games and the fun we can have while doing our simple
+							everyday tasks.
+						</p>
+						<p>
+							You'll add the things you want to do into Lvlz, then as you
+							complete those things you'll earn Experience Points and other
+							bonuses. Over time, the Experience Points that you earn will cause
+							you to Level Up! Those other bonuses might be things like
+							increasing one of your statistics, improving one of your skill
+							levels, or earning a new in-app item like a piece of armor, a
+							weapon, or some other loot!
 						</p>
 						<h2>Actions and Activities</h2>
 						<p style="font-size:0.8em;">Est. completion Sept 2020</p>
@@ -175,7 +180,7 @@
 							or "Workout at the Gym" might increase your Strength statistic.
 						</p>
 						<h2>Inventory System</h2>
-						<p style="font-size:0.8em;">Est. Dec 2020</p>
+						<p style="font-size:0.8em;">Est. Nov 2020</p>
 						<p>
 							In Role Playing video games, you'll often have an inventory of
 							items that you can use for various things in the game. You might
@@ -271,18 +276,18 @@
 							Lvlz could assist with managing your finances, organize your
 							budget, helping you save money,
 						</p>
+						<h5>Help Plan Your Travel</h5>
+						<p style="font-size:0.8em;">Est. 2022</p>
+						<p>
+							Lvlz could assist with Travel, helping you coordinate and plan
+							your trips.
+						</p>
 						<h5>Provide You With Education</h5>
 						<p style="font-size:0.8em;">Est. 2023</p>
 						<p>
 							Lvlz could provide the tools for a learning environment where
 							Teachers can set up classes and Students can join them to study,
 							learn course materials, and be tested to achieve some credentials.
-						</p>
-						<h5>Help Plan Your Travel</h5>
-						<p style="font-size:0.8em;">Est. 2024</p>
-						<p>
-							Lvlz could assist with Travel, helping you coordinate and plan
-							your trips.
 						</p>
 					</v-card>
 				</v-col>
