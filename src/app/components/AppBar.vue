@@ -29,7 +29,15 @@
 						</div>
 					</v-col>
 					<v-col md="5" lg="4" xl="3" cols="6" align="right">
-						<v-btn icon class="mr-3" @click="openAuthDialog">
+						<v-btn
+							v-if="loginStatus === 'loggedIn'"
+							icon
+							class="mr-3"
+							@click="openUserDialog"
+						>
+							<v-icon>mdi-account</v-icon>
+						</v-btn>
+						<v-btn v-else icon class="mr-3" @click="openAuthDialog">
 							<v-icon>mdi-key</v-icon>
 						</v-btn>
 					</v-col>
@@ -38,20 +46,23 @@
 		</v-app-bar>
 		<AuthDialog
 			ref="authDialog"
-			:dialogOpen="dialogOpen"
+			:dialogOpen="authDialogOpen"
 			@closeDialog="closeAuthDialog"
 		/>
+		<UserDialog :dialogOpen="userDialogOpen" @closeDialog="closeUserDialog" />
 	</div>
 </template>
 
 <script>
 import NavMenu from "./NavMenu.vue";
 import AuthDialog from "../../auth/components/AuthDialog.vue";
+import UserDialog from "../../user/components/UserDialog.vue";
 export default {
 	name: "AppBar",
 	components: {
 		NavMenu,
-		AuthDialog
+		AuthDialog,
+		UserDialog
 	},
 	data() {
 		return {
@@ -59,21 +70,31 @@ export default {
 		};
 	},
 	computed: {
-		dialogOpen() {
+		authDialogOpen() {
 			return this.$store.getters.authDialogOpen;
+		},
+		loginStatus() {
+			return this.$store.getters.loginStatus;
+		},
+		userDialogOpen() {
+			return this.$store.getters.userDialogOpen;
 		}
 	},
 	methods: {
+		closeNavMenu() {
+			this.navMenuIsOpen = false;
+		},
 		openAuthDialog() {
-			//this.dialogOpen = true;
 			this.$store.dispatch("openAuthDialog");
 		},
 		closeAuthDialog() {
-			//this.dialogOpen = false;
 			this.$store.dispatch("closeAuthDialog");
 		},
-		closeNavMenu() {
-			this.navMenuIsOpen = false;
+		openUserDialog() {
+			this.$store.dispatch("openUserDialog");
+		},
+		closeUserDialog() {
+			this.$store.dispatch("closeUserDialog");
 		}
 	}
 };

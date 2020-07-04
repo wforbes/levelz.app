@@ -4,6 +4,7 @@ import axios from "axios";
 export default {
 	state: {
 		loginStatus: "loading",
+		userDialogOpen: false,
 		userId: "",
 		username: "",
 		userEmail: "",
@@ -21,6 +22,9 @@ export default {
 		},
 		userProfile: state => {
 			return state.userProfile;
+		},
+		userDialogOpen: state => {
+			return state.userDialogOpen;
 		}
 	},
 	actions: {
@@ -100,6 +104,12 @@ export default {
 			commit("clearUsername");
 			commit("clearUserEmail");
 			commit("clearUserProfile");
+		},
+		openUserDialog({ commit }) {
+			commit("setUserDialogOpen", true);
+		},
+		closeUserDialog({ commit }) {
+			commit("setUserDialogOpen", false);
 		}
 	},
 	mutations: {
@@ -129,6 +139,9 @@ export default {
 		},
 		setUserProfile(state, profile) {
 			state.userProfile = Object.assign({}, profile);
+		},
+		setUserDialogOpen(state, setting) {
+			state.userDialogOpen = setting;
 		}
 	}
 };
