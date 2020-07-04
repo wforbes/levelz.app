@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<NavMenu :navMenuIsOpen="navMenuIsOpen" @closeNavMenu="closeNavMenu" />
 		<v-app-bar app dark>
 			<v-container>
 				<v-row>
@@ -12,9 +13,20 @@
 						xl="3"
 						cols="6"
 					>
-						<router-link to="/">
-							<v-img src="../../assets/logo-icon.png" width="42" />
-						</router-link>
+						<div style="display:inline-block;">
+							<v-app-bar-nav-icon
+								@click.stop="navMenuIsOpen = !navMenuIsOpen"
+							></v-app-bar-nav-icon>
+						</div>
+						<div
+							style="display:inline-block; vertical-align:middle; margin-left:1em;"
+						>
+							<v-toolbar-title>
+								<router-link to="/">
+									<v-img src="../../assets/logo-icon.png" width="42" />
+								</router-link>
+							</v-toolbar-title>
+						</div>
 					</v-col>
 					<v-col md="5" lg="4" xl="3" cols="6" align="right">
 						<v-btn icon class="mr-3" @click="openAuthDialog">
@@ -33,15 +45,17 @@
 </template>
 
 <script>
+import NavMenu from "./NavMenu.vue";
 import AuthDialog from "../../auth/components/AuthDialog.vue";
 export default {
 	name: "AppBar",
 	components: {
+		NavMenu,
 		AuthDialog
 	},
 	data() {
 		return {
-			//dialogOpen: false
+			navMenuIsOpen: null
 		};
 	},
 	computed: {
@@ -57,6 +71,9 @@ export default {
 		closeAuthDialog() {
 			//this.dialogOpen = false;
 			this.$store.dispatch("closeAuthDialog");
+		},
+		closeNavMenu() {
+			this.navMenuIsOpen = false;
 		}
 	}
 };
