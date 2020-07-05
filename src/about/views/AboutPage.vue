@@ -131,12 +131,19 @@
 							Skateboard Tricks" and my Actions might be "Do a Kickflip", or "Do
 							a 360 Flip". For Actions like these, you might want to keep track
 							of how well you do them by marking them as 'Gradable' Actions and
-							setting up different grades to assign Actions as you do them. Like
+							setting up different grades to assign them as you do them. Like
 							for skateboarding I've assigned 6 grade scores that use skate
 							terms to describe the quality of my attempt at the trick, from
 							'Slam' (or 'Fall') that has a score of 0, 'Fail' (score 1),
 							'Sloppy' (2), 'Average' (3), 'Good' (4), 'Clean' (5), and
 							'Perfect' (6).
+						</p>
+						<p>
+							This way, I can go skateboarding with my phone out and the
+							"Practice Skateboard Tricks" Activity open. As I attempt to do
+							tricks, I can tap the Grade buttons to signify how well I did the
+							trick. Later, I can look back and see how well I did. Over time I
+							can see how well I'm improving or what I should work on more!
 						</p>
 						<h2>Tasks and Quests</h2>
 						<p style="font-size:0.8em;">Est. completion Oct 2020</p>
