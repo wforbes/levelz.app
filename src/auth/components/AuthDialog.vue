@@ -205,20 +205,26 @@
 				<h3>We don't share your data with Third-Parties. Period.</h3>
 				<p>
 					We don't agree with sharing your data with any other entity outside of
-					Levelz.app or Lvlz.app, in principle and practice. Not only do we
-					value your privacy and security, but we also find it very important to
-					keep you from experiencing the intrusive ads and solicitation that
-					come from third-party data companies when they get ahold of your data
-					and spread it around to all their friends. If we do ever share your
-					data, it will be within your full control to limit it, or because
-					specifically requested it!
+					Levelz.app or Lvlz.app, in principle and practice.
+				</p>
+
+				<p>
+					Not only do we value your privacy and security, but we also find it
+					very important to keep you from experiencing the intrusive ads and
+					solicitation that come from third-party data companies when they get
+					ahold of your data and spread it around to all their friends.
+				</p>
+				<p>
+					If we do ever need to share your data, you'll be the first to know. It
+					will be because you specifically requested it, or within your full
+					control to limit it!
 				</p>
 				<h4>Analytics and Usage Data</h4>
 				<p>
 					Although we do use your browsing data to make Lvlz.app better when we
 					can, and a part of that may involve using the Google Analytics
 					service, we'll always do our best to keep whatever analytics data we
-					have about individuals private.
+					have about you as private as possible.
 				</p>
 				<h4>Third-Party Login Services</h4>
 				<p>
