@@ -7,21 +7,29 @@ const routes = [
 	{
 		path: "/",
 		name: "Home",
-		component: () => import("../home/views/HomePage.vue")
+		component: () =>
+			import(/* webpackChunkName: "bundle-Home" */ "../home/views/HomePage.vue")
 	},
 	{
 		path: "/about",
 		name: "About",
-		component: () => import("../about/views/AboutPage.vue")
+		component: () =>
+			import(
+				/* webpackChunkName: "bundle-Home" */ "../about/views/AboutPage.vue"
+			)
 	},
 	{
 		path: "/contact",
 		name: "Contact",
-		component: () => import("../contact/views/ContactPage.vue")
+		component: () =>
+			import(
+				/* webpackChunkName: "bundle-Home" */ "../contact/views/ContactPage.vue"
+			)
 	},
 	{
 		path: "*",
-		component: () => import("../app/views/Error404.vue")
+		component: () =>
+			import(/* webpackChunkName: "bundle-Home" */ "../app/views/Error404.vue")
 	},
 	{
 		path: "/dev",
@@ -31,42 +39,66 @@ const routes = [
 	{
 		path: "/dashboard",
 		name: "DashboardPage",
-		component: () => import("../user/views/DashboardPage.vue")
+		component: () =>
+			import(
+				/* webpackChunkName: "bundle-Dashboard" */ "../user/views/DashboardPage.vue"
+			)
 	},
 	{
 		path: "/account",
 		name: "AccountPage",
-		component: () => import("../user/views/AccountPage.vue")
+		component: () =>
+			import(
+				/* webpackChunkName: "bundle-Dashboard" */ "../user/views/AccountPage.vue"
+			)
 	},
 	{
 		path: "/activities",
 		name: "ActivitesPage",
-		component: () => import("../activities/views/ActivitiesPage.vue")
+		component: () =>
+			import(
+				/* webpackChunkName: "bundle-Activities" */ "../activities/views/ActivitiesPage.vue"
+			)
 	},
 	{
 		path: "/tasks",
 		name: "TasksPage",
-		component: () => import("../tasks/views/TasksPage.vue")
+		component: () =>
+			import(
+				/* webpackChunkName: "bundle-Tasks" */ "../tasks/views/TasksPage.vue"
+			)
 	},
 	{
 		path: "/quests",
 		name: "QuestsPage",
-		component: () => import("../quests/views/QuestsPage.vue")
+		component: () =>
+			import(
+				/* webpackChunkName: "bundle-Tasks" */ "../quests/views/QuestsPage.vue"
+			)
 	},
 	{
 		path: "/inventory",
 		name: "InventoryPage",
-		component: () => import("../inventory/views/InventoryPage.vue")
+		component: () =>
+			import(
+				/* webpackChunkName: "bundle-Inventory" */ "../inventory/views/InventoryPage.vue"
+			)
 	},
 	{
 		path: "/financials",
 		name: "FinancialsPage",
-		component: () => import("../financials/views/FinancialsPage.vue")
+		component: () =>
+			import(
+				/* webpackChunkName: "bundle-Financials" */ "../financials/views/FinancialsPage.vue"
+			)
 	},
 	{
 		path: "/travel",
 		name: "TravelPage",
-		component: () => import("../travel/views/TravelPage.vue")
+		component: () =>
+			import(
+				/* webpackChunkName: "bundle-Travel" */ "../travel/views/TravelPage.vue"
+			)
 	}
 ];
 
