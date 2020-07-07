@@ -15,6 +15,9 @@ class U {
 			return s.charAt(0).toUpperCase() + s.slice(1);
 		}
 	}
+	static getRandomInt(max) {
+		return Math.floor(Math.random() * Math.floor(max));
+	}
 }
 
 export default U;

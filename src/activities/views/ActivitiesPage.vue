@@ -2,13 +2,8 @@
 	<div>
 		<v-container>
 			<v-row>
-				<v-col cols="8">
+				<v-col>
 					<h1>Activites</h1>
-				</v-col>
-				<v-col v-if="userLoginStatus === 'loggedIn'" cols="4" align="right">
-					<div class="pr-5">
-						<v-btn @click="logout">Logout</v-btn>
-					</div>
 				</v-col>
 			</v-row>
 			<v-row>
@@ -19,11 +14,13 @@
 					<div v-if="userLoginStatus === 'loggedIn'">
 						<v-container>
 							<v-row>
-								<v-col cols="12" sm="6">
-									<v-btn @click="openNewActivityDialog">
-										Create New Activity
-									</v-btn>
-								</v-col>
+								<v-container>
+									<v-row>
+										<v-col sm="6" cols="12">
+											<ActivityPrototype0 />
+										</v-col>
+									</v-row>
+								</v-container>
 							</v-row>
 							<v-row>
 								<v-col>
@@ -37,16 +34,16 @@
 										<strong>Experience Points</strong> to help you
 										<strong>Level Up</strong>!
 									</p>
-									<p>
-										<strong>Coming soon:</strong> If your
-										<strong>Activities</strong> are a part of a larger goal,
-										will be able to add them to <strong>Tasks</strong> so that
-										they count toward Task progress, and they can be added into
-										your routine!
-									</p>
 								</v-col>
 							</v-row>
 						</v-container>
+						<!-- <v-row>
+								<v-col cols="12" sm="6">
+									<v-btn @click="openNewActivityDialog">
+										Create New Activity
+									</v-btn>
+								</v-col>
+							</v-row> -->
 						<!--<v-card class="pa-2" min-height="420"></v-card>-->
 					</div>
 				</v-col>
@@ -61,13 +58,15 @@
 </template>
 
 <script>
+import ActivityPrototype0 from "../components/ActivityPrototype0.vue";
 import NotLoggedIn from "../../app/views/NotLoggedIn.vue";
 import NewActivityDialog from "../components/NewActivityDialog.vue";
 export default {
 	name: "ActivitesPage",
 	components: {
 		NotLoggedIn,
-		NewActivityDialog
+		NewActivityDialog,
+		ActivityPrototype0
 	},
 	data() {
 		return {
