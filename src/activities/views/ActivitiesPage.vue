@@ -17,7 +17,22 @@
 								<v-container>
 									<v-row>
 										<v-col sm="6" cols="12">
-											<ActivityPrototype0 />
+											<div
+												style="border: 0.1em solid grey; border-radius:4px; text-align:center; padding-bottom:0.6em;"
+											>
+												<p>Prototype Idea #1: Complex Activity Creation</p>
+												<v-btn @click="openNewActivityDialog">
+													Create New Activity
+												</v-btn>
+											</div>
+										</v-col>
+										<v-col sm="6" cols="12">
+											<div
+												style="border: 0.1em solid grey; border-radius:4px; text-align:center;"
+											>
+												<p>Prototype Idea #0: Simple Activity Creation</p>
+												<ActivityPrototype0 />
+											</div>
 										</v-col>
 									</v-row>
 								</v-container>
