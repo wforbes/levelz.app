@@ -36,4 +36,12 @@ export default class ApiDataAccess {
 	getActivitySuggestions() {
 		return this.callAPI("activity", "getActivitySuggestions");
 	}
+
+	createNewActivity(activityData) {
+		return this.callAPI("activity", "createNewActivity", activityData);
+	}
+
+	getAllMyActivities() {
+		return this.callAPI("activity", "getAllMyActivities");
+	}
 }

@@ -43,7 +43,7 @@
 					<v-col class="pa-0">
 						<v-list v-if="activities.length > 0" class="pa-1">
 							<div v-for="activity in activities" :key="activity.id">
-								<div v-if="activity.actions.length > 0">
+								<div v-if="hasActions(activity)">
 									<v-list-item
 										style="border-radius:4px; height:5em;"
 										class="elevation-5 mb-2"
@@ -68,11 +68,10 @@
 									<v-list-item
 										style="border-radius:4px; height:5em;cursor:pointer;"
 										class="elevation-5 mb-2"
-										ripple
 									>
 										<v-col
 											class="pa-0"
-											cols="10"
+											cols="9"
 											@click="openEditActivityDialog(activity.id)"
 										>
 											<v-list-item-content>
@@ -84,12 +83,13 @@
 												></v-list-item-subtitle>
 											</v-list-item-content>
 										</v-col>
-										<v-col class="pa-0" cols="2" align="center">
-											<v-list-item-action class="ma-0 pa-0">
-												<v-checkbox
-													v-model="activity.completed"
-													color="success"
-												></v-checkbox>
+										<v-col class="pa-0" cols="3" align="center">
+											<v-list-item-action class="mr-0">
+												<v-btn outlined icon color="success">
+													<v-icon>
+														mdi-check
+													</v-icon>
+												</v-btn>
 											</v-list-item-action>
 										</v-col>
 									</v-list-item>
@@ -109,7 +109,7 @@
 </template>
 
 <script>
-import Guid from "../../lib/util/Guid.js";
+//import Guid from "../../lib/util/Guid.js";
 import U from "../../lib/util/U.js";
 import EditActivityDialog from "../components/EditActivityDialog.vue";
 export default {
@@ -128,15 +128,12 @@ export default {
 				id: "",
 				name: "",
 				desc: "",
-				complete: false,
 				actions: []
 			},
-			activities: [],
 			emptyActivity: {
 				id: "",
 				name: "",
 				desc: "",
-				complete: false,
 				actions: []
 			},
 			editActivity: {},
@@ -145,6 +142,7 @@ export default {
 	},
 	async created() {
 		await this.$store.dispatch("loadActivitySuggestions");
+		await this.$store.dispatch("loadMyActivities");
 		this.setRandomSuggestion();
 	},
 	computed: {
@@ -157,12 +155,14 @@ export default {
 		},
 		activitySuggestions() {
 			return this.$store.getters.activitySuggestions;
+		},
+		activities() {
+			return this.$store.getters.activities;
 		}
 	},
 	methods: {
 		setRandomSuggestion() {
 			const index = this.getNonRepeatedSuggestion(this.activitySuggestions);
-			//this.randomSuggestion = "'" + suggestions[suggestionIndex] + "'";
 			this.randomSuggestion = "'" + this.activitySuggestions[index] + "'";
 		},
 		getNonRepeatedSuggestion(suggestions) {
@@ -181,7 +181,10 @@ export default {
 		},
 		addNewActivity() {
 			if (this.$refs.simpleActivityForm.validate()) {
-				this.newActivity.id = Guid.v4();
+				this.$store.dispatch({
+					type: "createNewActivity",
+					newActivity: this.newActivity
+				});
 				const createdActivity = Object.assign({}, this.newActivity);
 				this.newActivity = Object.assign({}, this.emptyActivity);
 				this.activities.push(createdActivity);
@@ -197,6 +200,9 @@ export default {
 		closeEditActivityDialog() {
 			this.editActivity = this.emptyActivity;
 			this.editActivityDialogOpen = false;
+		},
+		hasActions(activity) {
+			return !U.isEmpty(activity.actions) && activity.actions.length > 0;
 		}
 	}
 };

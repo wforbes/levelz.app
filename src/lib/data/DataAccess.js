@@ -10,4 +10,12 @@ export default class DataAccess {
 	getActivitySuggestions() {
 		return this.dataContext.getActivitySuggestions();
 	}
+
+	createNewActivity(activityData) {
+		return this.dataContext.createNewActivity(activityData);
+	}
+
+	getAllMyActivities() {
+		return this.dataContext.getAllMyActivities();
+	}
 }
