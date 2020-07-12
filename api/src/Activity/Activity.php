@@ -2,7 +2,30 @@
 
 namespace Activity;
 
+use Model\ActivityModel;
+use Sec\Uuid;
+
 class Activity {
+	public function __construct($app) {
+		$this->app = $app;
+		$this->model = new ActivityModel($app);
+	}
+
+	public function createNewActivity($newActivity) {
+		$id = Uuid::v4();
+		$userId = $_SESSION["d"]["userId"];
+		$name = $newActivity["name"];
+		$activityData = [$id, $userId, $name];
+		$result = $this->model->createNewActivity($activityData);
+		return ["success" => $result];
+	}
+
+	public function getAllMyActivities() {
+		$userId = $_SESSION["d"]["userId"];
+		$activities = $this->model->getActivitiesByUserId($userId);
+		return [ "success" => $activities ];
+	}
+
 	public function getActivitySuggestions() {
 		//TODO: Move these to the database with a ui to administrate them!
 		$suggestions = [

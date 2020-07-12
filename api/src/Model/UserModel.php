@@ -6,7 +6,10 @@ use Model\Model;
 
 class UserModel extends Model
 {
-	
+	protected $controllers = [
+		"User\User"
+	];
+
     public function __construct($app)
     {
 		parent::__construct($app);

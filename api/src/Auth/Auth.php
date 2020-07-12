@@ -161,7 +161,6 @@ class Auth {
 		} else {
 			return ["errors" => $this->signupErrors];
 		}
-
 	}
 
 	//name: validateSignup
