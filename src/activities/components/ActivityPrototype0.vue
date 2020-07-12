@@ -4,13 +4,39 @@
 			<v-container class="pb-0">
 				<v-row>
 					<v-col class="pt-0 pl-1 pr-1">
-						<v-text-field
-							v-model="newActivity.name"
-							:placeholder="newActivitySuggestion"
-							label="New Activity"
-							outlined
-							@keypress.enter="addNewActivity"
-						></v-text-field>
+						<v-form v-model="simpleActivityValid" ref="simpleActivityForm">
+							<v-container class="pa-0">
+								<v-row>
+									<v-col cols="10" class="pr-0 pt-0 pb-0">
+										<v-text-field
+											v-model="newActivity.name"
+											outlined
+											:placeholder="newActivitySuggestion"
+											label="New Activity"
+											:rules="[rules.required]"
+											validate-on-blur
+											@keydown.enter.prevent="addNewActivity"
+										></v-text-field>
+									</v-col>
+									<v-col
+										cols="2"
+										class="pl-0 pt-1 pb-0"
+										style="vertical-align:middle;"
+									>
+										<v-btn
+											icon
+											large
+											align="center"
+											justify="center"
+											color="success"
+											outlined
+											@click="addNewActivity"
+											><v-icon>mdi-plus-outline</v-icon></v-btn
+										>
+									</v-col>
+								</v-row>
+							</v-container>
+						</v-form>
 					</v-col>
 				</v-row>
 				<v-row>
@@ -94,6 +120,10 @@ export default {
 	data() {
 		return {
 			randomSuggestion: "",
+			simpleActivityValid: true,
+			rules: {
+				required: value => !!value || "This can't be blank."
+			},
 			newActivity: {
 				id: "",
 				name: "",
@@ -113,32 +143,27 @@ export default {
 			editActivityDialogOpen: false
 		};
 	},
-	created() {
+	async created() {
+		await this.$store.dispatch("loadActivitySuggestions");
 		this.setRandomSuggestion();
 	},
 	computed: {
 		newActivitySuggestion() {
-			return "[Like: " + this.randomSuggestion + " ]";
+			if (U.isEmpty(this.randomSuggestion)) {
+				return "";
+			} else {
+				return "[Like: " + this.randomSuggestion + " ]";
+			}
+		},
+		activitySuggestions() {
+			return this.$store.getters.activitySuggestions;
 		}
 	},
 	methods: {
 		setRandomSuggestion() {
-			const suggestions = [
-				"Go Hiking",
-				"Clean the House",
-				"Practice Singing",
-				"Do Math Homework",
-				"Read a Book",
-				"Meditate For 10 Mins",
-				"Write in Journal",
-				"Practice Coding",
-				"Study Some History",
-				"Do the Dishes",
-				"Do the Laundry",
-				"Mow the Lawn"
-			]; //TODO: Get a dynamic list of these from the database
-			const suggestionIndex = this.getNonRepeatedSuggestion(suggestions);
-			this.randomSuggestion = "'" + suggestions[suggestionIndex] + "'";
+			const index = this.getNonRepeatedSuggestion(this.activitySuggestions);
+			//this.randomSuggestion = "'" + suggestions[suggestionIndex] + "'";
+			this.randomSuggestion = "'" + this.activitySuggestions[index] + "'";
 		},
 		getNonRepeatedSuggestion(suggestions) {
 			let suggestionIndex = U.getRandomInt(suggestions.length);
@@ -155,11 +180,13 @@ export default {
 			return suggestionIndex;
 		},
 		addNewActivity() {
-			this.newActivity.id = Guid.v4();
-			const createdActivity = Object.assign({}, this.newActivity);
-			this.newActivity = Object.assign({}, this.emptyActivity);
-			this.activities.push(createdActivity);
-			this.setRandomSuggestion();
+			if (this.$refs.simpleActivityForm.validate()) {
+				this.newActivity.id = Guid.v4();
+				const createdActivity = Object.assign({}, this.newActivity);
+				this.newActivity = Object.assign({}, this.emptyActivity);
+				this.activities.push(createdActivity);
+				this.setRandomSuggestion();
+			}
 		},
 		openEditActivityDialog(id) {
 			this.editActivity = this.activities.find(activity => {

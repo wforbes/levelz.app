@@ -14,30 +14,6 @@
 					<div v-if="userLoginStatus === 'loggedIn'">
 						<v-container>
 							<v-row>
-								<v-container>
-									<v-row>
-										<v-col sm="6" cols="12">
-											<div
-												style="border: 0.1em solid grey; border-radius:4px; text-align:center; padding-bottom:0.6em;"
-											>
-												<p>Prototype Idea #1: Complex Activity Creation</p>
-												<v-btn @click="openNewActivityDialog">
-													Create New Activity
-												</v-btn>
-											</div>
-										</v-col>
-										<v-col sm="6" cols="12">
-											<div
-												style="border: 0.1em solid grey; border-radius:4px; text-align:center;"
-											>
-												<p>Prototype Idea #0: Simple Activity Creation</p>
-												<ActivityPrototype0 />
-											</div>
-										</v-col>
-									</v-row>
-								</v-container>
-							</v-row>
-							<v-row>
 								<v-col>
 									<p>
 										You can use <strong>Activities</strong> to keep track of the
@@ -50,6 +26,30 @@
 										<strong>Level Up</strong>!
 									</p>
 								</v-col>
+							</v-row>
+							<v-row>
+								<v-container>
+									<v-row>
+										<v-col sm="6" cols="12">
+											<div
+												style="border: 0.1em solid grey; border-radius:4px; text-align:center;"
+											>
+												<p>Prototype Idea #0: Simple Activity Creation</p>
+												<ActivityPrototype0 />
+											</div>
+										</v-col>
+										<v-col sm="6" cols="12">
+											<div
+												style="border: 0.1em solid grey; border-radius:4px; text-align:center; padding-bottom:0.6em;"
+											>
+												<p>Prototype Idea #1: Complex Activity Creation</p>
+												<v-btn @click="openNewActivityDialog">
+													Create New Activity
+												</v-btn>
+											</div>
+										</v-col>
+									</v-row>
+								</v-container>
 							</v-row>
 						</v-container>
 						<!-- <v-row>
