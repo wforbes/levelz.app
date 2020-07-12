@@ -18,21 +18,18 @@
 											@keydown.enter.prevent="addNewActivity"
 										></v-text-field>
 									</v-col>
-									<v-col
-										cols="2"
-										class="pl-0 pt-1 pb-0"
-										style="vertical-align:middle;"
-									>
+									<v-col cols="2" class="ma-0 pa-0 pt-2 pr-3 pb-3">
 										<v-btn
-											icon
-											large
+											fab
 											align="center"
 											justify="center"
+											small
 											color="success"
-											outlined
+											dark
 											@click="addNewActivity"
-											><v-icon>mdi-plus-outline</v-icon></v-btn
 										>
+											<v-icon>mdi-plus</v-icon>
+										</v-btn>
 									</v-col>
 								</v-row>
 							</v-container>
@@ -85,7 +82,7 @@
 										</v-col>
 										<v-col class="pa-0" cols="3" align="center">
 											<v-list-item-action class="mr-0">
-												<v-btn outlined icon color="success">
+												<v-btn dark fab small color="success">
 													<v-icon>
 														mdi-check
 													</v-icon>
