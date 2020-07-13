@@ -100,6 +100,7 @@
 		<EditActivityDialog
 			:dialogOpen="editActivityDialogOpen"
 			:editActivity="editActivity"
+			:newActivitySuggestion="newActivitySuggestion"
 			@closeDialog="closeEditActivityDialog"
 		/>
 	</div>
@@ -189,6 +190,7 @@ export default {
 			}
 		},
 		openEditActivityDialog(id) {
+			this.setRandomSuggestion();
 			this.editActivity = this.activities.find(activity => {
 				return activity.id === id;
 			});
