@@ -38,29 +38,27 @@
 									</v-row>
 									<v-row>
 										<v-col>
-											<v-form-actions>
-												<v-container class="pa-0">
-													<v-row>
-														<v-col cols="9" class="pa-0">
-															<v-btn
-																class="mr-3"
-																color="success"
-																@click="saveActivityChanges"
-															>
-																Save
-															</v-btn>
-															<v-btn @click="closeDialog">Cancel</v-btn>
-														</v-col>
-														<v-col cols="3" class="pa-0" align="right">
-															<v-btn fab medium>
-																<v-icon>
-																	mdi-cog
-																</v-icon>
-															</v-btn>
-														</v-col>
-													</v-row>
-												</v-container>
-											</v-form-actions>
+											<v-container class="pa-0">
+												<v-row>
+													<v-col cols="9" class="pa-0">
+														<v-btn
+															class="mr-3"
+															color="success"
+															@click="saveActivityChanges"
+														>
+															Save
+														</v-btn>
+														<v-btn @click="closeDialog">Cancel</v-btn>
+													</v-col>
+													<v-col cols="3" class="pa-0" align="right">
+														<v-btn fab medium>
+															<v-icon>
+																mdi-cog
+															</v-icon>
+														</v-btn>
+													</v-col>
+												</v-row>
+											</v-container>
 										</v-col>
 									</v-row>
 								</v-container>
@@ -121,7 +119,13 @@ export default {
 	},
 	methods: {
 		saveActivityChanges() {
-			this.$store.dispatch("saveActivityChanges", this.activity);
+			if (!this._.isEqual(this.editActivity, this.activity)) {
+				this.$store.dispatch({
+					type: "saveActivityChanges",
+					activityData: this.activity
+				});
+			}
+			this.closeDialog();
 		},
 		closeDialog() {
 			this.activity = Object.assign({}, this.emptyActivity);

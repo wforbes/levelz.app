@@ -37,4 +37,11 @@ class ActivityModel extends Model
 		return $this->app->db->gbi("*",["userId"=>$userId],"activity");
 	}
 	
+	public function saveActivityChanges($data) {
+		$there = $this->getModelName();
+		$fields = $this->getModelData()[2];
+		$that = $data[0];
+		$these = $data[1];
+		return $this->app->db->ubi($these, $that, $there)?array_merge($that, $these):false;
+	}
 }

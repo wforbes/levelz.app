@@ -11,6 +11,21 @@ class Activity {
 		$this->model = new ActivityModel($app);
 	}
 
+	public function saveActivityChanges($activityData) {
+		$updateData = [
+			[//keys
+				"id"=>$activityData["id"],
+				"userId"=>$_SESSION["d"]["userId"]
+			],
+			[//fields
+				"name"=>$activityData["name"],
+				"description"=>$activityData["description"]
+			]
+		];
+		$result = $this->model->saveActivityChanges($updateData);
+		return ["success" => $result];
+	}
+
 	public function createNewActivity($newActivity) {
 		$id = Uuid::v4();
 		$userId = $_SESSION["d"]["userId"];

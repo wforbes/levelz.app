@@ -31,9 +31,9 @@ export default {
 			const activities = await state.activityModel.getAllMyActivities();
 			commit("setActivities", activities);
 		},
-		async saveActivityChanges({ state, commit }, { editActivity }) {
+		async saveActivityChanges({ state, commit }, { activityData }) {
 			return state.activityModel
-				.saveActivityChanges(editActivity)
+				.saveActivityChanges(activityData)
 				.then(activity => {
 					commit("updateActivityOnList", activity);
 				});

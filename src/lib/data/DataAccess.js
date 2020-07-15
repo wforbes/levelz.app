@@ -18,4 +18,8 @@ export default class DataAccess {
 	getAllMyActivities() {
 		return this.dataContext.getAllMyActivities();
 	}
+
+	saveActivityChanges(activityData) {
+		return this.dataContext.saveActivityChanges(activityData);
+	}
 }

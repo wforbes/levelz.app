@@ -17,5 +17,9 @@ class ActivityModel {
 	getAllMyActivities() {
 		return this.da.getAllMyActivities();
 	}
+
+	saveActivityChanges(activityData) {
+		return this.da.saveActivityChanges(activityData);
+	}
 }
 export default ActivityModel;
