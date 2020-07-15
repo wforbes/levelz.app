@@ -15,7 +15,8 @@ class Activity {
 		$id = Uuid::v4();
 		$userId = $_SESSION["d"]["userId"];
 		$name = $newActivity["name"];
-		$activityData = [$id, $userId, $name];
+		$desc = $newActivity["description"];
+		$activityData = [$id, $userId, $name, $desc];
 		$result = $this->model->createNewActivity($activityData);
 		return ["success" => $result];
 	}
