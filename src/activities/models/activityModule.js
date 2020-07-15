@@ -22,13 +22,21 @@ export default {
 		},
 		createNewActivity({ state }, { newActivity }) {
 			const activityData = {
-				name: newActivity.name
+				name: newActivity.name,
+				description: newActivity.description
 			};
 			return state.activityModel.createNewActivity(activityData);
 		},
 		async loadMyActivities({ state, commit }) {
 			const activities = await state.activityModel.getAllMyActivities();
 			commit("setActivities", activities);
+		},
+		async saveActivityChanges({ state, commit }, { editActivity }) {
+			return state.activityModel
+				.saveActivityChanges(editActivity)
+				.then(activity => {
+					commit("updateActivityOnList", activity);
+				});
 		}
 	},
 	mutations: {
@@ -36,7 +44,11 @@ export default {
 			state.activitySuggestions = suggestions;
 		},
 		setActivities(state, activities) {
-			state.activities = activities;
+			state.activities = [...activities];
+		},
+		updateActivityOnList(state, updated) {
+			const index = state.activities.findIndex(a => a.id === updated.id);
+			state.activities.splice(index, 1, updated);
 		}
 	}
 };

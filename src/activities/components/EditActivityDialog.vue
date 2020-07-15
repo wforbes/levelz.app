@@ -17,7 +17,7 @@
 									<v-row>
 										<v-col>
 											<v-text-field
-												v-model="editActivity.name"
+												v-model="activity.name"
 												outlined
 												:placeholder="newActivitySuggestion"
 												label="Activity Name"
@@ -29,7 +29,7 @@
 									<v-row>
 										<v-col>
 											<v-textarea
-												v-model="editActivity.description"
+												v-model="activity.description"
 												outlined
 												label="Activity Description (Optional)"
 												height="150"
@@ -42,7 +42,13 @@
 												<v-container class="pa-0">
 													<v-row>
 														<v-col cols="9" class="pa-0">
-															<v-btn class="mr-3" color="success">Save</v-btn>
+															<v-btn
+																class="mr-3"
+																color="success"
+																@click="saveActivityChanges"
+															>
+																Save
+															</v-btn>
 															<v-btn @click="closeDialog">Cancel</v-btn>
 														</v-col>
 														<v-col cols="3" class="pa-0" align="right">
@@ -88,13 +94,37 @@ export default {
 	data() {
 		return {
 			toolbarTitle: "Edit Activity",
+			activity: {
+				id: "",
+				name: "",
+				description: "",
+				actions: []
+			},
+			emptyActivity: {
+				id: "",
+				name: "",
+				description: "",
+				actions: []
+			},
 			rules: {
 				required: value => !!value || "This can't be blank."
+				//TODO: check description upper bound length
 			}
 		};
 	},
+	watch: {
+		dialogOpen(newVal, oldVal) {
+			if (newVal && !oldVal) {
+				this.activity = Object.assign({}, this.editActivity);
+			}
+		}
+	},
 	methods: {
+		saveActivityChanges() {
+			this.$store.dispatch("saveActivityChanges", this.activity);
+		},
 		closeDialog() {
+			this.activity = Object.assign({}, this.emptyActivity);
 			this.$emit("closeDialog");
 		}
 	}
