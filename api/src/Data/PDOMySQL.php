@@ -216,4 +216,37 @@ class PDOMySQL {
 		$result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 		return $result;
 	}
+
+	//name: UBI (Update these, By that, In there)
+	//desc: updates fields specified by key/values in 'These' param
+	//	where fields specified by key/values in "That" exist
+	//	on the table specified by "There"
+	//return: boolean of success/fail
+	public function ubi($these, $that, $there) {
+		$s = "UPDATE ";
+		$s .= $there." SET ";
+		if (!is_array($these)) {
+			$s.=(string)$these." ";
+		} else {
+			foreach ($these as $f=>$v) {
+				$s .= $f."=:".$f."";
+				if ($f !== key(array_slice($these, -1, 1, true))) {
+					$s .= ", ";
+				}
+			}
+		}
+		$s.= " WHERE ";
+		foreach($that as $f=>$v) {
+			$s .= $f."=:".$f;
+			if ($f !== key(array_slice($that, -1, 1, true))) {
+				$s .= " AND ";
+			} else {
+				$s .= " ";
+			}
+		}
+		$s.=";";
+		$data = array_merge($these, $that);
+		$result = $this->connection->prepare($s)->execute($data);
+		return $result;
+	}
 }

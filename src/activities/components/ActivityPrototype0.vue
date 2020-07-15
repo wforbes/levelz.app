@@ -53,7 +53,7 @@
 												v-html="activity.name"
 											></v-list-item-title>
 											<v-list-item-subtitle
-												v-html="activity.desc"
+												v-html="activity.description"
 											></v-list-item-subtitle>
 										</v-list-item-content>
 										<v-list-item-icon>
@@ -76,7 +76,7 @@
 													v-html="activity.name"
 												></v-list-item-title>
 												<v-list-item-subtitle
-													v-html="activity.desc"
+													v-html="activity.description"
 												></v-list-item-subtitle>
 											</v-list-item-content>
 										</v-col>
@@ -125,13 +125,13 @@ export default {
 			newActivity: {
 				id: "",
 				name: "",
-				desc: "",
+				description: "",
 				actions: []
 			},
 			emptyActivity: {
 				id: "",
 				name: "",
-				desc: "",
+				description: "",
 				actions: []
 			},
 			editActivity: {},
