@@ -24,57 +24,84 @@
 											</v-col>
 										</v-row>
 										<v-row>
-											<v-col cols="3">
-												<v-row>
-													<v-img
-														src="../../assets/profilePic.png"
-														max-width="100"
-														class="elevation-3"
-													></v-img>
+											<v-col md="5" cols="12" align="center">
+												<v-img
+													src="../../assets/profilePic.png"
+													max-width="200"
+													class="elevation-3"
+													align="center"
+												></v-img>
+											</v-col>
+											<v-col md="7" cols="12">
+												<v-row justify="center">
+													<v-col md="12" cols="8">
+														<v-btn class="mb-3" width="100%">
+															<v-icon class="mr-3">mdi-briefcase-account</v-icon>
+															Profile
+														</v-btn>
+														<v-btn class="mb-3" width="100%">
+															<v-icon class="mr-3">
+																mdi-account-group
+															</v-icon>
+															Friends
+														</v-btn>
+														<v-btn class="mb-3" width="100%">
+															<v-icon class="mr-3">mdi-forum</v-icon>
+															Messages
+														</v-btn>
+													</v-col>
 												</v-row>
 											</v-col>
-											<v-col cols="7" class="ma-0 pa-0">
-												<v-row class="ma-0 pa-0">
-													<v-col align="right" class="ma-0 pa-0">
-														Title:
+											<!--
+											<v-col md="7" cols="12" class="ma-0 pa-0 pl-5 pr-5">
+												<v-row class="userProfileItem">
+													<v-col cols="4" align="right" class="ma-0 pa-0">
+														Joined:
 													</v-col>
-													<v-col class="ma-0 pa-0">
-														{{ this.userProfile.title }}
+													<v-col cols="1"></v-col>
+													<v-col cols="6" class="ma-0 pa-0">
+														{{
+															formatDate(this.userProfile.joinedDate, "short")
+														}}
 													</v-col>
 												</v-row>
-												<v-row>
-													<v-col align="right" class="ma-0 pa-0">
+												<v-row class="userProfileItem">
+													<v-col cols="4" align="right" class="ma-0 pa-0">
+														Title:
+													</v-col>
+													<v-col cols="1"></v-col>
+													<v-col cols="6" class="ma-0 pa-0">
+														<span @click="editProfile('title')">{{
+															this.userProfile.title
+														}}</span>
+													</v-col>
+												</v-row>
+												<v-row class="userProfileItem">
+													<v-col cols="5" align="right" class="ma-0 pa-0">
 														Headline:
 													</v-col>
 													<v-col class="ma-0 pa-0">
 														{{ this.userProfile.headline }}
 													</v-col>
 												</v-row>
-												<v-row>
-													<v-col align="right" class="ma-0 pa-0">
+												<v-row class="userProfileItem">
+													<v-col cols="5" align="right" class="ma-0 pa-0">
 														Location:
 													</v-col>
 													<v-col class="ma-0 pa-0">
 														{{ this.userProfile.location }}
 													</v-col>
 												</v-row>
-												<v-row>
-													<v-col align="right" class="ma-0 pa-0">
+												<v-row class="userProfileItem">
+													<v-col cols="5" align="right" class="ma-0 pa-0">
 														Bio:
 													</v-col>
 													<v-col class="ma-0 pa-0">
 														{{ this.userProfile.bio }}
 													</v-col>
 												</v-row>
-												<v-row>
-													<v-col align="right" class="ma-0 pa-0">
-														Joined:
-													</v-col>
-													<v-col class="ma-0 pa-0">
-														{{ this.userProfile.joined }}
-													</v-col>
-												</v-row>
 											</v-col>
+											-->
 										</v-row>
 									</v-col>
 									<v-col class="pa-0 ma-0">
@@ -372,14 +399,21 @@
 .ps {
 	height: 242px;
 }
+.userProfileItem {
+	border: 0.1em solid black;
+	border-radius: 0.5em;
+	margin-bottom: 0.3em;
+}
 </style>
 <script>
 //import U from "../../lib/util/U.js";
 import NotLoggedIn from "../../app/views/NotLoggedIn.vue";
 import FeatureMenu from "../components/FeatureMenu.vue";
 import OptionMenu from "../components/OptionMenu.vue";
+import { util } from "../../mixins/util.js";
 export default {
 	name: "DashboardPage",
+	mixins: [util],
 	components: {
 		NotLoggedIn,
 		FeatureMenu,
@@ -389,11 +423,11 @@ export default {
 		return {
 			menuTabs: 0,
 			fakeProfile: {
+				joined: "",
 				title: "",
 				headline: "",
 				location: "",
-				bio: "",
-				joined: ""
+				bio: ""
 			},
 			player: {
 				level: 1,
@@ -483,6 +517,9 @@ export default {
 		}
 	},
 	methods: {
+		editProfile(field) {
+			console.log("editing " + field);
+		},
 		logout() {
 			this.$store.dispatch("logoutUser");
 		}
