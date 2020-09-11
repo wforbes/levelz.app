@@ -36,23 +36,27 @@ export default {
 	},
 	data() {
 		return {
-			host: ""
+			localhost: "localhost:8080"
 		};
 	},
 	async created() {
 		axios.defaults.withCredentials = true;
-		this.setEnvironment();
+		this.setupStore();
 		this.$store.dispatch("initSession");
 	},
 	methods: {
-		setEnvironment() {
-			this.host =
-				window.location.host === "localhost:8080"
-					? "http://localhost/levelz.app/"
-					: "";
+		setupStore() {
+			this.$store.dispatch({
+				type: "setVue",
+				vue: this
+			});
+			this.$store.dispatch("setDataAccess");
 			this.$store.dispatch({
 				type: "setHost",
-				host: this.host
+				host:
+					window.location.host === this.localhost
+						? "http://localhost/levelz.app/"
+						: ""
 			});
 		}
 	}

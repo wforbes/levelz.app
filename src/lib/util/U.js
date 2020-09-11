@@ -1,5 +1,6 @@
 /* eslint-disable no-prototype-builtins */
 "use strict";
+import _ from "lodash";
 
 class U {
 	static isEmpty(v) {
@@ -17,6 +18,12 @@ class U {
 	}
 	static getRandomInt(max) {
 		return Math.floor(Math.random() * Math.floor(max));
+	}
+	static cloneDeep(o) {
+		return _.cloneDeep(o);
+	}
+	static isEqual(o) {
+		return _.isEqual(o);
 	}
 }
 

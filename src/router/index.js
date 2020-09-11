@@ -27,9 +27,20 @@ const routes = [
 			)
 	},
 	{
+		path: "/auth",
+		name: "Auth",
+		component: () =>
+			import(/* webpackChunkName: "bundle-Home" */ "../auth/views/AuthPage.vue")
+	},
+	{
 		path: "*",
 		component: () =>
 			import(/* webpackChunkName: "bundle-Home" */ "../app/views/Error404.vue")
+	},
+	{
+		path: "/admin",
+		name: "AdminPage",
+		component: () => import("../admin/views/AdminPage.vue")
 	},
 	{
 		path: "/dev",

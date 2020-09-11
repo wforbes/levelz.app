@@ -1,5 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import DataAccess from "../lib/data/DataAccess.js";
+import Auth from "../auth/model/authModule.js";
 import User from "../user/model/userModule.js";
 import Activity from "../activities/models/activityModule.js";
 
@@ -7,14 +9,20 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
 	modules: {
+		Auth,
 		User,
 		Activity
 	},
 	state: {
+		vue: undefined,
 		host: "",
+		da: undefined,
 		authDialogOpen: false
 	},
 	getters: {
+		vue: state => {
+			return state.vue;
+		},
 		da: state => {
 			return state.da;
 		},
@@ -26,6 +34,12 @@ export default new Vuex.Store({
 		}
 	},
 	actions: {
+		setVue({ commit }, { vue }) {
+			commit("setVue", vue);
+		},
+		setDataAccess({ commit }) {
+			commit("setDataAccess", new DataAccess(this.getters.vue));
+		},
 		setHost({ commit }, { host }) {
 			commit("setHost", host);
 		},
@@ -37,6 +51,12 @@ export default new Vuex.Store({
 		}
 	},
 	mutations: {
+		setVue(state, vue) {
+			state.vue = vue;
+		},
+		setDataAccess(state, da) {
+			state.da = da;
+		},
 		setHost(state, host) {
 			state.host = host;
 		},

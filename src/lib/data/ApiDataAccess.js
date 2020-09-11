@@ -3,11 +3,8 @@ import U from "../util/U.js";
 
 export default class ApiDataAccess {
 	host;
-	constructor() {
-		this.host =
-			window.location.host === "localhost:8080"
-				? "http://localhost/levelz.app/"
-				: "";
+	constructor(vue) {
+		this.vue = vue;
 	}
 
 	callAPI(noun, verb, extra = {}) {
@@ -22,17 +19,40 @@ export default class ApiDataAccess {
 				d.data = Object.assign(d.data, extra);
 			}
 			axios
-				.post(this.host + "api/", d)
+				.post(this.vue.$store.getters.host + "api/", d)
 				.catch(error => {
-					console.log(error);
+					console.error(error);
 					reject();
 				})
 				.then(response => {
-					resolve(response.data["success"]);
+					resolve(response);
 				});
 		});
 	}
 
+	submitSignup(signupData) {
+		return this.callAPI("auth", "signup", signupData);
+	}
+
+	submitLogin(loginData) {
+		return this.callAPI("auth", "login", loginData);
+	}
+
+	checkSession() {
+		return this.callAPI("auth", "checkSession");
+	}
+
+	getProfileById(userProfileId) {
+		return this.callAPI(["user", "UserProfile"], "getProfileById", {
+			userProfileId: userProfileId
+		});
+	}
+
+	logout() {
+		return this.callAPI("auth", "logout");
+	}
+
+	//TODO: rework to accomodate callAPI resolving the whole response object
 	getActivitySuggestions() {
 		return this.callAPI("activity", "getActivitySuggestions");
 	}

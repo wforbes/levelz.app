@@ -1,5 +1,3 @@
-import axios from "axios";
-//import U from "../../lib/util/U.js";
 
 export default {
 	state: {
@@ -29,44 +27,29 @@ export default {
 	},
 	actions: {
 		initSession({ dispatch, rootState }) {
-			axios
-				.post(rootState.host + "api/", {
-					data: {
-						n: "auth",
-						v: "checkSession"
-					}
-				})
-				.then(response => {
-					if (response.data["sessionData"]) {
-						dispatch({
-							type: "loginUser",
-							userId: response.data["sessionData"]["userId"],
-							username: response.data["sessionData"]["username"],
-							userEmail: response.data["sessionData"]["userEmail"],
-							userProfileId: response.data["sessionData"]["userProfileId"]
-						});
-					} else {
-						dispatch({
-							type: "setLoginStatus",
-							status: "loggedOut"
-						});
-					}
-				});
+			rootState.da.checkSession().then(response => {
+				if (response.data["sessionData"]) {
+					dispatch({
+						type: "loginUser",
+						userId: response.data["sessionData"]["userId"],
+						username: response.data["sessionData"]["username"],
+						userEmail: response.data["sessionData"]["userEmail"],
+						userProfileId: response.data["sessionData"]["userProfileId"]
+					});
+				} else {
+					dispatch({
+						type: "setLoginStatus",
+						status: "loggedOut"
+					});
+				}
+			});
 		},
 		loadUserProfile({ commit, rootState }, { userProfileId }) {
-			axios
-				.post(rootState.host + "api/", {
-					data: {
-						n: ["user", "UserProfile"],
-						v: "getProfileById",
-						userProfileId: userProfileId
-					}
-				})
-				.then(response => {
-					if (response.data[0]) {
-						commit("setUserProfile", response.data[0]);
-					}
-				});
+			rootState.da.getProfileById({ userProfileId }).then(response => {
+				if (response.data[0]) {
+					commit("setUserProfile", response.data[0]);
+				}
+			});
 		},
 		setLoginStatus({ commit }, { status }) {
 			commit("setLoginStatus", status);
@@ -85,19 +68,12 @@ export default {
 			commit("setLoginStatus", "loggedIn");
 		},
 		logoutUser({ commit, dispatch, rootState }) {
-			axios
-				.post(rootState.host + "api/", {
-					data: {
-						n: "auth",
-						v: "logout"
-					}
-				})
-				.then(response => {
-					if (response.data["success"]) {
-						dispatch("clearUserData");
-						commit("setLoginStatus", "loggedOut");
-					}
-				});
+			rootState.da.logout().then(response => {
+				if (response.data["success"]) {
+					dispatch("clearUserData");
+					commit("setLoginStatus", "loggedOut");
+				}
+			});
 		},
 		clearUserData({ commit }) {
 			commit("clearUserId");
