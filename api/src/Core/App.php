@@ -18,6 +18,7 @@ class App {
 		$this->setDelimiter();
 		$this->autoload();
 		$this->setDatabase();
+		$this->createToken();
 	}
 
 	private function setDelimiter():void {
@@ -49,5 +50,13 @@ class App {
 
 	private function setDatabase():void {
 		$this->db = new PDOMySQL($this);
+	}
+
+	//https://stackoverflow.com/questions/6287903/how-to-properly-add-cross-site-request-forgery-csrf-token-using-php
+	private function createToken():void {
+		if(empty($_SESSION['token'])) {
+			$_SESSION['token'] = bin2hex(random_bytes(32));
+		}
+		$this->token = $_SESSION['token'];
 	}
 }
