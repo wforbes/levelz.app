@@ -264,4 +264,22 @@ class PDOMySQL {
 		}*/
 		return $tables;
 	}
+
+	public function getAllTableData($tableName) {
+		$s = "SELECT * FROM `".$tableName."`;";
+		$statement = $this->connection->prepare($s);
+		$statement->execute();
+		$data = $statement->fetchAll(\PDO::FETCH_ASSOC);
+		if ($tableName === "user") {
+			for ($i = 0; $i < count($data); $i++) {
+				if (isset($data[$i]["passhash"])){
+					$data[$i]["passhash"] = "(hidden)";
+				}// TODO: do a/b testing between isset and array_key_exists
+				/*if (array_key_exists("passhash", $data[$i]) ) {
+					$data[$i]["passhash"] = "(hidden)";
+				}*/
+			}
+		}
+		return $data;
+	}
 }

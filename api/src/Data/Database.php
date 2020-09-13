@@ -11,4 +11,8 @@ class Database {
 	public function getDatabaseTables() {
 		return $this->app->db->showTables();
 	}
+
+	public function getAllTableData($d) {
+		return $this->app->db->getAllTableData($d['tableName']);
+	}
 }

@@ -78,6 +78,8 @@ export default {
 			this.tableDialogOpen = true;
 		},
 		closeTableDialog() {
+			this.activeTable = "";
+			this.selectedItem = undefined;
 			this.tableDialogOpen = false;
 		}
 	}
