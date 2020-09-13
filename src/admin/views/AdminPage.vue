@@ -15,45 +15,17 @@
 						<v-card class="pa-2" min-height="420">
 							<v-container>
 								<v-row>
-									<v-col cols="12" sm="6">
-										<v-tabs vertical>
-											<v-tab>
-												<v-icon left>mdi-database-edit</v-icon>
-												Database
+									<v-col>
+										<v-tabs v-model="selectedTab" vertical>
+											<v-tab v-for="tab in tabs" :key="tab.title">
+												<v-icon left>{{ tab.icon }}</v-icon>
+												{{ tab.title }}
 											</v-tab>
-											<v-tab>
-												<v-icon left>mdi-account</v-icon>
-												Users
-											</v-tab>
-											<v-tab-item>
-												<v-card flat>
-													<v-card-text>
-														<p>
-															Database...
-														</p>
-														<div>
-															<v-btn @click="getDataTables">
-																getDataTables()
-															</v-btn>
-														</div>
-														<br />
-														<p
-															v-for="(table, index) in datatables"
-															:key="index"
-														>
-															{{ table[0] }}
-														</p>
-													</v-card-text>
-												</v-card>
-											</v-tab-item>
-											<v-tab-item>
-												<v-card flat>
-													<v-card-text>
-														<p>
-															User...
-														</p>
-													</v-card-text>
-												</v-card>
+											<v-tab-item v-for="tab in tabs" :key="tab.title">
+												<component
+													:is="tab.component"
+													:parentsActiveItem="tabs[selectedTab].component"
+												/>
 											</v-tab-item>
 										</v-tabs>
 									</v-col>
@@ -67,16 +39,31 @@
 	</div>
 </template>
 <script>
-import axios from "axios";
 import NotLoggedIn from "@/app/views/NotLoggedIn.vue";
+import DatabaseEditor from "../components/DatabaseEditor.vue";
+import UserEditor from "../components/UserEditor.vue";
 export default {
 	name: "AdminPage",
 	components: {
-		NotLoggedIn
+		NotLoggedIn,
+		DatabaseEditor,
+		UserEditor
 	},
 	data() {
 		return {
-			datatables: []
+			selectedTab: 0,
+			tabs: [
+				{
+					icon: "mdi-database-edit",
+					title: "Database",
+					component: "DatabaseEditor"
+				},
+				{
+					icon: "mdi-account",
+					title: "Users",
+					component: "UserEditor"
+				}
+			]
 		};
 	},
 	computed: {
@@ -84,22 +71,7 @@ export default {
 			return this.$store.getters.loginStatus;
 		}
 	},
-	methods: {
-		getDataTables() {
-			const d = {
-				n: ["data", "database"],
-				v: "getDatabaseTables"
-			};
-			axios
-				.post(this.$store.getters.host + "api/", { data: d })
-				.catch(error => {
-					console.error(error);
-				})
-				.then(response => {
-					console.log(response.data);
-					this.datatables = response.data;
-				});
-		}
-	}
+	watch: {},
+	methods: {}
 };
 </script>

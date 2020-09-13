@@ -9,6 +9,11 @@ export const util = {
 			} else {
 				return date;
 			}
+		},
+		ucFirst(s) {
+			if (typeof s === "string") {
+				return s.charAt(0).toUpperCase() + s.slice(1);
+			}
 		}
 	}
 };
