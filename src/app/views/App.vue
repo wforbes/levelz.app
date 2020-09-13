@@ -54,7 +54,8 @@ export default {
 			this.$store.dispatch({
 				type: "setHost",
 				host:
-					window.location.host === this.localhost
+					window.location.host === this.localhost ||
+					window.location.host.href === this.localhost
 						? "http://localhost/levelz.app/"
 						: ""
 			});
