@@ -270,14 +270,19 @@ class PDOMySQL {
 		$statement = $this->connection->prepare($s);
 		$statement->execute();
 		$data = $statement->fetchAll(\PDO::FETCH_ASSOC);
-		if ($tableName === "user") {
-			for ($i = 0; $i < count($data); $i++) {
-				if (isset($data[$i]["passhash"])){
-					$data[$i]["passhash"] = "(hidden)";
-				}// TODO: do a/b testing between isset and array_key_exists
-				/*if (array_key_exists("passhash", $data[$i]) ) {
-					$data[$i]["passhash"] = "(hidden)";
-				}*/
+		$hiddenTableFields = [
+			"user" => "passhash"
+		];
+		foreach($hiddenTableFields as $t=>$f) {
+			if ($tableName === $t) {
+				for ($i = 0; $i < count($data); $i++) {
+					if (isset($data[$i][$f])){
+						$data[$i][$f] = "(hidden)";
+					}// TODO: do a/b testing between isset and array_key_exists
+					/*if (array_key_exists($f, $data[$i]) ) {
+						$data[$i][$f] = "(hidden)";
+					}*/
+				}
 			}
 		}
 		return $data;
