@@ -31,7 +31,18 @@
 														<p>
 															Database...
 														</p>
-														<v-btn @click="getDataTables">getDataTables()</v-btn>
+														<div>
+															<v-btn @click="getDataTables">
+																getDataTables()
+															</v-btn>
+														</div>
+														<br />
+														<p
+															v-for="(table, index) in datatables"
+															:key="index"
+														>
+															{{ table[0] }}
+														</p>
 													</v-card-text>
 												</v-card>
 											</v-tab-item>
@@ -64,7 +75,9 @@ export default {
 		NotLoggedIn
 	},
 	data() {
-		return {};
+		return {
+			datatables: []
+		};
 	},
 	computed: {
 		userLoginStatus() {
@@ -83,7 +96,8 @@ export default {
 					console.error(error);
 				})
 				.then(response => {
-					console.log(response);
+					console.log(response.data);
+					this.datatables = response.data;
 				});
 		}
 	}
