@@ -7,9 +7,7 @@
 						<h5 class="text-h6">
 							Sorry, there
 							<span v-if="loginErrors.length === 1">was a problem</span>
-							<span v-else-if="loginErrors.length >= 2"
-								>were problems</span
-							>
+							<span v-else-if="loginErrors.length >= 2">were problems</span>
 							with your login request:
 						</h5>
 						<span v-html="loginFeedback"></span>
@@ -36,9 +34,7 @@
 						<v-container>
 							<v-row>
 								<v-col>
-									<v-btn color="error" @click="resetLoginForm"
-										>Reset</v-btn
-									>
+									<v-btn color="error" @click="resetLoginForm">Reset</v-btn>
 								</v-col>
 								<v-col align="right">
 									<v-btn
