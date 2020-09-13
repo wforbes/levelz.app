@@ -249,4 +249,19 @@ class PDOMySQL {
 		$result = $this->connection->prepare($s)->execute($data);
 		return $result;
 	}
+
+	public function showTables() {
+		$s = "SHOW TABLES;";
+		$statement = $this->connection->prepare($s);
+		$statement->execute();
+		$tables = $statement->fetchAll(\PDO::FETCH_NUM);
+		/*
+		foreach($tables as $table) {
+			for($i = 0; i < count($table); $i++) {
+				echo $table[i]." ";
+			}
+			echo " - ";
+		}*/
+		return $tables;
+	}
 }
