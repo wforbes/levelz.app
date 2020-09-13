@@ -69,7 +69,7 @@ class Auth {
 	}
 
 	public function checkSession($d) {
-		if (!empty($_SESSION)) {
+		if (!empty($_SESSION["d"])) {
 			return [ "sessionData" => $_SESSION["d"] ];
 		} else {
 			return "";
