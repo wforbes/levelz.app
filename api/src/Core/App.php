@@ -26,10 +26,9 @@ class App {
 	}
 
 	public static function detectEnvironment():string {
-        if(isset($_SERVER['REMOTE_ADDR']) && ($_SERVER['REMOTE_ADDR'] === '127.0.0.1' || $_SERVER['REMOTE_ADDR'] === '::1' )) {
+        if(isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] === '127.0.0.1') {
             return "local";
-		}
-		echo $_SERVER['REMOTE_ADDR'];
+        }
         return "remote";
     }
 
