@@ -1,4 +1,5 @@
 import moment from "moment";
+import _ from "lodash";
 export const util = {
 	methods: {
 		formatDate(date, type = "long") {
@@ -14,6 +15,9 @@ export const util = {
 			if (typeof s === "string") {
 				return s.charAt(0).toUpperCase() + s.slice(1);
 			}
+		},
+		cloneDeep(o) {
+			return _.cloneDeep(o);
 		}
 	}
 };
