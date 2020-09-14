@@ -1,10 +1,14 @@
 <template>
 	<div>
+		<h3 style="text-align:center;">Database</h3>
 		<v-card style="width:60%; margin: 0 auto;">
 			<v-card-text>
 				<v-list>
 					<v-subheader>Data Tables</v-subheader>
-					<v-list-item-group v-model="selectedItem" color="primary">
+					<div v-if="loading">
+						<v-icon>fas fa-spinner fa-spin</v-icon>
+					</div>
+					<v-list-item-group v-model="selectedItem" color="primary" v-else>
 						<v-list-item
 							v-for="(table, index) in datatables"
 							:key="index"
@@ -31,13 +35,14 @@
 import axios from "axios";
 import TableDialog from "../components/TableDialog.vue";
 export default {
-	name: "DatabaseEditor",
+	name: "DatabaseList",
 	components: {
 		TableDialog
 	},
 	props: ["parentsActiveItem"],
 	data() {
 		return {
+			loading: false,
 			tableDialogOpen: false,
 			datatables: [],
 			selectedItem: undefined,
@@ -63,6 +68,7 @@ export default {
 				n: ["data", "database"],
 				v: "getDatabaseTables"
 			};
+			this.loading = true;
 			axios
 				.post(this.$store.getters.host + "api/", { data: d })
 				.catch(error => {
@@ -71,6 +77,7 @@ export default {
 				.then(response => {
 					console.log(response.data);
 					this.datatables = response.data;
+					this.loading = false;
 				});
 		},
 		openTableDialog(tableName) {

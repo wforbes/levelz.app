@@ -40,14 +40,14 @@
 </template>
 <script>
 import NotLoggedIn from "@/app/views/NotLoggedIn.vue";
-import DatabaseEditor from "../components/DatabaseEditor.vue";
-import UserEditor from "../components/UserEditor.vue";
+import DatabaseList from "../components/DatabaseList.vue";
+import PermissionList from "../components/PermissionList.vue";
 export default {
 	name: "AdminPage",
 	components: {
 		NotLoggedIn,
-		DatabaseEditor,
-		UserEditor
+		DatabaseList,
+		PermissionList
 	},
 	data() {
 		return {
@@ -56,12 +56,12 @@ export default {
 				{
 					icon: "mdi-database-edit",
 					title: "Database",
-					component: "DatabaseEditor"
+					component: "DatabaseList"
 				},
 				{
 					icon: "mdi-account",
-					title: "Users",
-					component: "UserEditor"
+					title: "Permissions",
+					component: "PermissionList"
 				}
 			]
 		};
