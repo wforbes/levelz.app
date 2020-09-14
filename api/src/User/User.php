@@ -10,14 +10,7 @@ class User {
 		$this->model = new UserModel($app);
 	}
 
-	public function userExistsByName($u){
-        return $this->model->userExistsByName($u);
-	}
-	
-    public function userExistsByEmail($e){
-        return $this->model->userExistsByEmail($e);
-	}
-	
+	//TODO: add protection to ensure this is only called by auth signup function
 	public function createNewUser($u,$p,$e){
         $id = \Sec\Uuid::v4();
         $passhash = \Sec\Sec::getPasswordHash($p);
@@ -36,6 +29,14 @@ class User {
 		} else {
 			return false;
 		}
+	}
+
+	public function userExistsByName($u){
+        return $this->model->userExistsByName($u);
+	}
+	
+    public function userExistsByEmail($e){
+        return $this->model->userExistsByEmail($e);
 	}
 	
 	public function getPasswordHashByUsername($u){
