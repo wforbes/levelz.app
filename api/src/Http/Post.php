@@ -94,10 +94,13 @@ class Post {
 	//https://stackoverflow.com/questions/928928/determining-what-classes-are-defined-in-a-php-class-file
 	//https://stackoverflow.com/a/4068490
 	private function getMethodsFromScript($filePath, $onlyPublic=true):array {
-		$fileContents = file_get_contents($filePath);
+		$fileContents = @file_get_contents($filePath);
+		
 		//TODO: check if file/class is not allowed
+
 		if ($fileContents === false) {
-			//TODO: error - Could not find source file
+			echo json_encode(["error" => "API noun not found."]);
+			exit;
 		} else {
 			$methods = array();
 			$tokens = token_get_all($fileContents);
