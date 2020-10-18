@@ -15,21 +15,23 @@ export default {
 		}
 	},
 	actions: {
-		loadActivitySuggestions({ state, commit }) {
-			return state.activityModel.getActivitySuggestions().then(suggestions => {
-				commit("setActivitySuggestions", suggestions);
+		loadActivitySuggestions({ rootState, commit }) {
+			return rootState.da.getActivitySuggestions().then(response => {
+				if (response.data["success"]) {
+					commit("setActivitySuggestions", response.data["success"]);
+				}
 			});
 		},
-		createNewActivity({ state }, { newActivity }) {
+		async createNewActivity({ rootState }, { newActivity }) {
 			const activityData = {
 				name: newActivity.name,
 				description: newActivity.description
 			};
-			return state.activityModel.createNewActivity(activityData);
+			return await rootState.da.createNewActivity(activityData);
 		},
-		async loadMyActivities({ state, commit }) {
-			const activities = await state.activityModel.getAllMyActivities();
-			commit("setActivities", activities);
+		async loadMyActivities({ rootState, commit }) {
+			const response = await rootState.da.getAllMyActivities();
+			commit("setActivities", response.data["success"]);
 		},
 		async saveActivityChanges({ state, commit }, { activityData }) {
 			return state.activityModel

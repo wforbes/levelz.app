@@ -34,10 +34,14 @@
 											<div
 												style="border: 0.1em solid grey; border-radius:4px; text-align:center;"
 											>
-												<p>Prototype Idea #0: Simple Activity Creation</p>
-												<ActivityPrototype0 />
+												<ActivityList />
+												<!-- 
+													<p>Prototype Idea #0: Simple Activity Creation</p>
+													<ActivityPrototype0 /> 
+												-->
 											</div>
 										</v-col>
+										<!--
 										<v-col sm="6" cols="12">
 											<div
 												style="border: 0.1em solid grey; border-radius:4px; text-align:center; padding-bottom:0.6em;"
@@ -48,6 +52,7 @@
 												</v-btn>
 											</div>
 										</v-col>
+										-->
 									</v-row>
 								</v-container>
 							</v-row>
@@ -73,7 +78,8 @@
 </template>
 
 <script>
-import ActivityPrototype0 from "../components/ActivityPrototype0.vue";
+//import ActivityPrototype0 from "../components/ActivityPrototype0.vue";
+import ActivityList from "../components/ActivityList.vue";
 import NotLoggedIn from "../../app/views/NotLoggedIn.vue";
 import NewActivityDialog from "../components/NewActivityDialog.vue";
 export default {
@@ -81,7 +87,8 @@ export default {
 	components: {
 		NotLoggedIn,
 		NewActivityDialog,
-		ActivityPrototype0
+		ActivityList
+		//ActivityPrototype0
 	},
 	data() {
 		return {
