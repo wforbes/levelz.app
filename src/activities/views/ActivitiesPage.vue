@@ -1,9 +1,47 @@
 <template>
 	<div>
 		<v-container>
+			<v-overlay :absolute="true" :value="helpOverlayOpen">
+				<v-card class="ml-2 mr-2 pa-5">
+					<v-row class="ml-3 mr-3">
+						<p>
+							You can use <strong>Activities</strong> to keep track of the stuff
+							you do and record how well you did them.
+						</p>
+						<p>Start by creating a new Activity (... more coming soon)</p>
+					</v-row>
+					<v-row>
+						<v-col cols="6" align="right">
+							<v-btn color="success" @click="closeHelpOverlay">
+								Ok, got it!
+							</v-btn>
+						</v-col>
+						<v-col cols="6" class="pt-4">
+							<router-link to="/help/activities">
+								Read more...
+							</router-link>
+						</v-col>
+					</v-row>
+				</v-card>
+			</v-overlay>
 			<v-row>
-				<v-col>
+				<v-col cols="10">
 					<h1>Activites</h1>
+				</v-col>
+				<v-col cols="2">
+					<v-tooltip bottom>
+						<template v-slot:activator="{ on, attrs }">
+							<v-icon
+								class="mt-3"
+								v-on="on"
+								v-bind="attrs"
+								@click="openHelpOverlay"
+							>
+								mdi-help-circle-outline
+							</v-icon>
+						</template>
+						<span>Help</span>
+					</v-tooltip>
 				</v-col>
 			</v-row>
 			<v-row>
@@ -14,31 +52,13 @@
 					<div v-if="userLoginStatus === 'loggedIn'">
 						<v-container>
 							<v-row>
-								<v-col>
-									<p>
-										You can use <strong>Activities</strong> to keep track of the
-										stuff you do.
-									</p>
-									<p>
-										When you complete
-										<strong>Activities</strong> you'll be awarded bonuses like
-										<strong>Experience Points</strong> to help you
-										<strong>Level Up</strong>!
-									</p>
-								</v-col>
-							</v-row>
-							<v-row>
 								<v-container>
 									<v-row>
-										<v-col sm="6" cols="12">
+										<v-col offset-md="2" md="8" cols="12">
 											<div
 												style="border: 0.1em solid grey; border-radius:4px; text-align:center;"
 											>
 												<ActivityList />
-												<!-- 
-													<p>Prototype Idea #0: Simple Activity Creation</p>
-													<ActivityPrototype0 /> 
-												-->
 											</div>
 										</v-col>
 										<!--
@@ -92,6 +112,7 @@ export default {
 	},
 	data() {
 		return {
+			helpOverlayOpen: false,
 			newActivityDialogOpen: false
 		};
 	},
@@ -101,6 +122,12 @@ export default {
 		}
 	},
 	methods: {
+		openHelpOverlay() {
+			this.helpOverlayOpen = true;
+		},
+		closeHelpOverlay() {
+			this.helpOverlayOpen = false;
+		},
 		openNewActivityDialog() {
 			this.newActivityDialogOpen = true;
 		},

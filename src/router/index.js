@@ -27,6 +27,17 @@ const routes = [
 			)
 	},
 	{
+		path: "/help",
+		name: "Help",
+		component: () =>
+			import(/* webpackChunkName: "bundle-Home" */ "../help/views/HelpPage.vue")
+	},
+	{
+		path: "/help/:topic",
+		component: () =>
+			import(/* webpackChunkName: "bundle-Home" */ "../help/views/HelpPage.vue")
+	},
+	{
 		path: "/auth",
 		name: "Auth",
 		component: () =>
