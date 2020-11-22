@@ -83,7 +83,7 @@
 									</v-row>
 									<v-row>
 										<v-col align="right">
-											<v-btn>Done</v-btn>
+											<v-btn @click="closeDialog">Done</v-btn>
 										</v-col>
 									</v-row>
 								</v-container>
