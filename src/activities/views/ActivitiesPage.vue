@@ -4,11 +4,13 @@
 			<v-overlay :absolute="true" :value="helpOverlayOpen">
 				<v-card class="ml-2 mr-2 pa-5">
 					<v-row class="ml-3 mr-3">
-						<p>
-							You can use <strong>Activities</strong> to keep track of the stuff
-							you do and record how well you did them.
-						</p>
-						<p>Start by creating a new Activity (... more coming soon)</p>
+						<v-col>
+							<p>
+								You can use <strong>Activities</strong> to keep track of the
+								stuff you do and record how well you did them.
+							</p>
+							<p>Start by creating a new Activity (... more coming soon)</p>
+						</v-col>
 					</v-row>
 					<v-row>
 						<v-col cols="6" align="right">
@@ -25,10 +27,10 @@
 				</v-card>
 			</v-overlay>
 			<v-row>
-				<v-col cols="10">
+				<v-col cols="9" class="pa-0 pl-5">
 					<h1>Activites</h1>
 				</v-col>
-				<v-col cols="2">
+				<v-col cols="2" align="right" class="pa-0">
 					<v-tooltip bottom>
 						<template v-slot:activator="{ on, attrs }">
 							<v-icon
@@ -45,54 +47,63 @@
 				</v-col>
 			</v-row>
 			<v-row>
-				<v-col>
+				<v-col class="pa-0">
 					<div v-if="userLoginStatus === 'loggedOut'">
 						<NotLoggedIn />
 					</div>
 					<div v-if="userLoginStatus === 'loggedIn'">
-						<v-container>
-							<v-row>
-								<v-container>
-									<v-row>
-										<v-col offset-md="2" md="8" cols="12">
-											<div
-												style="border: 0.1em solid grey; border-radius:4px; text-align:center;"
-											>
-												<ActivityList />
-											</div>
-										</v-col>
-										<!--
-										<v-col sm="6" cols="12">
-											<div
-												style="border: 0.1em solid grey; border-radius:4px; text-align:center; padding-bottom:0.6em;"
-											>
-												<p>Prototype Idea #1: Complex Activity Creation</p>
-												<v-btn @click="openNewActivityDialog">
-													Create New Activity
-												</v-btn>
-											</div>
-										</v-col>
-										-->
-									</v-row>
-								</v-container>
-							</v-row>
-						</v-container>
-						<!-- <v-row>
-								<v-col cols="12" sm="6">
-									<v-btn @click="openNewActivityDialog">
-										Create New Activity
-									</v-btn>
-								</v-col>
-							</v-row> -->
-						<!--<v-card class="pa-2" min-height="420"></v-card>-->
+						<v-stepper
+							v-model="stepper"
+							non-linear
+							class="elevation-0 pa-0 ma-0"
+						>
+							<v-stepper-items>
+								<v-stepper-content step="0" class="pa-0 ma-0">
+									<v-container>
+										<v-row>
+											<v-container>
+												<v-row>
+													<v-col cols="12">
+														<div
+															style="border: 0.1em solid grey; border-radius:4px; text-align:center;"
+														>
+															<ActivityList
+																@openCreateActivity="openCreateActivity"
+															/>
+														</div>
+													</v-col>
+												</v-row>
+											</v-container>
+										</v-row>
+									</v-container>
+								</v-stepper-content>
+							</v-stepper-items>
+							<v-stepper-items>
+								<v-stepper-content step="1">
+									<v-container>
+										<v-row>
+											<v-container>
+												<v-row>
+													<v-col offset-md="2" md="8" cols="12">
+														<div
+															style="border: 0.1em solid grey; border-radius:4px; text-align:center;"
+														></div>
+													</v-col>
+												</v-row>
+											</v-container>
+										</v-row>
+									</v-container>
+								</v-stepper-content>
+							</v-stepper-items>
+						</v-stepper>
 					</div>
 				</v-col>
 			</v-row>
 		</v-container>
-		<NewActivityDialog
-			:newActivityDialogOpen="newActivityDialogOpen"
+		<CreateActivityDialog
+			:dialogOpen="createActivityDialogOpen"
 			@saveNewActivity="saveNewActivity"
-			@closeNewActivityDialog="closeNewActivityDialog"
+			@closeDialog="closeCreateActivityDialog"
 		/>
 	</div>
 </template>
@@ -101,19 +112,20 @@
 //import ActivityPrototype0 from "../components/ActivityPrototype0.vue";
 import ActivityList from "../components/ActivityList.vue";
 import NotLoggedIn from "../../app/views/NotLoggedIn.vue";
-import NewActivityDialog from "../components/NewActivityDialog.vue";
+import CreateActivityDialog from "../components/CreateActivityDialog.vue";
 export default {
 	name: "ActivitesPage",
 	components: {
 		NotLoggedIn,
-		NewActivityDialog,
+		CreateActivityDialog,
 		ActivityList
 		//ActivityPrototype0
 	},
 	data() {
 		return {
 			helpOverlayOpen: false,
-			newActivityDialogOpen: false
+			stepper: 0,
+			createActivityDialogOpen: false
 		};
 	},
 	computed: {
@@ -128,15 +140,15 @@ export default {
 		closeHelpOverlay() {
 			this.helpOverlayOpen = false;
 		},
-		openNewActivityDialog() {
-			this.newActivityDialogOpen = true;
+		openCreateActivity() {
+			this.createActivityDialogOpen = true;
 		},
 		saveNewActivity(newActivity) {
 			console.log(newActivity);
 			this.newActivityDialogOpen = false;
 		},
-		closeNewActivityDialog() {
-			this.newActivityDialogOpen = false;
+		closeCreateActivityDialog() {
+			this.createActivityDialogOpen = false;
 		},
 		//TODO: add this to MIXIN
 		logout() {
