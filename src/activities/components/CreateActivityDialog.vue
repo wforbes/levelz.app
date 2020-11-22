@@ -156,8 +156,18 @@ export default {
 	},
 	methods: {
 		closeDialog() {
+			this.saveActivity();
 			this.$refs.newActivityForm.reset();
 			this.$emit("closeDialog");
+		},
+		saveActivity() {
+			if (this.activity.name !== "") {
+				console.log(this.activity.name);
+				this.$store.dispatch({
+					type: "showSnackBar",
+					text: "Your Activity Was Saved!"
+				});
+			}
 		},
 		openCreateActionDialog() {
 			this.createActionDialogOpen = true;

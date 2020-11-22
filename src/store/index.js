@@ -17,7 +17,9 @@ export default new Vuex.Store({
 		vue: undefined,
 		host: "",
 		da: undefined,
-		authDialogOpen: false
+		authDialogOpen: false,
+		snackBarSignal: false,
+		snackBarText: ""
 	},
 	getters: {
 		vue: state => {
@@ -31,6 +33,15 @@ export default new Vuex.Store({
 		},
 		authDialogOpen: state => {
 			return state.authDialogOpen;
+		},
+		snackBarOpen: state => {
+			return state.snackBarOpen;
+		},
+		snackBarSignal: state => {
+			return state.snackBarSignal;
+		},
+		snackBarText: state => {
+			return state.snackBarText;
 		}
 	},
 	actions: {
@@ -48,6 +59,12 @@ export default new Vuex.Store({
 		},
 		closeAuthDialog({ commit }) {
 			commit("setAuthDialogOpen", false);
+		},
+		showSnackBar({ commit }, { text }) {
+			commit("showSnackBar", text);
+		},
+		resetSnackBarSignal({ commit }) {
+			commit("resetSnackBarSignal");
 		}
 	},
 	mutations: {
@@ -62,6 +79,14 @@ export default new Vuex.Store({
 		},
 		setAuthDialogOpen(state, setting) {
 			state.authDialogOpen = setting;
+		},
+		showSnackBar(state, text) {
+			console.log("yep");
+			state.snackBarSignal = true;
+			state.snackBarText = text;
+		},
+		resetSnackBarSignal(state) {
+			state.snackBarSignal = false;
 		}
 	}
 });

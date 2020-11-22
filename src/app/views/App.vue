@@ -20,6 +20,7 @@
 			</v-container>
 		</v-main>
 		<Footer />
+		<SnackBar />
 	</v-app>
 </template>
 
@@ -28,11 +29,13 @@ import axios from "axios";
 
 import AppBar from "../components/AppBar.vue";
 import Footer from "../components/Footer.vue";
+import SnackBar from "../components/SnackBar.vue";
 export default {
 	name: "App",
 	components: {
 		AppBar,
-		Footer
+		Footer,
+		SnackBar
 	},
 	data() {
 		return {
