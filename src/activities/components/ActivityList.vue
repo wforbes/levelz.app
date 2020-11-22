@@ -10,12 +10,19 @@
 									<v-text-field
 										v-model="listSearchTerm"
 										outlined
+										rounded
 										placeholder="Search"
 										prepend-inner-icon="mdi-text-search"
 									></v-text-field>
 								</v-col>
-								<v-col cols="2" class="pt-0 pb-0" align="left">
-									<v-btn fab dark color="success" @click="openCreateActivity">
+								<v-col cols="2" class="pa-0 pt-2" align="left">
+									<v-btn
+										fab
+										small
+										dark
+										color="success"
+										@click="openCreateActivityDialog"
+									>
 										<v-icon dark>mdi-plus</v-icon>
 									</v-btn>
 								</v-col>
@@ -25,19 +32,31 @@
 				</v-row>
 			</v-container>
 		</v-card>
+		<CreateActivityDialog
+			:dialogOpen="createActivityDialogOpen"
+			@closeDialog="closeCreateActivityDialog"
+		/>
 	</div>
 </template>
 <script>
+import CreateActivityDialog from "./CreateActivityDialog.vue";
 export default {
 	name: "ActivityList",
+	components: {
+		CreateActivityDialog
+	},
 	data() {
 		return {
+			createActivityDialogOpen: false,
 			listSearchTerm: ""
 		};
 	},
 	methods: {
-		openCreateActivity() {
-			this.$emit("openCreateActivity");
+		openCreateActivityDialog() {
+			this.createActivityDialogOpen = true;
+		},
+		closeCreateActivityDialog() {
+			this.createActivityDialogOpen = false;
 		}
 	}
 };
