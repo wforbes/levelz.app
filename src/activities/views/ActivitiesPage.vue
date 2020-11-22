@@ -52,11 +52,7 @@
 						<NotLoggedIn />
 					</div>
 					<div v-if="userLoginStatus === 'loggedIn'">
-						<v-stepper
-							v-model="stepper"
-							non-linear
-							class="elevation-0 pa-0 ma-0"
-						>
+						<v-stepper v-model="stepper" class="elevation-0 pa-0 ma-0">
 							<v-stepper-items>
 								<v-stepper-content step="0" class="pa-0 ma-0">
 									<v-container>
@@ -67,9 +63,7 @@
 														<div
 															style="border: 0.1em solid grey; border-radius:4px; text-align:center;"
 														>
-															<ActivityList
-																@openCreateActivity="openCreateActivity"
-															/>
+															<ActivityList />
 														</div>
 													</v-col>
 												</v-row>
@@ -79,12 +73,12 @@
 								</v-stepper-content>
 							</v-stepper-items>
 							<v-stepper-items>
-								<v-stepper-content step="1">
+								<v-stepper-content step="1" class="pa-0 ma-0">
 									<v-container>
 										<v-row>
 											<v-container>
 												<v-row>
-													<v-col offset-md="2" md="8" cols="12">
+													<v-col cols="12">
 														<div
 															style="border: 0.1em solid grey; border-radius:4px; text-align:center;"
 														></div>
@@ -100,26 +94,17 @@
 				</v-col>
 			</v-row>
 		</v-container>
-		<CreateActivityDialog
-			:dialogOpen="createActivityDialogOpen"
-			@saveNewActivity="saveNewActivity"
-			@closeDialog="closeCreateActivityDialog"
-		/>
 	</div>
 </template>
 
 <script>
-//import ActivityPrototype0 from "../components/ActivityPrototype0.vue";
 import ActivityList from "../components/ActivityList.vue";
 import NotLoggedIn from "../../app/views/NotLoggedIn.vue";
-import CreateActivityDialog from "../components/CreateActivityDialog.vue";
 export default {
 	name: "ActivitesPage",
 	components: {
 		NotLoggedIn,
-		CreateActivityDialog,
 		ActivityList
-		//ActivityPrototype0
 	},
 	data() {
 		return {
@@ -139,16 +124,6 @@ export default {
 		},
 		closeHelpOverlay() {
 			this.helpOverlayOpen = false;
-		},
-		openCreateActivity() {
-			this.createActivityDialogOpen = true;
-		},
-		saveNewActivity(newActivity) {
-			console.log(newActivity);
-			this.newActivityDialogOpen = false;
-		},
-		closeCreateActivityDialog() {
-			this.createActivityDialogOpen = false;
 		},
 		//TODO: add this to MIXIN
 		logout() {
