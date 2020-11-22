@@ -18,7 +18,7 @@
 				<v-container>
 					<v-row>
 						<v-col cols="12" md="6">
-							<ConfigureActionTypeForm :type="type" />
+							<ConfigureActionTypeForm :dialogOpen="dialogOpen" :type="type" />
 						</v-col>
 					</v-row>
 				</v-container>
@@ -35,9 +35,7 @@ export default {
 		ConfigureActionTypeForm
 	},
 	data() {
-		return {
-			
-		};
+		return {};
 	},
 	computed: {
 		toolbarTitle() {
@@ -46,7 +44,6 @@ export default {
 	},
 	methods: {
 		closeDialog() {
-			this.$refs.configureTypeForm.reset();
 			this.$emit("closeDialog");
 		}
 	}
