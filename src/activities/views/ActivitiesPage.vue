@@ -63,7 +63,9 @@
 														<div
 															style="border: 0.1em solid grey; border-radius:4px; text-align:center;"
 														>
-															<ActivityList />
+															<ActivityList
+																@openHelpOverlay="openHelpOverlay"
+															/>
 														</div>
 													</v-col>
 												</v-row>

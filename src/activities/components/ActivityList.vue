@@ -29,7 +29,7 @@
 							</v-row>
 							<v-row>
 								<v-col>
-									<div v-if="showListSkeleton === true">
+									<div v-if="listIsLoading">
 										<v-skeleton-loader
 											height="5em"
 											class="elevation-5 mb-2"
@@ -41,7 +41,10 @@
 											type="list-item-two-line"
 										></v-skeleton-loader>
 									</div>
-									<v-list v-if="activities.length > 0" class="pa-1">
+									<v-list
+										v-if="activities.length > 0 && !listIsLoading"
+										class="pa-1"
+									>
 										<v-list-item
 											v-for="activity in activities"
 											:key="activity.id"
@@ -60,6 +63,43 @@
 											</v-list-item-content>
 										</v-list-item>
 									</v-list>
+									<v-card
+										v-if="!listIsLoading && activities.length === 0"
+										width="100%"
+										height="100%"
+										elevation="5"
+									>
+										<v-container>
+											<v-row>
+												<v-col>
+													<h3>
+														You don't have any Activities!
+													</h3>
+													<br />
+													<p>
+														Click the
+														<v-btn
+															fab
+															x-small
+															dark
+															color="success"
+															@click="openCreateActivityDialog"
+														>
+															<v-icon dark>mdi-plus</v-icon>
+														</v-btn>
+														button to begin adding an Activity.
+													</p>
+													<p>
+														Click the
+														<v-icon @click="openHelpOverlay">
+															mdi-help-circle-outline
+														</v-icon>
+														for more information.
+													</p>
+												</v-col>
+											</v-row>
+										</v-container>
+									</v-card>
 								</v-col>
 							</v-row>
 						</v-container>
@@ -89,7 +129,7 @@ export default {
 	},
 	data() {
 		return {
-			showListSkeleton: true,
+			listIsLoading: true,
 			listSearchTerm: "",
 			createActivityDialogOpen: false,
 			focusActivity: {},
@@ -97,9 +137,9 @@ export default {
 		};
 	},
 	async created() {
-		this.showListSkeleton = true;
+		this.listIsLoading = true;
 		await this.$store.dispatch("loadMyActivities").then(() => {
-			this.showListSkeleton = false;
+			this.listIsLoading = false;
 		});
 	},
 	computed: {
@@ -120,6 +160,9 @@ export default {
 		},
 		closeActivityDialog() {
 			this.activityDialogOpen = false;
+		},
+		openHelpOverlay() {
+			this.$emit("openHelpOverlay");
 		}
 	}
 };
