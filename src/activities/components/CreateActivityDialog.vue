@@ -165,6 +165,7 @@ export default {
 				await this.saveActivity();
 			}
 			this.$refs.newActivityForm.reset();
+			this.activity = Object.assign(this.activity, this.emptyActivity);
 			this.$emit("closeDialog");
 		},
 		activityNameExists(name) {
