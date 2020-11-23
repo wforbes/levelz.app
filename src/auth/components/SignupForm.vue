@@ -125,7 +125,7 @@ export default {
 					this.emailRegex.test(value) || "A valid Email is required.",
 				usernameLength: value =>
 					(value.length >= 3 && value.length <= 20) ||
-					"Must be between 2 and 20 characters.",
+					"Must be between 3 and 20 characters.",
 				usernameValid: value =>
 					this.isValidUsername(value) || this.usernameValidationMsg,
 				passwordLength: value =>
@@ -164,7 +164,7 @@ export default {
 						r: this.newRepeatPassword,
 						e: this.newEmail
 					}
-				})
+				}) //TODO: move this response parsing to auth model
 				.then(response => {
 					if (response.data["success"]) {
 						this.$store.dispatch({
