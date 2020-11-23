@@ -6,7 +6,7 @@
 					<v-col class="pt-0 pl-1 pr-1 pb-0">
 						<v-container class="pa-0">
 							<v-row>
-								<v-col cols="10" class="pt-0 pb-0">
+								<v-col cols="10" class="pt-0 pb-0 mb-0">
 									<v-text-field
 										v-model="listSearchTerm"
 										outlined
@@ -14,6 +14,35 @@
 										placeholder="Search"
 										prepend-inner-icon="mdi-text-search"
 									></v-text-field>
+									<v-card
+										v-if="listSearchTerm !== ''"
+										style="margin-top:-1.2em;"
+										min-height="2em"
+										class="pa-1"
+										align="left"
+									>
+										<v-row>
+											<v-col cols="10">
+												<div style="overflow-y:auto;">
+													Filtering list by:
+													<strong>{{ listSearchTerm }}</strong>
+												</div>
+											</v-col>
+											<v-col cols="2" align="right" class="pt-1">
+												<v-btn
+													fab
+													small
+													dark
+													color="error"
+													@click="listSearchTerm = ''"
+												>
+													<v-icon dark>
+														mdi-close
+													</v-icon>
+												</v-btn>
+											</v-col>
+										</v-row>
+									</v-card>
 								</v-col>
 								<v-col cols="2" class="pa-0 pt-2" align="left">
 									<v-btn
@@ -42,11 +71,13 @@
 										></v-skeleton-loader>
 									</div>
 									<v-list
-										v-if="activities.length > 0 && !listIsLoading"
-										class="pa-1"
+										v-if="filteredActivities.length > 0 && !listIsLoading"
+										class="pa-1 overflow-y-auto"
+										style="border: 0.1em solid grey; border-radius:0.3em"
+										max-height="52vh"
 									>
 										<v-list-item
-											v-for="activity in activities"
+											v-for="activity in filteredActivities"
 											:key="activity.id"
 											style="border-radius:4px; height:5em;cursor:pointer;"
 											class="elevation-5 mb-2"
@@ -100,6 +131,29 @@
 											</v-row>
 										</v-container>
 									</v-card>
+									<v-card
+										v-if="
+											listSearchTerm !== '' &&
+												filteredActivities.length === 0 &&
+												activities.length > 0
+										"
+										width="100%"
+										height="100%"
+										elevation="5"
+									>
+										<v-container>
+											<v-row>
+												<v-col>
+													<h3>
+														Sorry, no Activities contain '{{ listSearchTerm }}'.
+													</h3>
+													<v-btn @click="listSearchTerm = ''">
+														Reset Search
+													</v-btn>
+												</v-col>
+											</v-row>
+										</v-container>
+									</v-card>
 								</v-col>
 							</v-row>
 						</v-container>
@@ -119,10 +173,12 @@
 	</div>
 </template>
 <script>
+import { util } from "@/mixins/util.js";
 import CreateActivityDialog from "./CreateActivityDialog.vue";
 import ActivityDialog from "./ActivityDialog.vue";
 export default {
 	name: "ActivityList",
+	mixins: [util],
 	components: {
 		CreateActivityDialog,
 		ActivityDialog
@@ -136,16 +192,32 @@ export default {
 			activityDialogOpen: false
 		};
 	},
+	computed: {
+		activities() {
+			return this.$store.getters.activities;
+		},
+		filteredActivities() {
+			return this.orderBy(
+				this.activities.filter(activity => {
+					if (!this.listSearchTerm) return this.activities;
+					return (
+						activity.name
+							.toLowerCase()
+							.includes(this.listSearchTerm.toLowerCase()) ||
+						activity.description
+							.toLowerCase()
+							.includes(this.listSearchTerm.toLowerCase())
+					);
+				}),
+				"name"
+			);
+		}
+	},
 	async created() {
 		this.listIsLoading = true;
 		await this.$store.dispatch("loadMyActivities").then(() => {
 			this.listIsLoading = false;
 		});
-	},
-	computed: {
-		activities() {
-			return this.$store.getters.activities;
-		}
 	},
 	methods: {
 		openCreateActivityDialog() {
