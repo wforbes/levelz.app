@@ -18,6 +18,24 @@ export const util = {
 		},
 		cloneDeep(o) {
 			return _.cloneDeep(o);
+		},
+		isEmpty(v) {
+			return (
+				typeof v === "undefined" ||
+				v === null ||
+				// eslint-disable-next-line no-prototype-builtins
+				(v.hasOwnProperty("length") && v.length === 0) ||
+				(v.constructor === Object && Object.keys(v).length === 0)
+			);
+		},
+		isEqual(o) {
+			return _.isEqual(o);
+		},
+		getRandomInt(max) {
+			return Math.floor(Math.random() * Math.floor(max));
+		},
+		orderBy(collection, iteratees, orders) {
+			return _.orderBy(collection, iteratees, orders);
 		}
 	}
 };
