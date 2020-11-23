@@ -31,6 +31,10 @@ export default class DataAccess {
 		return this.dataContext.getActivitySuggestions();
 	}
 
+	activityNameExists(name) {
+		return this.dataContext.activityNameExists(name);
+	}
+
 	createNewActivity(activityData) {
 		return this.dataContext.createNewActivity(activityData);
 	}

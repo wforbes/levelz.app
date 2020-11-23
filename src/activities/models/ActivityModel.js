@@ -1,13 +1,16 @@
-import DataAccess from "../../lib/data/DataAccess.js";
 class ActivityModel {
 	da;
 
-	constructor() {
-		this.da = new DataAccess();
+	constructor(da) {
+		this.da = da;
 	}
 
 	getActivitySuggestions() {
 		return this.da.getActivitySuggestions();
+	}
+
+	activityNameExists(name) {
+		return this.da.activityNameExists(name);
 	}
 
 	createNewActivity(activityData) {

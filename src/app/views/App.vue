@@ -54,6 +54,7 @@ export default {
 				vue: this
 			});
 			this.$store.dispatch("setDataAccess");
+			this.$store.dispatch("initModels");
 			this.$store.dispatch({
 				type: "setHost",
 				host:

@@ -51,6 +51,9 @@ export default new Vuex.Store({
 		setDataAccess({ commit }) {
 			commit("setDataAccess", new DataAccess(this.getters.vue));
 		},
+		initModels({ dispatch }) {
+			dispatch("initActivityModel");
+		},
 		setHost({ commit }, { host }) {
 			commit("setHost", host);
 		},
@@ -81,7 +84,6 @@ export default new Vuex.Store({
 			state.authDialogOpen = setting;
 		},
 		showSnackBar(state, text) {
-			console.log("yep");
 			state.snackBarSignal = true;
 			state.snackBarText = text;
 		},

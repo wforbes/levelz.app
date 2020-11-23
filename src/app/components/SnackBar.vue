@@ -21,7 +21,7 @@ export default {
 	name: "SnackBar",
 	data() {
 		return {
-			snackBarTimeout: 2000,
+			snackBarTimeout: 5000,
 			snackBarOpen: false
 		};
 	},
@@ -35,7 +35,6 @@ export default {
 	},
 	watch: {
 		snackBarSignal(n, o) {
-			console.log("saw signal");
 			if (n && !o) {
 				this.snackBarOpen = true;
 				this.$store.dispatch("resetSnackBarSignal");

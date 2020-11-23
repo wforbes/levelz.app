@@ -123,13 +123,34 @@ class PDOMySQL {
 	//name: thisExists
 	//params: m-model, f-field, v-value
 	//desc: Checks to see if this value exists in this field on this model's table
+	//	IMPORTANT: if the $f and $v params is an array it checks with AND's in the where clause
+	//	forms a sql statement like: "SELECT EXISTS(SELECT * from <model> where <field>=? AND <field>=? LIMIT 1);
+	//	!! Doesn't detect if duplicates exist
 	//return: true if value only exists once
 	public function thisExists($m, $f, $v):bool {
-		$s = $this->connection->prepare("SELECT EXISTS(SELECT * from `$m` where `$f`=? LIMIT 1);");
-		$s->bindParam(1,$v);
-		$s->execute();
-		$all = $s->fetchAll();
-		return ( $all[0][0] === "1");
+		$s = "SELECT EXISTS(SELECT * from `$m` where ";
+		if(\is_array($f)) {
+			foreach ($f as $a) {
+				$s .= "`$a`=?";
+				if ($a !== end($f)) {
+					$s .= " AND ";
+				} else {
+					$s .= " LIMIT 1);";
+				}
+			}
+			$stmt = $this->connection->prepare($s);
+			$this->bindValues($stmt, $v);
+		} else {
+			$s .= "`$f`=? LIMIT 1);";
+			$stmt = $this->connection->prepare($s);
+			$stmt->bindParam(1,$v);
+		}
+		
+		//$stmt = $this->connection->prepare("SELECT EXISTS(SELECT * from `$m` where `$f`=? LIMIT 1);");
+		
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		return ( $result[0][0] === "1");
 	}
 	
 	//name: insertNew

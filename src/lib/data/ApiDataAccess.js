@@ -57,6 +57,10 @@ export default class ApiDataAccess {
 		return this.callAPI("activity", "getActivitySuggestions");
 	}
 
+	activityNameExists(name) {
+		return this.callAPI("activity", "activityNameExists", { name: name });
+	}
+
 	createNewActivity(activityData) {
 		return this.callAPI("activity", "createNewActivity", activityData);
 	}

@@ -27,6 +27,10 @@ class ActivityModel extends Model
         ];
 	}
 
+	public function activityNameExists($userId, $name) {
+		return $this->app->db->thisExists($this->getModelData()[0], ["userId", "name"], [$userId, $name]);
+	}
+
 	public function createNewActivity($data) {
 		$model = $this->getModelName();
 		$fields = $this->getModelColumns();
@@ -34,7 +38,7 @@ class ActivityModel extends Model
 	}
 
 	public function getActivitiesByUserId($userId) {
-		return $this->app->db->gbi("*",["userId"=>$userId],"activity");
+		return $this->app->db->gbi("*", ["userId"=>$userId], $this->getModelData()[0]);
 	}
 	
 	public function saveActivityChanges($data) {

@@ -8,7 +8,7 @@
 			hide-overlay
 		>
 			<v-card>
-				<v-toolbar dark dense flat elevation="5" height="56px">
+				<v-toolbar dark dense flat elevation="5" height="64px">
 					<v-btn @click="closeDialog" icon>
 						<v-icon>mdi-arrow-left</v-icon>
 					</v-btn>
@@ -27,8 +27,11 @@
 												outlined
 												:placeholder="newActivitySuggestion"
 												label="Activity Name"
-												:rules="[rules.required]"
-												validate-on-blur
+												:rules="[
+													rules.required,
+													rules.nameAlreadyExists,
+													rules.nameLength
+												]"
 											></v-text-field>
 										</v-col>
 									</v-row>
@@ -103,7 +106,6 @@ export default {
 	data() {
 		return {
 			toolbarTitle: "Create Activity",
-			isLoaded: false,
 			randomSuggestion: "",
 			createActionDialogOpen: false,
 			activity: {
@@ -119,18 +121,21 @@ export default {
 				actions: []
 			},
 			rules: {
-				required: value => !!value || "This can't be blank."
+				required: value => !!value || "This can't be blank.",
+				nameAlreadyExists: value =>
+					(value && !this.activityNameExists(value)) || this.nameExistsMsg,
+				nameLength: value =>
+					(value && value.length >= 3 && value.length <= 70) ||
+					"Must be between 3 and 70 characters."
 				//TODO: check description upper bound length
-			}
+			},
+			nameExistsMsg: "You already have an Activity by that name!"
 		};
 	},
-	created() {},
+	created() {
+		//console.log(this.rules.alreadyExists("test"));
+	},
 	watch: {
-		isLoaded(nV, oV) {
-			if (nV && !oV) {
-				console.log("isLoaded");
-			}
-		},
 		async dialogOpen(newVal, oldVal) {
 			if (newVal && !oldVal) {
 				await this.$store.dispatch("loadActivitySuggestions");
@@ -155,19 +160,40 @@ export default {
 		}
 	},
 	methods: {
-		closeDialog() {
-			this.saveActivity();
+		async closeDialog() {
+			if (this.$refs.newActivityForm.validate()) {
+				await this.saveActivity();
+			}
 			this.$refs.newActivityForm.reset();
 			this.$emit("closeDialog");
 		},
-		saveActivity() {
-			if (this.activity.name !== "") {
-				console.log(this.activity.name);
-				this.$store.dispatch({
-					type: "showSnackBar",
-					text: "Your Activity Was Saved!"
+		activityNameExists(name) {
+			return this.activities.filter(a => a.name === name).length > 0;
+		},
+		async saveActivity() {
+			return this.$store
+				.dispatch({
+					type: "createNewActivity",
+					newActivity: this.activity
+				})
+				.then(response => {
+					let notification = "";
+					if (response.data.success === true) {
+						this.$store.dispatch({
+							type: "addActivityToList",
+							activity: response.data.newActivity
+						});
+						notification = "Your Activity Was Saved!";
+					} else {
+						notification = "Your Activity Couldn't Be Saved...";
+					}
+					this.$store.dispatch({
+						type: "showSnackBar",
+						text:
+							"message" in response.data ? response.data.message : notification
+					});
+					return Promise.resolve();
 				});
-			}
 		},
 		openCreateActionDialog() {
 			this.createActionDialogOpen = true;

@@ -2,7 +2,7 @@ import ActivityModel from "./ActivityModel.js";
 
 export default {
 	state: {
-		activityModel: new ActivityModel(),
+		activityModel: undefined,
 		activitySuggestions: [],
 		activities: []
 	},
@@ -15,23 +15,33 @@ export default {
 		}
 	},
 	actions: {
-		loadActivitySuggestions({ rootState, commit }) {
-			return rootState.da.getActivitySuggestions().then(response => {
+		initActivityModel({ commit, rootState }) {
+			commit("initActivityModel", new ActivityModel(rootState.da));
+		},
+		loadActivitySuggestions({ state, commit }) {
+			return state.activityModel.getActivitySuggestions().then(response => {
 				if (response.data["success"]) {
 					commit("setActivitySuggestions", response.data["success"]);
 				}
 			});
 		},
-		async createNewActivity({ rootState }, { newActivity }) {
+		activityNameExists({ state }, { name }) {
+			return state.activityModel.activityNameExists(name);
+		},
+		createNewActivity({ state }, { newActivity }) {
 			const activityData = {
 				name: newActivity.name,
 				description: newActivity.description
 			};
-			return await rootState.da.createNewActivity(activityData);
+			return state.activityModel.createNewActivity(activityData);
 		},
-		async loadMyActivities({ rootState, commit }) {
-			const response = await rootState.da.getAllMyActivities();
+		addActivityToList({ commit }, { activity }) {
+			commit("addActivityToList", activity);
+		},
+		async loadMyActivities({ state, commit }) {
+			const response = await state.activityModel.getAllMyActivities();
 			commit("setActivities", response.data["success"]);
+			return Promise.resolve();
 		},
 		async saveActivityChanges({ state, commit }, { activityData }) {
 			return state.activityModel
@@ -42,11 +52,17 @@ export default {
 		}
 	},
 	mutations: {
+		initActivityModel(state, newActivityModel) {
+			state.activityModel = newActivityModel;
+		},
 		setActivitySuggestions(state, suggestions) {
 			state.activitySuggestions = suggestions;
 		},
 		setActivities(state, activities) {
 			state.activities = [...activities];
+		},
+		addActivityToList(state, activity) {
+			state.activities.unshift(activity);
 		},
 		updateActivityOnList(state, updated) {
 			const index = state.activities.findIndex(a => a.id === updated.id);

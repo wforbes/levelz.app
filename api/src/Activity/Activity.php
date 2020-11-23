@@ -26,14 +26,40 @@ class Activity {
 		return ["success" => $result];
 	}
 
+	public function activityNameExists($data) {
+		$name = \is_array($data) ? $data["name"] : $data;
+		return $this->model->activityNameExists($_SESSION["d"]["userId"], $name);
+	}
+
 	public function createNewActivity($newActivity) {
-		$id = Uuid::v4();
-		$userId = $_SESSION["d"]["userId"];
 		$name = $newActivity["name"];
 		$desc = $newActivity["description"];
-		$activityData = [$id, $userId, $name, $desc];
+		if (strlen($name) < 3) {
+			return ["success" => false, "message" => "Error: Activity names must be longer than 2 characters."];
+		}
+
+		if (strlen($name) > 70) {
+			return ["success" => false, "message" => "Error: Activity names must be shorter than 70 characters."];
+		}
+		
+		if ($this->activityNameExists($name)) {
+			return ["success" => false, "message" => "Error: You already have an activity named '".$name."'! Try another name."];
+		}
+
+		//$descIsValid = $this->model->activityDescIsValid($desc);
+		
+		$id = Uuid::v4();
+		$activityData = [$id, $_SESSION["d"]["userId"], $name, $desc];
 		$result = $this->model->createNewActivity($activityData);
-		return ["success" => $result];
+		$returnArray = ["success" => $result];
+		if ($result) {
+			$returnArray["newActivity"] = [
+				"id" => $id,
+				"name" => $name,
+				"description" => $desc
+			]; 
+		}
+		return $returnArray;
 	}
 
 	public function getAllMyActivities() {
