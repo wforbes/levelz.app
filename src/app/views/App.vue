@@ -44,26 +44,8 @@ export default {
 	},
 	async created() {
 		axios.defaults.withCredentials = true;
-		this.setupStore();
-		this.$store.dispatch("initSession");
+		this.$store.dispatch({ type: "setupStore", vue: this });
 	},
-	methods: {
-		setupStore() {
-			this.$store.dispatch({
-				type: "setVue",
-				vue: this
-			});
-			this.$store.dispatch("setDataAccess");
-			this.$store.dispatch("initModels");
-			this.$store.dispatch({
-				type: "setHost",
-				host:
-					window.location.host === this.localhost ||
-					window.location.host.href === this.localhost
-						? "http://localhost/levelz.app/"
-						: ""
-			});
-		}
-	}
+	methods: {}
 };
 </script>
