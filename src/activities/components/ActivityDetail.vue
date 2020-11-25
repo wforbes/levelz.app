@@ -1,9 +1,14 @@
 <template>
-	<div>
-		<v-card>
-			<v-container class="pb-0">
-				<v-row>
-					<v-col class="pt-0 pl-1 pr-1 pb-0">
+	<v-dialog
+		v-model="dialogOpen"
+		transition="slide-x-transition"
+		class="ma-0"
+		hide-overlay
+	>
+		<v-card height="90vh" width="100%" class="pa-0">
+			<v-container class="pa-0 pt-4">
+				<v-row class="ma-0 pa-0">
+					<v-col class="pt-0 pb-0">
 						<v-container class="pa-0">
 							<v-row>
 								<v-col cols="10" class="pt-0 pb-0 mb-0">
@@ -50,7 +55,7 @@
 										small
 										dark
 										color="success"
-										@click="openCreateActivityDialog"
+										@click="openCreateActionForm"
 									>
 										<v-icon dark>mdi-plus</v-icon>
 									</v-btn>
@@ -71,31 +76,31 @@
 										></v-skeleton-loader>
 									</div>
 									<v-list
-										v-if="filteredActivities.length > 0 && !listIsLoading"
+										v-if="filteredActions.length > 0 && !listIsLoading"
 										class="pa-1 overflow-y-auto"
 										style="border: 0.1em solid grey; border-radius:0.3em"
 										max-height="52vh"
 									>
 										<v-list-item
-											v-for="activity in filteredActivities"
-											:key="activity.id"
+											v-for="action in filteredActions"
+											:key="action.id"
 											style="border-radius:4px; height:5em;cursor:pointer;"
 											class="elevation-5 mb-2"
 											ripple
-											@click="openActivityDetailDialog(activity)"
+											@click="openActionForm(action)"
 										>
 											<v-list-item-content>
 												<v-list-item-title
-													v-html="activity.name"
+													v-html="action.name"
 												></v-list-item-title>
 												<v-list-item-subtitle
-													v-html="activity.description"
+													v-html="action.description"
 												></v-list-item-subtitle>
 											</v-list-item-content>
 										</v-list-item>
 									</v-list>
 									<v-card
-										v-if="!listIsLoading && activities.length === 0"
+										v-if="!listIsLoading && actions.length === 0"
 										width="100%"
 										height="100%"
 										elevation="5"
@@ -104,7 +109,7 @@
 											<v-row>
 												<v-col>
 													<h3>
-														You don't have any Activities!
+														This Activity doesn't have any Actions!
 													</h3>
 													<br />
 													<p>
@@ -114,11 +119,11 @@
 															x-small
 															dark
 															color="success"
-															@click="openCreateActivityForm"
+															@click="openCreateActionForm"
 														>
 															<v-icon dark>mdi-plus</v-icon>
 														</v-btn>
-														button to begin adding an Activity.
+														button to begin adding Actions.
 													</p>
 													<p>
 														Click the
@@ -134,8 +139,8 @@
 									<v-card
 										v-if="
 											listSearchTerm !== '' &&
-												filteredActivities.length === 0 &&
-												activities.length > 0
+												filteredActions.length === 0 &&
+												actions.length > 0
 										"
 										width="100%"
 										height="100%"
@@ -145,7 +150,7 @@
 											<v-row>
 												<v-col>
 													<h3>
-														Sorry, no Activities contain '{{ listSearchTerm }}'.
+														Sorry, no Actions contain '{{ listSearchTerm }}'.
 													</h3>
 													<v-btn @click="listSearchTerm = ''">
 														Reset Search
@@ -161,51 +166,51 @@
 				</v-row>
 			</v-container>
 		</v-card>
-		<CreateActivityDialog
-			:dialogOpen="createActivityDialogOpen"
-			@closeDialog="closeCreateActivityDialog"
-		/>
-		<!--
-		<ActivityDialog
-			:dialogOpen="activityDialogOpen"
-			:focusActivity="focusActivity"
-			@closeDialog="closeActivityDialog"
-		/>-->
-	</div>
+	</v-dialog>
 </template>
+<style>
+.v-dialog {
+	margin: 5.14vh 0 0;
+}
+</style>
 <script>
 import { util } from "@/mixins/util.js";
-import CreateActivityDialog from "./CreateActivityDialog.vue";
-//import ActivityDialog from "./ActivityDialog.vue";
 export default {
-	name: "ActivityList",
+	name: "ActivityDetail",
+	props: ["dialogOpen"],
 	mixins: [util],
-	components: {
-		CreateActivityDialog,
-		//ActivityDialog
-	},
 	data() {
 		return {
 			listIsLoading: true,
 			listSearchTerm: "",
-			createActivityDialogOpen: false,
-			focusActivity: {},
-			activityDialogOpen: false
+			focusActivity: {}
 		};
 	},
 	computed: {
-		activities() {
-			return this.$store.getters.activities;
+		actions() {
+			//return this.$store.getters.actions;
+			return [
+				{
+					id: 0,
+					name: "Test Action 1",
+					desc: "Test Action 1's Description!"
+				},
+				{
+					id: 1,
+					name: "Test Action 2",
+					desc: "Test Action 2's Description!"
+				}
+			];
 		},
-		filteredActivities() {
+		filteredActions() {
 			return this.orderBy(
-				this.activities.filter(activity => {
-					if (!this.listSearchTerm) return this.activities;
+				this.actions.filter(actions => {
+					if (!this.listSearchTerm) return this.actions;
 					return (
-						activity.name
+						actions.name
 							.toLowerCase()
 							.includes(this.listSearchTerm.toLowerCase()) ||
-						activity.description
+						actions.description
 							.toLowerCase()
 							.includes(this.listSearchTerm.toLowerCase())
 					);
@@ -214,29 +219,15 @@ export default {
 			);
 		}
 	},
-	async created() {
-		this.listIsLoading = true;
-		await this.$store.dispatch("loadMyActivities").then(() => {
-			this.listIsLoading = false;
-		});
-	},
 	methods: {
-		openCreateActivityDialog() {
-			this.createActivityDialogOpen = true;
-		},
-		closeCreateActivityDialog() {
-			this.createActivityDialogOpen = false;
-		},
-		openActivityDetailDialog(activity) {
-			this.$emit("openActivityDetailDialog");
-			this.focusActivity = activity;
-			this.activityDialogOpen = true;
-		},
-		closeActivityDetail() {
-			this.activityDialogOpen = false;
+		closeThisView() {
+			this.$emit("closeActivityDetail");
 		},
 		openHelpOverlay() {
 			this.$emit("openHelpOverlay");
+		},
+		openCreateActionForm() {
+			console.log("openCreateActionForm");
 		}
 	}
 };

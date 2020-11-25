@@ -14,25 +14,23 @@
 					<v-toolbar-title>{{ toolbarTitle }}</v-toolbar-title>
 					<v-spacer></v-spacer>
 				</v-toolbar>
-				<v-stepper v-model="stepView">
+				<v-stepper v-model="stepView" style="min-height:calc(100vh - 64px);">
 					<v-stepper-items>
 						<v-stepper-content step="0">
-							<v-card>
-								<v-container>
-									<v-row>
-										<v-col cols="12"></v-col>
-									</v-row>
-								</v-container>
-							</v-card>
+							<v-container>
+								<v-row>
+									<v-col cols="12">
+										
+									</v-col>
+								</v-row>
+							</v-container>
 						</v-stepper-content>
 						<v-stepper-content step="1">
-							<v-card>
-								<v-container class="">
-									<v-row>
-										<v-col cols="12" sm="6"></v-col>
-									</v-row>
-								</v-container>
-							</v-card>
+							<v-container class="">
+								<v-row>
+									<v-col cols="12" sm="6"></v-col>
+								</v-row>
+							</v-container>
 						</v-stepper-content>
 					</v-stepper-items>
 				</v-stepper>

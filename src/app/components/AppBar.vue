@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<NavMenu :navMenuIsOpen="navMenuIsOpen" @closeNavMenu="closeNavMenu" />
-		<v-app-bar app dark>
+		<v-app-bar app dark height="64px">
 			<v-container>
 				<v-row>
 					<v-col

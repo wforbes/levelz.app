@@ -57,19 +57,16 @@
 								<v-stepper-content step="0" class="pa-0 ma-0">
 									<v-container>
 										<v-row>
-											<v-container>
-												<v-row>
-													<v-col cols="12">
-														<div
-															style="border: 0.1em solid grey; border-radius:4px; text-align:center;"
-														>
-															<ActivityList
-																@openHelpOverlay="openHelpOverlay"
-															/>
-														</div>
-													</v-col>
-												</v-row>
-											</v-container>
+											<v-col cols="12">
+												<div
+													style="border: 0.1em solid grey; border-radius:4px; text-align:center;"
+												>
+													<ActivityList
+														@openHelpOverlay="openHelpOverlay"
+														@openActivityDetailDialog="openActivityDetailDialog"
+													/>
+												</div>
+											</v-col>
 										</v-row>
 									</v-container>
 								</v-stepper-content>
@@ -78,15 +75,16 @@
 								<v-stepper-content step="1" class="pa-0 ma-0">
 									<v-container>
 										<v-row>
-											<v-container>
-												<v-row>
-													<v-col cols="12">
-														<div
-															style="border: 0.1em solid grey; border-radius:4px; text-align:center;"
-														></div>
-													</v-col>
-												</v-row>
-											</v-container>
+											<v-col cols="12">
+												<div
+													style="border: 0.1em solid grey; border-radius:4px; text-align:center;"
+												>
+													<ActivityDetail
+														:dialogOpen="activityDetailDialogOpen"
+														@closeActivityDetail="closeActivityDetail"
+													/>
+												</div>
+											</v-col>
 										</v-row>
 									</v-container>
 								</v-stepper-content>
@@ -100,19 +98,22 @@
 </template>
 
 <script>
+import ActivityDetail from "../components/ActivityDetail.vue";
 import ActivityList from "../components/ActivityList.vue";
 import NotLoggedIn from "../../app/views/NotLoggedIn.vue";
 export default {
 	name: "ActivitesPage",
 	components: {
 		NotLoggedIn,
-		ActivityList
+		ActivityList,
+		ActivityDetail
 	},
 	data() {
 		return {
 			helpOverlayOpen: false,
 			stepper: 0,
-			createActivityDialogOpen: false
+			createActivityDialogOpen: false,
+			activityDetailDialogOpen: false
 		};
 	},
 	computed: {
@@ -121,6 +122,12 @@ export default {
 		}
 	},
 	methods: {
+		openActivityDetailDialog() {
+			//console.log("ok");
+			this.activityDetailDialogOpen = true;
+			this.stepper = 1;
+		},
+		closeActivityDetail() {},
 		openHelpOverlay() {
 			this.helpOverlayOpen = true;
 		},
