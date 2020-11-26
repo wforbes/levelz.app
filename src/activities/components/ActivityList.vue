@@ -14,6 +14,7 @@
 										placeholder="Search"
 										prepend-inner-icon="mdi-text-search"
 									></v-text-field>
+									<!--
 									<v-card
 										v-if="listSearchTerm !== ''"
 										style="margin-top:-1.2em;"
@@ -43,6 +44,7 @@
 											</v-col>
 										</v-row>
 									</v-card>
+									-->
 								</v-col>
 								<v-col cols="2" class="pa-0 pt-2" align="left">
 									<v-btn
