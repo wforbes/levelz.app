@@ -161,11 +161,7 @@
 		</v-container>
 	</v-card>
 </template>
-<style>
-.v-dialog {
-	margin: 5.14vh 0 0;
-}
-</style>
+
 <script>
 import { util } from "@/mixins/util.js";
 export default {

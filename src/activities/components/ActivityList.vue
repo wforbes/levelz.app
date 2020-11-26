@@ -114,7 +114,7 @@
 															x-small
 															dark
 															color="success"
-															@click="openCreateActivityForm"
+															@click="openCreateActivityDialog"
 														>
 															<v-icon dark>mdi-plus</v-icon>
 														</v-btn>
@@ -173,6 +173,11 @@
 		/>-->
 	</div>
 </template>
+<style>
+.v-dialog.v-dialog--fullscreen{
+	margin: 64px 0 0;
+}
+</style>
 <script>
 import { util } from "@/mixins/util.js";
 import CreateActivityDialog from "./CreateActivityDialog.vue";
