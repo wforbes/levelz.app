@@ -26,51 +26,18 @@
 					</v-row>
 				</v-card>
 			</v-overlay>
-			<v-row>
-				<v-col cols="9" class="pa-0 pl-5">
-					<h1>Activites</h1>
-				</v-col>
-				<v-col cols="2" align="right" class="pa-0">
-					<v-tooltip bottom>
-						<template v-slot:activator="{ on, attrs }">
-							<v-icon
-								class="mt-3"
-								v-on="on"
-								v-bind="attrs"
-								@click="openHelpOverlay"
-							>
-								mdi-help-circle-outline
-							</v-icon>
-						</template>
-						<span>Help</span>
-					</v-tooltip>
-				</v-col>
-			</v-row>
+			<HeaderControls
+				:stepperState="stepperState"
+				@openHelpOverlay="openHelpOverlay"
+				@backStep="backStep"
+			/>
 			<v-row>
 				<v-col class="pa-0">
 					<div v-if="userLoginStatus === 'loggedOut'">
 						<NotLoggedIn />
 					</div>
 					<div v-if="userLoginStatus === 'loggedIn'">
-						<v-stepper v-model="stepper" class="elevation-0 pa-0 ma-0">
-							<v-stepper-items>
-								<v-stepper-content step="0" class="pa-0 ma-0">
-									<v-container>
-										<v-row>
-											<v-col cols="12">
-												<div
-													style="border: 0.1em solid grey; border-radius:4px; text-align:center;"
-												>
-													<ActivityList
-														@openHelpOverlay="openHelpOverlay"
-														@openActivityDetailDialog="openActivityDetailDialog"
-													/>
-												</div>
-											</v-col>
-										</v-row>
-									</v-container>
-								</v-stepper-content>
-							</v-stepper-items>
+						<v-stepper v-model="stepperState" class="elevation-0 pa-0 ma-0">
 							<v-stepper-items>
 								<v-stepper-content step="1" class="pa-0 ma-0">
 									<v-container>
@@ -79,10 +46,24 @@
 												<div
 													style="border: 0.1em solid grey; border-radius:4px; text-align:center;"
 												>
-													<ActivityDetail
-														:dialogOpen="activityDetailDialogOpen"
-														@closeActivityDetail="closeActivityDetail"
+													<ActivityList
+														:stepperState="stepperState"
+														@openHelpOverlay="openHelpOverlay"
+														@openActivityDetailer="openActivityDetailer"
 													/>
+												</div>
+											</v-col>
+										</v-row>
+									</v-container>
+								</v-stepper-content>
+								<v-stepper-content step="2" class="pa-0 ma-0">
+									<v-container>
+										<v-row>
+											<v-col cols="12">
+												<div
+													style="border: 0.1em solid grey; border-radius:4px; text-align:center;"
+												>
+													<ActivityDetailer :stepperState="stepperState" />
 												</div>
 											</v-col>
 										</v-row>
@@ -96,24 +77,30 @@
 		</v-container>
 	</div>
 </template>
-
+<style>
+.no-transition .stepper__content {
+	transition: none;
+}
+</style>
 <script>
-import ActivityDetail from "../components/ActivityDetail.vue";
-import ActivityList from "../components/ActivityList.vue";
+import HeaderControls from "../components/HeaderControls.vue";
 import NotLoggedIn from "../../app/views/NotLoggedIn.vue";
+import ActivityList from "../components/ActivityList.vue";
+import ActivityDetailer from "../components/ActivityDetailer.vue";
+
 export default {
 	name: "ActivitesPage",
 	components: {
+		HeaderControls,
 		NotLoggedIn,
 		ActivityList,
-		ActivityDetail
+		ActivityDetailer
 	},
 	data() {
 		return {
 			helpOverlayOpen: false,
-			stepper: 0,
-			createActivityDialogOpen: false,
-			activityDetailDialogOpen: false
+			stepperState: 1,
+			createActivityDialogOpen: false
 		};
 	},
 	computed: {
@@ -122,12 +109,15 @@ export default {
 		}
 	},
 	methods: {
-		openActivityDetailDialog() {
-			//console.log("ok");
-			this.activityDetailDialogOpen = true;
-			this.stepper = 1;
+		openActivityDetailer() {
+			console.log("openActivityDetailer");
+			this.stepperState = 2;
+			//this.activityDetailDialogOpen = true;
 		},
-		closeActivityDetail() {},
+		backStep() {
+			console.log("backStep on page");
+			this.stepperState = this.stepperState - 1;
+		},
 		openHelpOverlay() {
 			this.helpOverlayOpen = true;
 		},

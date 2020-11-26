@@ -4,7 +4,8 @@ export default {
 	state: {
 		activityModel: undefined,
 		activitySuggestions: [],
-		activities: []
+		activities: [],
+		detailActivity: {}
 	},
 	getters: {
 		activitySuggestions: state => {
@@ -12,6 +13,9 @@ export default {
 		},
 		activities: state => {
 			return state.activities;
+		},
+		detailActivity: state => {
+			return state.detailActivity;
 		}
 	},
 	actions: {
@@ -49,6 +53,12 @@ export default {
 				.then(activity => {
 					commit("updateActivityOnList", activity);
 				});
+		},
+		setDetailActivity({ commit }, { activity }) {
+			commit("setDetailActivity", activity);
+		},
+		clearDetailActivity({ commit }) {
+			commit("clearDetailActivity");
 		}
 	},
 	mutations: {
@@ -67,6 +77,12 @@ export default {
 		updateActivityOnList(state, updated) {
 			const index = state.activities.findIndex(a => a.id === updated.id);
 			state.activities.splice(index, 1, updated);
+		},
+		setDetailActivity(state, activity) {
+			state.detailActivity = activity;
+		},
+		clearDetailActivity(state) {
+			state.detailActivity = {};
 		}
 	}
 };

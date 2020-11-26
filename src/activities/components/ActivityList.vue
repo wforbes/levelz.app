@@ -82,7 +82,7 @@
 											style="border-radius:4px; height:5em;cursor:pointer;"
 											class="elevation-5 mb-2"
 											ripple
-											@click="openActivityDetailDialog(activity)"
+											@click="openActivityDetailer(activity)"
 										>
 											<v-list-item-content>
 												<v-list-item-title
@@ -179,23 +179,35 @@ import CreateActivityDialog from "./CreateActivityDialog.vue";
 //import ActivityDialog from "./ActivityDialog.vue";
 export default {
 	name: "ActivityList",
+	props: ["stepperState"],
 	mixins: [util],
 	components: {
-		CreateActivityDialog,
+		CreateActivityDialog
 		//ActivityDialog
 	},
 	data() {
 		return {
+			showComponent: false,
 			listIsLoading: true,
 			listSearchTerm: "",
 			createActivityDialogOpen: false,
-			focusActivity: {},
 			activityDialogOpen: false
 		};
+	},
+	watch: {
+		stepperState(n, o) {
+			//opening from another step
+			if (n === 1 && o === 2) {
+				true;
+			}
+		}
 	},
 	computed: {
 		activities() {
 			return this.$store.getters.activities;
+		},
+		detailActivity() {
+			return this.$store.getters.detailActivity;
 		},
 		filteredActivities() {
 			return this.orderBy(
@@ -215,6 +227,7 @@ export default {
 		}
 	},
 	async created() {
+		this.showComponent = true;
 		this.listIsLoading = true;
 		await this.$store.dispatch("loadMyActivities").then(() => {
 			this.listIsLoading = false;
@@ -227,13 +240,13 @@ export default {
 		closeCreateActivityDialog() {
 			this.createActivityDialogOpen = false;
 		},
-		openActivityDetailDialog(activity) {
-			this.$emit("openActivityDetailDialog");
-			this.focusActivity = activity;
-			this.activityDialogOpen = true;
-		},
-		closeActivityDetail() {
-			this.activityDialogOpen = false;
+		openActivityDetailer(activity) {
+			this.showComponent = false;
+			this.$store.dispatch({
+				type: "setDetailActivity",
+				activity: Object.assign({}, activity)
+			});
+			this.$emit("openActivityDetailer");
 		},
 		openHelpOverlay() {
 			this.$emit("openHelpOverlay");
