@@ -2,7 +2,7 @@
 	<v-row>
 		<v-col md="10" cols="11" class="pa-0 pl-4" style="min-height:3em">
 			<v-row>
-				<transition name="fade" mode="out">
+				<transition name="fade" mode="out-in">
 					<v-col class="pl-3 pa-0" v-if="states.length === 0">
 						<h1>
 							Activities

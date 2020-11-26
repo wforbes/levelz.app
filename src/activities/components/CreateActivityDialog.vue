@@ -2,18 +2,30 @@
 	<div>
 		<v-dialog
 			v-model="dialogOpen"
-			class="ma-5"
 			transition="slide-x-transition"
 			fullscreen
 			hide-overlay
 		>
 			<v-card>
 				<v-toolbar dark dense flat elevation="5" height="64px">
-					<v-btn @click="closeDialog" icon>
-						<v-icon>mdi-arrow-left</v-icon>
-					</v-btn>
-					<v-toolbar-title>{{ toolbarTitle }}</v-toolbar-title>
-					<v-spacer></v-spacer>
+					<v-container>
+						<v-row>
+							<v-col
+								offset-md="1"
+								offset-lg="2"
+								offset-xl="3"
+								cols="1"
+								class="pa-0"
+							>
+								<v-btn @click="closeDialog" icon>
+									<v-icon>mdi-arrow-left</v-icon>
+								</v-btn>
+							</v-col>
+							<v-col cols="6">
+								<v-toolbar-title>{{ toolbarTitle }}</v-toolbar-title>
+							</v-col>
+						</v-row>
+					</v-container>
 				</v-toolbar>
 				<v-container>
 					<v-row>
