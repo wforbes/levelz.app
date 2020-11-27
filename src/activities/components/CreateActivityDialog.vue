@@ -181,7 +181,10 @@ export default {
 			this.$emit("closeDialog");
 		},
 		activityNameExists(name) {
-			return this.activities.filter(a => a.name === name).length > 0;
+			return (
+				this.activities.filter(a => a.name.toLowerCase() === name.toLowerCase())
+					.length > 0
+			);
 		},
 		async saveActivity() {
 			return this.$store
