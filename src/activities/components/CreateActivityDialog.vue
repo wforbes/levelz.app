@@ -107,7 +107,7 @@
 </template>
 
 <script>
-import U from "../../lib/util/U.js";
+import U from "../../lib/util/U.js"; //TODO: Use util mixin instead of U class
 import CreateActionDialog from "./CreateActionDialog.vue";
 export default {
 	name: "CreateActivityDialog",
