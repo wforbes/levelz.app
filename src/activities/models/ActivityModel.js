@@ -24,5 +24,9 @@ class ActivityModel {
 	saveActivityChanges(activityData) {
 		return this.da.saveActivityChanges(activityData);
 	}
+
+	updateActivityField(activityData) {
+		return this.da.updateActivityField(activityData);
+	}
 }
 export default ActivityModel;

@@ -29,23 +29,58 @@
 				</v-toolbar>
 				<v-container>
 					<v-row>
-						<v-col cols="12" md="6">
-							<v-form ref="newActivityForm">
+						<v-col cols="12" md="6" class="pt-0 pb-0">
+							<v-form ref="editActivityForm">
 								<v-container>
 									<v-row>
 										<v-col class="pb-0">
-											<v-text-field
-												v-model="activity.name"
-												outlined
-												:placeholder="newActivitySuggestion"
-												label="Activity Name"
-												:rules="[rules.required, rules.nameLength]"
-											></v-text-field>
+											<v-row>
+												<v-col>
+													<transition name="fade" mode="out-in">
+														<v-row>
+															<v-col cols="10" class="pa-0">
+																<div style="padding: 0.5em;">
+																	<v-text-field
+																		v-model="activity.name"
+																		outlined
+																		label="Activity Name"
+																		:rules="[rules.required, rules.nameLength]"
+																	></v-text-field>
+																</div>
+															</v-col>
+															<v-col cols="2" class="pt-4">
+																<transition name="fade" mode="out-in">
+																	<v-btn
+																		fab
+																		x-small
+																		color="success"
+																		:disabled="!thisWasEdited('name')"
+																		v-if="!fieldsLoading['name']"
+																		@click="saveFieldEdit('name')"
+																	>
+																		<v-icon>
+																			mdi-check-bold
+																		</v-icon>
+																	</v-btn>
+																	<v-btn
+																		v-else
+																		fab
+																		x-small
+																		loading
+																		color="primary"
+																	></v-btn>
+																</transition>
+															</v-col>
+														</v-row>
+													</transition>
+												</v-col>
+											</v-row>
 										</v-col>
 									</v-row>
 									<v-row>
 										<v-col class="pt-0 pb-0 mt-0">
 											<v-textarea
+												ref="descriptionField"
 												v-model="activity.description"
 												outlined
 												label="Activity Description (Optional)"
@@ -114,8 +149,10 @@ export default {
 	data() {
 		return {
 			toolbarTitle: "Edit Activity",
-			randomSuggestion: "",
 			createActionDialogOpen: false,
+			fields: ["name", "description"],
+			editField: "",
+			fieldsLoading: {},
 			activity: {
 				id: "",
 				name: "",
@@ -147,25 +184,12 @@ export default {
 		async dialogOpen(newVal, oldVal) {
 			if (newVal && !oldVal) {
 				this.activity = Object.assign({}, this.detailActivity);
-				await this.$store.dispatch("loadActivitySuggestions");
-				await this.$store.dispatch("loadMyActivities");
-				this.setRandomSuggestion();
 			}
 		}
 	},
 	computed: {
 		detailActivity() {
 			return this.$store.getters.detailActivity;
-		},
-		newActivitySuggestion() {
-			if (this.isEmpty(this.randomSuggestion)) {
-				return "";
-			} else {
-				return "[Like: " + this.randomSuggestion + " ]";
-			}
-		},
-		activitySuggestions() {
-			return this.$store.getters.activitySuggestions;
 		},
 		activities() {
 			return this.$store.getters.activities;
@@ -184,6 +208,50 @@ export default {
 		},
 		activityNameExists(name) {
 			return this.activities.filter(a => a.name === name).length > 0;
+		},
+		thisWasEdited(field) {
+			return this.detailActivity[field] !== this.activity[field];
+		},
+		async saveFieldEdit(field) {
+			this.fieldsLoading[field] = true;
+			await this.$store
+				.dispatch({
+					type: "updateActivityField",
+					activityId: this.detailActivity.id,
+					fieldName: field,
+					newValue: this.activity[field]
+				})
+				.then(saveSuccessful => {
+					if (saveSuccessful) {
+						this.$store.dispatch({
+							type: "showSnackBar",
+							text: "Activity change was saved!"
+						});
+						this.$store.dispatch({
+							type: "updateActivityOnList",
+							activity: this.activity
+						});
+						this.$store.dispatch({
+							type: "setDetailActivity",
+							activity: this.activity
+						});
+					} else {
+						this.$store.dispatch({
+							type: "showSnackBar",
+							text: "Error: Problem saving Activity change!"
+						});
+					}
+					this.fieldsLoading[field] = false;
+				});
+		},
+		editing(field) {
+			return this.editField === field;
+		},
+		editThis(field) {
+			console.log(field + "Field");
+			console.log(this.$refs.editActivityForm);
+			console.log(this.$refs[field + "Field"]);
+			this.editField = field;
 		},
 		async updateActivity() {
 			return this.$store
@@ -215,24 +283,6 @@ export default {
 		},
 		closeCreateActionDialog() {
 			this.createActionDialogOpen = false;
-		},
-		setRandomSuggestion() {
-			const index = this.getNonRepeatedSuggestion(this.activitySuggestions);
-			this.randomSuggestion = "'" + this.activitySuggestions[index] + "'";
-		},
-		getNonRepeatedSuggestion(suggestions) {
-			let suggestionIndex = this.getRandomInt(suggestions.length);
-			let lastSuggestionIndex;
-			for (let i = 0; i < suggestions.length; i++) {
-				if (this.randomSuggestion.includes(suggestions[i])) {
-					lastSuggestionIndex = i;
-					break;
-				}
-			}
-			while (suggestionIndex === lastSuggestionIndex) {
-				suggestionIndex = this.getRandomInt(suggestions.length);
-			}
-			return suggestionIndex;
 		}
 	}
 };

@@ -48,4 +48,11 @@ class ActivityModel extends Model
 		$these = $data[1];
 		return $this->app->db->ubi($these, $that, $there)?array_merge($that, $these):false;
 	}
+
+	public function updateActivityField($data) {
+		$there = $this->getModelName();
+		$that = $data[0];
+		$these = $data[1];
+		return $this->app->db->ubi($these, $that, $there);
+	}
 }

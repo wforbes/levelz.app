@@ -54,6 +54,23 @@ export default {
 					commit("updateActivityOnList", activity);
 				});
 		},
+		async updateActivityField({ state }, { activityId, fieldName, newValue }) {
+			console.log(fieldName);
+			console.log(newValue);
+			const activityData = {
+				id: activityId,
+				fieldName: fieldName,
+				newValue: newValue
+			};
+			return state.activityModel
+				.updateActivityField(activityData)
+				.then(response => {
+					return Promise.resolve(response.data.success);
+				});
+		},
+		updateActivityOnList({ commit }, { activity }) {
+			commit("updateActivityOnList", activity);
+		},
 		setDetailActivity({ commit }, { activity }) {
 			commit("setDetailActivity", activity);
 		},

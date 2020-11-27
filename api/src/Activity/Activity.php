@@ -11,6 +11,20 @@ class Activity {
 		$this->model = new ActivityModel($app);
 	}
 
+	public function updateActivityField($data) {
+		$updateData = [
+			[
+				"id"=>$data["id"],
+				"userId"=>$_SESSION["d"]["userId"]
+			],
+			[
+				$data["fieldName"]=>$data["newValue"]
+			]
+		];
+		$result = $this->model->updateActivityField($updateData);
+		return ["success" => $result];
+	}
+
 	public function saveActivityChanges($activityData) {
 		$updateData = [
 			[//keys

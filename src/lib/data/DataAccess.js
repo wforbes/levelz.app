@@ -46,4 +46,8 @@ export default class DataAccess {
 	saveActivityChanges(activityData) {
 		return this.dataContext.saveActivityChanges(activityData);
 	}
+
+	updateActivityField(activityData) {
+		return this.dataContext.updateActivityField(activityData);
+	}
 }

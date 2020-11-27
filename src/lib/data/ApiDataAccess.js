@@ -72,4 +72,8 @@ export default class ApiDataAccess {
 	saveActivityChanges(activityData) {
 		return this.callAPI("activity", "saveActivityChanges", activityData);
 	}
+
+	updateActivityField(data) {
+		return this.callAPI("activity", "updateActivityField", data);
+	}
 }
