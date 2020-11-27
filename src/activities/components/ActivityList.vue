@@ -176,7 +176,7 @@
 	</div>
 </template>
 <style>
-.v-dialog.v-dialog--fullscreen{
+.v-dialog.v-dialog--fullscreen {
 	margin: 64px 0 0;
 }
 </style>
