@@ -12,7 +12,7 @@
 						offset-xl="3"
 						xl="6"
 						cols="12"
-						class="pa-0 mx-auto"
+						class="pa-0 mx-auto mt-5"
 					>
 						<router-view></router-view>
 					</v-col>
