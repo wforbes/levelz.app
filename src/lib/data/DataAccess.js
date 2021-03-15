@@ -1,10 +1,17 @@
-import ApiDataAccess from "./ApiDataAccess.js";
+//import ApiDataAccess from "./ApiDataAccess.js";
+import LocalDataAccess from "./LocalDataAccess.js";
 
 export default class DataAccess {
 	host;
 	dataContext;
-	constructor(vue) {
-		this.dataContext = new ApiDataAccess(vue);
+	constructor(/*vue*/) {
+		this.dataContext = new LocalDataAccess();
+		//this.dataContext = new ApiDataAccess(vue);
+	}
+
+	init() {
+		console.log(this.dataContext);
+		return this.dataContext.init();
 	}
 
 	submitSignup(signupData) {

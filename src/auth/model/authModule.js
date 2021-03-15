@@ -70,7 +70,7 @@ export default {
 		},
 		setLoginStatus({ commit }, { status }) {
 			commit("setLoginStatus", status);
-		},
+		}
 		/*
 		checkPermission({ rootState }, { permission }) {
 			rootState.da.checkPermission(permission).then(response => {

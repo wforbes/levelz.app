@@ -53,13 +53,14 @@ export default new Vuex.Store({
 			dispatch("setDataAccess");
 			dispatch("initModels");
 			dispatch("setHost");
-			dispatch("initSession");
+			//dispatch("initSession");
 		},
 		setVue({ commit }, { vue }) {
 			commit("setVue", vue);
 		},
 		setDataAccess({ commit }) {
-			commit("setDataAccess", new DataAccess(this.getters.vue));
+			//commit("setDataAccess", new DataAccess(this.getters.vue));
+			commit("setDataAccess", new DataAccess());
 		},
 		initModels({ dispatch }) {
 			dispatch("initActivityModel");
@@ -72,6 +73,9 @@ export default new Vuex.Store({
 					? "http://localhost/levelz.app/"
 					: ""
 			);
+		},
+		initDB({ getters }) {
+			return getters.da.init();
 		},
 		openAuthDialog({ commit }) {
 			commit("setAuthDialogOpen", true);
