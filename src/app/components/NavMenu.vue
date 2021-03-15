@@ -68,7 +68,7 @@ export default {
 					this.$emit("closeNavMenu", newValue);
 				}
 			}
-		},
+		}
 		/*
 		viewAdminLink() {
 			if (this.$store.getters.loginStatus) {
