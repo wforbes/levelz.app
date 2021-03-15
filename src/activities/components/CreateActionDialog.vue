@@ -82,8 +82,17 @@
 										</v-col>
 									</v-row>
 									<v-row>
+										<v-col>
+											<v-btn @click="closeDialog">Cancel</v-btn>
+										</v-col>
 										<v-col align="right">
-											<v-btn @click="closeDialog">Done</v-btn>
+											<!--
+											<v-btn
+												color="success"
+												:disabled="!formValid"
+												@click="saveAction"
+												>Save</v-btn
+											>-->
 										</v-col>
 									</v-row>
 								</v-container>
