@@ -33,10 +33,7 @@
 			/>
 			<v-row>
 				<v-col class="pa-0">
-					<div v-if="userLoginStatus === 'loggedOut'">
-						<NotLoggedIn />
-					</div>
-					<div v-if="userLoginStatus === 'loggedIn'">
+					<div v-if="isLoggedIn">
 						<v-stepper v-model="stepperState" class="elevation-0 pa-0 ma-0">
 							<v-stepper-items>
 								<v-stepper-content step="1" class="pa-0 ma-0">
@@ -72,6 +69,9 @@
 							</v-stepper-items>
 						</v-stepper>
 					</div>
+					<div v-else>
+						<NotLoggedIn />
+					</div>
 				</v-col>
 			</v-row>
 		</v-container>
@@ -104,8 +104,8 @@ export default {
 		};
 	},
 	computed: {
-		userLoginStatus() {
-			return this.$store.getters.loginStatus;
+		isLoggedIn() {
+			return this.$store.getters.isLoggedIn;
 		}
 	},
 	methods: {

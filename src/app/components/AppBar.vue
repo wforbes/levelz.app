@@ -30,7 +30,7 @@
 					</v-col>
 					<v-col md="5" lg="4" xl="3" cols="6" align="right">
 						<v-btn
-							v-if="loginStatus === 'loggedIn'"
+							v-if="$store.getters.isLoggedIn"
 							icon
 							class="mr-3"
 							@click="openUserDialog"
@@ -72,9 +72,6 @@ export default {
 	computed: {
 		authDialogOpen() {
 			return this.$store.getters.authDialogOpen;
-		},
-		loginStatus() {
-			return this.$store.getters.loginStatus;
 		},
 		userDialogOpen() {
 			return this.$store.getters.userDialogOpen;

@@ -50,4 +50,8 @@ export default class DataAccess {
 	updateActivityField(activityData) {
 		return this.dataContext.updateActivityField(activityData);
 	}
+	/*
+	checkPermission(data) {
+		return this.dataContext.checkPermission(data);
+	}*/
 }

@@ -8,10 +8,7 @@
 			</v-row>
 			<v-row>
 				<v-col>
-					<div v-if="userLoginStatus === 'loggedOut'">
-						<NotLoggedIn />
-					</div>
-					<div v-if="userLoginStatus === 'loggedIn'">
+					<div v-if="$store.getters.isLoggedIn">
 						<v-card class="pa-2" min-height="420">
 							<v-container>
 								<v-row>
@@ -32,6 +29,9 @@
 								</v-row>
 							</v-container>
 						</v-card>
+					</div>
+					<div v-else>
+						<NotLoggedIn />
 					</div>
 				</v-col>
 			</v-row>
@@ -67,7 +67,7 @@ export default {
 		};
 	},
 	computed: {
-		userLoginStatus() {
+		loginStatus() {
 			return this.$store.getters.loginStatus;
 		}
 	},

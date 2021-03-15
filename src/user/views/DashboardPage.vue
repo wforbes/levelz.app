@@ -8,10 +8,7 @@
 			</v-row>
 			<v-row>
 				<v-col>
-					<div v-if="userLoginStatus === 'loggedOut'">
-						<NotLoggedIn />
-					</div>
-					<div v-if="userLoginStatus === 'loggedIn'">
+					<div v-if="isLoggedIn">
 						<v-card class="pa-2" min-height="420">
 							<v-container>
 								<v-row>
@@ -36,7 +33,9 @@
 												<v-row justify="center">
 													<v-col md="12" cols="8">
 														<v-btn class="mb-3" width="100%">
-															<v-icon class="mr-3">mdi-briefcase-account</v-icon>
+															<v-icon class="mr-3">
+																mdi-briefcase-account
+															</v-icon>
 															Profile
 														</v-btn>
 														<v-btn class="mb-3" width="100%">
@@ -389,7 +388,10 @@
 							</v-container>
 						</v-card>
 					</div>
-					<div v-if="userLoginStatus === 'loading'"></div>
+					<div v-else>
+						<NotLoggedIn />
+					</div>
+					<div v-if="loginIsLoading"></div>
 				</v-col>
 			</v-row>
 		</v-container>
@@ -472,8 +474,11 @@ export default {
 	},
 	created() {},
 	computed: {
-		userLoginStatus() {
-			return this.$store.getters.loginStatus;
+		isLoggedIn() {
+			return this.$store.getters.isLoggedIn;
+		},
+		loginIsLoading() {
+			return this.$store.getters.loginIsLoading;
 		},
 		profileImgSrc() {
 			return "../../assets/profilePic.png";

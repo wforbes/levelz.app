@@ -33,6 +33,20 @@
 					<v-list-item-title>Contact</v-list-item-title>
 				</v-list-item-content>
 			</v-list-item>
+			<!--
+			<div v-if="viewAdminLink">
+				<v-divider inset></v-divider>
+				<v-subheader>Administration</v-subheader>
+				<v-list-item link to="/admin">
+					<v-list-item-action>
+						<v-icon>mdi-account-tie</v-icon>
+					</v-list-item-action>
+					<v-list-item-content>
+						<v-list-item-title>Admin</v-list-item-title>
+					</v-list-item-content>
+				</v-list-item>
+			</div>
+			-->
 		</v-list>
 	</v-navigation-drawer>
 </template>
@@ -54,7 +68,18 @@ export default {
 					this.$emit("closeNavMenu", newValue);
 				}
 			}
-		}
+		},
+		/*
+		viewAdminLink() {
+			if (this.$store.getters.loginStatus) {
+				return this.$store.dispatch({
+					type: "checkPermission",
+					permission: "viewAdminLink"
+				});
+			} else {
+				return false;
+			}
+		}*/
 	},
 	watch: {
 		isOpen(newVal, oldVal) {

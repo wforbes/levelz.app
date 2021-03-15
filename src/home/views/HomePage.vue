@@ -24,14 +24,39 @@
 								level up in life!
 							</p>
 							<p>
+								Click or tap the key icon (<v-icon>mdi-key</v-icon>) at the top
+								right of the page to get started.
+							</p>
+							<p>
 								For more info, you can read all about the app on
 								<router-link to="about">lvlz.app/about</router-link>!
 							</p>
+						</v-card>
+						<v-card class="pa-3 mb-4">
+							<h3>Project Status</h3>
 							<p>
-								For the most up to date info on what's been added to the app,
-								click on "Project Updates" below!
+								This app is currently in its very early stages of development.
+								For the rest of 2021, I'll just be adding little features to
+								test out ideas. Then next year we'll reassess the app moving
+								forward!<br />
+								This is an open-source project. (
+								<a
+									href="http://www.gnu.org/licenses/gpl-3.0.html"
+									target="_blank"
+								>
+									GNU Public License v3.0</a
+								>
+								)<br />
+								More info:
+								<a href="https://github.com/wforbes/levelz.app" target="_blank">
+									github.com/wforbes/levelz.app </a
+								><br /><br />
+								Please contact
+								<a href="mailto:will@levelz.app">will@levelz.app</a>
+								with any questions!
 							</p>
 						</v-card>
+						<!--
 						<v-expansion-panels v-model="openPanels" focusable accordion>
 							<v-expansion-panel>
 								<v-expansion-panel-header ripple color="primary">
@@ -45,7 +70,7 @@
 										<h3>Project Status</h3>
 										<p>
 											This app is currently in its very early stages of
-											development. For the rest of 2020, I'll just be adding
+											development. For the rest of 2021, I'll just be adding
 											little features to test out ideas. Then next year we'll
 											reassess the app moving forward!<br />
 											This is an open-source project. (
@@ -82,6 +107,7 @@
 								</v-expansion-panel-content>
 							</v-expansion-panel>
 						</v-expansion-panels>
+						-->
 					</v-col>
 				</v-row>
 			</v-container>
@@ -102,7 +128,7 @@
 </style>
 
 <script>
-import ProjectUpdates from "../components/ProjectUpdates.vue";
+//import ProjectUpdates from "../components/ProjectUpdates.vue";
 export default {
 	name: "HomePage",
 	data() {
@@ -111,7 +137,7 @@ export default {
 		};
 	},
 	components: {
-		ProjectUpdates
+		//ProjectUpdates
 	},
 	methods: {
 		openAuthDialog() {

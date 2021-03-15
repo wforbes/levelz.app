@@ -1,7 +1,5 @@
-
 export default {
 	state: {
-		loginStatus: "loading",
 		userDialogOpen: false,
 		userId: "",
 		username: "",
@@ -11,9 +9,6 @@ export default {
 	getters: {
 		userId: state => {
 			return state.userId;
-		},
-		loginStatus: state => {
-			return state.loginStatus;
 		},
 		username: state => {
 			return state.username;
@@ -26,52 +21,10 @@ export default {
 		}
 	},
 	actions: {
-		initSession({ dispatch, rootState }) {
-			rootState.da.checkSession().then(response => {
-				if (response.data["sessionData"]) {
-					dispatch({
-						type: "loginUser",
-						userId: response.data["sessionData"]["userId"],
-						username: response.data["sessionData"]["username"],
-						userEmail: response.data["sessionData"]["userEmail"],
-						userProfileId: response.data["sessionData"]["userProfileId"]
-					});
-				} else {
-					dispatch({
-						type: "setLoginStatus",
-						status: "loggedOut"
-					});
-				}
-			});
-		},
 		loadUserProfile({ commit, rootState }, { userProfileId }) {
 			rootState.da.getProfileById({ userProfileId }).then(response => {
 				if (response.data[0]) {
 					commit("setUserProfile", response.data[0]);
-				}
-			});
-		},
-		setLoginStatus({ commit }, { status }) {
-			commit("setLoginStatus", status);
-		},
-		loginUser(
-			{ commit, dispatch },
-			{ userId, username, userEmail, userProfileId }
-		) {
-			commit("setUserId", userId);
-			commit("setUsername", username);
-			commit("setUserEmail", userEmail);
-			dispatch({
-				type: "loadUserProfile",
-				userProfileId: userProfileId
-			});
-			commit("setLoginStatus", "loggedIn");
-		},
-		logoutUser({ commit, dispatch, rootState }) {
-			rootState.da.logout().then(response => {
-				if (response.data["success"]) {
-					dispatch("clearUserData");
-					commit("setLoginStatus", "loggedOut");
 				}
 			});
 		},
@@ -109,9 +62,6 @@ export default {
 		},
 		setUserEmail(state, userEmail) {
 			state.userEmail = userEmail;
-		},
-		setLoginStatus(state, status) {
-			state.loginStatus = status;
 		},
 		setUserProfile(state, profile) {
 			state.userProfile = Object.assign({}, profile);
