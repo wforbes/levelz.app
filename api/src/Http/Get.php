@@ -15,7 +15,8 @@ class Get {
 	}
 	
 	private function routeRequest($app, $d){
-		echo json_encode("Http GET method test was successful!");
+		//echo json_encode("Http GET method test was successful!");
+		echo json_encode([$this->url_elements, $this->parameters]);
 	}
 
 	//name: setParametersFromQuery

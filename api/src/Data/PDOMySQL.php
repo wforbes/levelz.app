@@ -28,6 +28,7 @@ class PDOMySQL {
 			//check for database and user existence and attempt second connection
 			$this->setUpDatabaseAndUser();
 		}
+		//$this->ensure();
 	}
 
 	private function setConfig():void {
@@ -269,6 +270,11 @@ class PDOMySQL {
 		$data = array_merge($these, $that);
 		$result = $this->connection->prepare($s)->execute($data);
 		return $result;
+	}
+
+	private function checkCoreTables() {
+		
+		exit();
 	}
 
 	public function showTables() {
