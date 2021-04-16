@@ -1,0 +1,15 @@
+Instructions for creating SSL certificates on localhost:8080
+
+- Goal: Access https://localhost:8080 for the development instance of the app on visual studio code via 'npm run serve'
+- Source: http://www.codepro.co.nz/blog/2019/10/setup-vue-js-with-https-certificate/
+
+1 - Download and install https://github.com/FiloSottile/mkcert/releases
+2 - Copy the downloaded exe into an easily accessible folder (I chose C:/Program Files/mkcert/)
+3 - Rename the exe to 'mkcert'
+4 - Create a PATH environment variable that points to the folder from step 2
+5 - Open cmd as admin and run 'mkcert -install' to create Root CA files (these appear in C:/Users/<your user>/AppData/Local/mkcert)
+6 - In cmd, navigate to this 'certs' folder in this project
+7 - In cmd, run 'mkcert localhost'
+8 - Ensure the vue.config.js in this project has the devServer, https property
+9 - Run this project with 'npm run serve'
+10 - Open internet browser to https://localhost:8080 to ensure this worked
