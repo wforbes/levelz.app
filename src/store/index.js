@@ -53,14 +53,14 @@ export default new Vuex.Store({
 			dispatch("setDataAccess");
 			dispatch("initModels");
 			dispatch("setHost");
-			//dispatch("initSession");
+			dispatch("initSession");
 		},
 		setVue({ commit }, { vue }) {
 			commit("setVue", vue);
 		},
 		setDataAccess({ commit }) {
-			//commit("setDataAccess", new DataAccess(this.getters.vue));
-			commit("setDataAccess", new DataAccess());
+			commit("setDataAccess", new DataAccess(this.getters.vue));
+			//commit("setDataAccess", new DataAccess());
 		},
 		initModels({ dispatch }) {
 			dispatch("initActivityModel");
@@ -70,7 +70,7 @@ export default new Vuex.Store({
 				"setHost",
 				window.location.host === this.getters.vue.localhost ||
 					window.location.host.href === this.getters.vue.localhost
-					? "http://localhost/levelz.app/"
+					? "https://levelz.app.local/"
 					: ""
 			);
 		},

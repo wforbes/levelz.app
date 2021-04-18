@@ -25,7 +25,7 @@
 </template>
 
 <script>
-//import axios from "axios";
+import axios from "axios";
 
 import AppBar from "../components/AppBar.vue";
 import Footer from "../components/Footer.vue";
@@ -43,10 +43,10 @@ export default {
 		};
 	},
 	async created() {
-		//axios.defaults.withCredentials = true;
+		axios.defaults.withCredentials = true;
 		this.$store.dispatch({ type: "setupStore", vue: this });
-		let resp = await this.$store.dispatch("initDB");
-		console.log(resp);
+		//let resp = await this.$store.dispatch("initDB");
+		//console.log(resp);
 	},
 	methods: {}
 };

@@ -1,13 +1,9 @@
 <IfModule mod_rewrite.c>
-	RewriteCond %{REQUEST_URI} !^/api/
-	RewriteRule (.*) https://%{HTTP_HOST}/$1 [R=301,L]
-
 	RewriteBase /
-	RewriteRule ^index\.html$ - [L]
+	RewriteRule ^index\.php$ - [L]
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
-	RewriteCond %{REQUEST_URI} !^/api/
-	RewriteRule . /index.html [L]
+	RewriteRule . /api/index.php [L]
 </IfModule>
 Header set Access-Control-Allow-Origin "https://localhost:8080"
 Header set Access-Control-Allow-Credentials true
