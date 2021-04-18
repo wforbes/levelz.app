@@ -308,6 +308,9 @@ export default {
 			this.newRepeatPassword = "";
 			this.signupFeedback = "";
 			this.signupErrors = [];
+		},
+		closeDialog() {
+			this.$emit("closeDialog");
 		}
 	}
 };

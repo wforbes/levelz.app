@@ -21,7 +21,7 @@
 						<v-icon>mdi-account-plus</v-icon>
 					</v-tab>
 					<v-tab-item :key="0">
-						<SignupForm />
+						<SignupForm @closeDialog="closeDialog" />
 					</v-tab-item>
 					<v-tab :key="1">
 						Log In
