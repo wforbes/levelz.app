@@ -21,6 +21,7 @@ class App {
 		$this->createToken();
 	}
 
+	//TODO: Can use DIRECTORY_SEPARATOR php constant instead
 	private function setDelimiter():void {
 		$this->dlm=(self::detectEnvironment()==='local'?'\\':'/');
 	}

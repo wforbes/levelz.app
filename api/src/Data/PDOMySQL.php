@@ -232,7 +232,7 @@ class PDOMySQL {
 		for($i=0;$i<$paramCount;$i++) {
 			$pi = $i + 1;
 			$param = $params[$i];
-			$stmt->bindParam($pi, $param);
+			$stmt->bindParam($pi, $param); //TODO: Change this to bindValue to work with multiple WHERE params!
 		}
 		$stmt->execute();
 		$result = $stmt->fetchAll(\PDO::FETCH_ASSOC);

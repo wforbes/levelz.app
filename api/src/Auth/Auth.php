@@ -74,8 +74,8 @@ class Auth {
 		} else {
 			return "";
 		}
-		
 	}
+	
 	public function logout($d) {
 		session_unset();
 		session_destroy();

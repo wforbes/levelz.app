@@ -57,7 +57,7 @@ export default class LocalDataAccess {
 				if (newVer === 2) {
 					console.log("new version is 2");
 				}
-				
+
 				upgraded = true;
 			},
 			blocked() {
