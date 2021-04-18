@@ -11,7 +11,7 @@
 						lg="4"
 						offset-xl="3"
 						xl="3"
-						cols="6"
+						cols="8"
 					>
 						<div style="display:inline-block;">
 							<v-app-bar-nav-icon
@@ -28,7 +28,7 @@
 							</v-toolbar-title>
 						</div>
 					</v-col>
-					<v-col md="5" lg="4" xl="3" cols="6" align="right">
+					<v-col md="5" lg="4" xl="3" cols="4" align="right">
 						<v-btn
 							v-if="$store.getters.isLoggedIn"
 							icon
