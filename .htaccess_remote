@@ -1,7 +1,10 @@
 <IfModule mod_rewrite.c>
-	RewriteCond %{REQUEST_URI} !^/api/
-	RewriteRule (.*) https://%{HTTP_HOST}/$1 [R=301,L]
-
+	RewriteEngine On 
+	RewriteCond %{HTTP_HOST} ^(www\.)(.+) [OR]
+	RewriteCond %{HTTPS} off
+	RewriteCond %{HTTP_HOST} ^(www\.)?(.+)
+	RewriteRule ^ https://%2%{REQUEST_URI} [R=301,L]
+	
 	RewriteBase /
 	RewriteRule ^index\.html$ - [L]
 	RewriteCond %{REQUEST_FILENAME} !-f
@@ -9,3 +12,4 @@
 	RewriteCond %{REQUEST_URI} !^/api/
 	RewriteRule . /index.html [L]
 </IfModule>
+Options -indexes
