@@ -39,17 +39,19 @@ export default class ApiDataAccess {
 	}
 
 	checkSession() {
-		return this.callAPI("auth", "checkSession");
+		//return this.callAPI("auth", "checkSession");
+		return this.callAPI(["Auth", "SessionController"], "checkSession");
 	}
 
 	getProfileById(userProfileId) {
-		return this.callAPI(["user", "UserProfile"], "getProfileById", {
+		return this.callAPI(["User", "UserProfile"], "getProfileById", {
 			userProfileId: userProfileId
 		});
 	}
 
 	logout() {
-		return this.callAPI("auth", "logout");
+		//return this.callAPI("auth", "logout");
+		return this.callAPI(["Auth", "SessionController"], "logout");
 	}
 
 	//TODO: rework to accomodate callAPI resolving the whole response object
