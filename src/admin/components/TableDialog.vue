@@ -66,7 +66,7 @@ export default {
 						if (Object.prototype.hasOwnProperty.call(response.data[0], prop)) {
 							let itemHeader = {
 								text: this.ucFirst(prop),
-								align: 'start',
+								align: "start",
 								sortable: true,
 								value: prop
 							};
