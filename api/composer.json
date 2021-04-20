@@ -19,6 +19,7 @@
 		"Data\\": "src/Data/",
 		"Http\\": "src/Http/",
 		"Auth\\": "src/Auth/",
+		"Email\\": "src/Email/",
 		"Model\\": "src/Model/",
 		"Sec\\":"src/Sec/"
 	  }

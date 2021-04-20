@@ -56,58 +56,6 @@
 								with any questions!
 							</p>
 						</v-card>
-						<!--
-						<v-expansion-panels v-model="openPanels" focusable accordion>
-							<v-expansion-panel>
-								<v-expansion-panel-header ripple color="primary">
-									<span><strong>Project Status</strong></span>
-									<template v-slot:actions>
-										<v-icon class="panel-expander-icon">$expand</v-icon>
-									</template>
-								</v-expansion-panel-header>
-								<v-expansion-panel-content>
-									<div class="panel-inner-content">
-										<h3>Project Status</h3>
-										<p>
-											This app is currently in its very early stages of
-											development. For the rest of 2021, I'll just be adding
-											little features to test out ideas. Then next year we'll
-											reassess the app moving forward!<br />
-											This is an open-source project. (
-											<a
-												href="http://www.gnu.org/licenses/gpl-3.0.html"
-												target="_blank"
-											>
-												GNU Public License v3.0</a
-											>
-											)<br />
-											More info:
-											<a
-												href="https://github.com/wforbes/levelz.app"
-												target="_blank"
-											>
-												github.com/wforbes/levelz.app </a
-											><br /><br />
-											Please contact
-											<a href="mailto:will@levelz.app">will@levelz.app</a>
-											with any questions!
-										</p>
-									</div>
-								</v-expansion-panel-content>
-							</v-expansion-panel>
-							<v-expansion-panel>
-								<v-expansion-panel-header ripple color="primary">
-									<strong>Project Updates</strong>
-									<template v-slot:actions>
-										<v-icon class="panel-expander-icon">$expand</v-icon>
-									</template>
-								</v-expansion-panel-header>
-								<v-expansion-panel-content>
-									<ProjectUpdates />
-								</v-expansion-panel-content>
-							</v-expansion-panel>
-						</v-expansion-panels>
-						-->
 					</v-col>
 				</v-row>
 			</v-container>
@@ -128,7 +76,6 @@
 </style>
 
 <script>
-//import ProjectUpdates from "../components/ProjectUpdates.vue";
 export default {
 	name: "HomePage",
 	data() {
@@ -136,13 +83,7 @@ export default {
 			openPanels: 0
 		};
 	},
-	components: {
-		//ProjectUpdates
-	},
 	methods: {
-		openAuthDialog() {
-			this.$store.dispatch("openAuthDialog");
-		},
 		navigateToDashboard() {
 			this.$router.push("dashboard");
 		}

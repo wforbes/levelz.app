@@ -31,11 +31,25 @@ export default class ApiDataAccess {
 	}
 
 	submitSignup(signupData) {
-		return this.callAPI("auth", "signup", signupData);
+		return this.callAPI(
+			["Auth", "SignupController"],
+			"submitSignup",
+			signupData
+		);
+	}
+
+	verifyEmailAddress(verifyData) {
+		return this.callAPI(
+			["Auth", "SignupController"],
+			"verifyEmailAddress",
+			verifyData
+		).then(response => {
+			return Promise.resolve(response.data);
+		});
 	}
 
 	submitLogin(loginData) {
-		return this.callAPI("auth", "login", loginData);
+		return this.callAPI(["Auth", "LoginController"], "submitLogin", loginData);
 	}
 
 	checkSession() {

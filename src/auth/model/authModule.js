@@ -22,8 +22,22 @@ export default {
 		}
 	},
 	actions: {
-		async submitSignup({ rootState }, { signupData }) {
-			return await rootState.da.submitSignup(signupData);
+		async submitSignup({ rootState, dispatch }, { signupData }) {
+			return rootState.da.submitSignup(signupData).then(response => {
+				if (response.data.success) {
+					const data = response.data["success"];
+					dispatch({
+						type: "loginUser",
+						userId: data["userId"],
+						username: data["username"],
+						userEmail: data["userEmail"],
+						userProfileId: data["userProfileId"]
+					});
+					return Promise.resolve();
+				} else {
+					return Promise.resolve(response.data.errors);
+				}
+			});
 		},
 		async submitLogin({ rootState }, { loginData }) {
 			return await rootState.da.submitLogin(loginData);

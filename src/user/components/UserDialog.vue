@@ -69,6 +69,7 @@ export default {
 			return this.$router.push({ path: routeName });
 		},
 		logout() {
+			this.$router.push("logout");
 			this.closeDialog();
 			this.$store.dispatch("logoutUser");
 		},

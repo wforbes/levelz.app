@@ -3,7 +3,7 @@
 namespace Core;
 
 use Http\Router;
-use Data\PDOMySQL;
+use Data\MySQL;
 
 class App {
 	public const APP_ROOT = __DIR__."/..";
@@ -27,7 +27,10 @@ class App {
 	}
 
 	public static function detectEnvironment():string {
-        if(isset($_SERVER['REMOTE_ADDR']) && ($_SERVER['REMOTE_ADDR'] === '127.0.0.1' || $_SERVER['REMOTE_ADDR'] === '::1')) {
+        if(isset($_SERVER['REMOTE_ADDR']) 
+			&& ($_SERVER['REMOTE_ADDR'] === '127.0.0.1' 
+				|| $_SERVER['REMOTE_ADDR'] === '::1')
+		) {
             return "local";
         }
         return "remote";
@@ -50,7 +53,7 @@ class App {
 	}
 
 	private function setDatabase():void {
-		$this->db = new PDOMySQL($this);
+		$this->db = new MySQL($this);
 	}
 
 	//https://stackoverflow.com/questions/6287903/how-to-properly-add-cross-site-request-forgery-csrf-token-using-php

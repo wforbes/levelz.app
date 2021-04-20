@@ -6,16 +6,16 @@ Vue.use(VueRouter);
 const routes = [
 	{
 		path: "/",
-		name: "Home",
+		name: "HomePage",
 		component: () =>
-			import(/* webpackChunkName: "bundle-Home" */ "../home/views/HomePage.vue")
+			import(/* webpackChunkName: "bundle-Home" */ "@/home/views/HomePage.vue")
 	},
 	{
 		path: "/about",
 		name: "About",
 		component: () =>
 			import(
-				/* webpackChunkName: "bundle-Home" */ "../about/views/AboutPage.vue"
+				/* webpackChunkName: "bundle-Home" */ "@/about/views/AboutPage.vue"
 			)
 	},
 	{
@@ -23,47 +23,53 @@ const routes = [
 		name: "Contact",
 		component: () =>
 			import(
-				/* webpackChunkName: "bundle-Home" */ "../contact/views/ContactPage.vue"
+				/* webpackChunkName: "bundle-Home" */ "@/contact/views/ContactPage.vue"
 			)
 	},
 	{
 		path: "/help",
 		name: "Help",
 		component: () =>
-			import(/* webpackChunkName: "bundle-Home" */ "../help/views/HelpPage.vue")
+			import(/* webpackChunkName: "bundle-Home" */ "@/help/views/HelpPage.vue")
 	},
 	{
 		path: "/help/:topic",
 		component: () =>
-			import(/* webpackChunkName: "bundle-Home" */ "../help/views/HelpPage.vue")
+			import(/* webpackChunkName: "bundle-Home" */ "@/help/views/HelpPage.vue")
 	},
 	{
 		path: "/auth",
 		name: "Auth",
 		component: () =>
-			import(/* webpackChunkName: "bundle-Home" */ "../auth/views/AuthPage.vue")
+			import(/* webpackChunkName: "bundle-Home" */ "@/auth/views/AuthPage.vue"),
+		alias: ["/login", "/signup", "/verify", "/logout"],
+		props: route => ({
+			route: route.path,
+			email: route.query.e,
+			hash: route.query.h
+		})
 	},
 	{
 		path: "*",
 		component: () =>
-			import(/* webpackChunkName: "bundle-Home" */ "../app/views/Error404.vue")
+			import(/* webpackChunkName: "bundle-Home" */ "@/app/views/Error404.vue")
 	},
 	{
 		path: "/admin",
 		name: "AdminPage",
-		component: () => import("../admin/views/AdminPage.vue")
+		component: () => import("@/admin/views/AdminPage.vue")
 	},
 	{
 		path: "/dev",
 		name: "DevPage",
-		component: () => import("../dev/views/DevPage.vue")
+		component: () => import("@/dev/views/DevPage.vue")
 	},
 	{
 		path: "/dashboard",
 		name: "DashboardPage",
 		component: () =>
 			import(
-				/* webpackChunkName: "bundle-Dashboard" */ "../user/views/DashboardPage.vue"
+				/* webpackChunkName: "bundle-Dashboard" */ "@/user/views/DashboardPage.vue"
 			)
 	},
 	{
@@ -71,7 +77,7 @@ const routes = [
 		name: "AccountPage",
 		component: () =>
 			import(
-				/* webpackChunkName: "bundle-Dashboard" */ "../user/views/AccountPage.vue"
+				/* webpackChunkName: "bundle-Dashboard" */ "@/user/views/AccountPage.vue"
 			)
 	},
 	{
@@ -79,7 +85,7 @@ const routes = [
 		name: "ActivitesPage",
 		component: () =>
 			import(
-				/* webpackChunkName: "bundle-Activities" */ "../activities/views/ActivitiesPage.vue"
+				/* webpackChunkName: "bundle-Activities" */ "@/activities/views/ActivitiesPage.vue"
 			)
 	},
 	{
@@ -87,7 +93,7 @@ const routes = [
 		name: "TasksPage",
 		component: () =>
 			import(
-				/* webpackChunkName: "bundle-Tasks" */ "../tasks/views/TasksPage.vue"
+				/* webpackChunkName: "bundle-Tasks" */ "@/tasks/views/TasksPage.vue"
 			)
 	},
 	{
@@ -95,7 +101,7 @@ const routes = [
 		name: "QuestsPage",
 		component: () =>
 			import(
-				/* webpackChunkName: "bundle-Tasks" */ "../quests/views/QuestsPage.vue"
+				/* webpackChunkName: "bundle-Tasks" */ "@/quests/views/QuestsPage.vue"
 			)
 	},
 	{
@@ -103,7 +109,7 @@ const routes = [
 		name: "InventoryPage",
 		component: () =>
 			import(
-				/* webpackChunkName: "bundle-Inventory" */ "../inventory/views/InventoryPage.vue"
+				/* webpackChunkName: "bundle-Inventory" */ "@/inventory/views/InventoryPage.vue"
 			)
 	},
 	{
@@ -111,7 +117,7 @@ const routes = [
 		name: "FinancialsPage",
 		component: () =>
 			import(
-				/* webpackChunkName: "bundle-Financials" */ "../financials/views/FinancialsPage.vue"
+				/* webpackChunkName: "bundle-Financials" */ "@/financials/views/FinancialsPage.vue"
 			)
 	},
 	{
@@ -119,7 +125,7 @@ const routes = [
 		name: "TravelPage",
 		component: () =>
 			import(
-				/* webpackChunkName: "bundle-Travel" */ "../travel/views/TravelPage.vue"
+				/* webpackChunkName: "bundle-Travel" */ "@/travel/views/TravelPage.vue"
 			)
 	}
 ];

@@ -23,7 +23,7 @@
 						>
 							<v-toolbar-title>
 								<router-link to="/">
-									<v-img src="../../assets/logo-icon.png" width="42" />
+									<v-img src="@/assets/logo-icon.png" width="42" />
 								</router-link>
 							</v-toolbar-title>
 						</div>
@@ -37,31 +37,24 @@
 						>
 							<v-icon>mdi-account</v-icon>
 						</v-btn>
-						<v-btn v-else icon class="mr-3" @click="openAuthDialog">
+						<v-btn v-else icon class="mr-3" to="/login">
 							<v-icon>mdi-key</v-icon>
 						</v-btn>
 					</v-col>
 				</v-row>
 			</v-container>
 		</v-app-bar>
-		<AuthDialog
-			ref="authDialog"
-			:dialogOpen="authDialogOpen"
-			@closeDialog="closeAuthDialog"
-		/>
 		<UserDialog :dialogOpen="userDialogOpen" @closeDialog="closeUserDialog" />
 	</div>
 </template>
 
 <script>
 import NavMenu from "./NavMenu.vue";
-import AuthDialog from "../../auth/components/AuthDialog.vue";
-import UserDialog from "../../user/components/UserDialog.vue";
+import UserDialog from "@/user/components/UserDialog.vue";
 export default {
 	name: "AppBar",
 	components: {
 		NavMenu,
-		AuthDialog,
 		UserDialog
 	},
 	data() {
@@ -70,9 +63,6 @@ export default {
 		};
 	},
 	computed: {
-		authDialogOpen() {
-			return this.$store.getters.authDialogOpen;
-		},
 		userDialogOpen() {
 			return this.$store.getters.userDialogOpen;
 		}
@@ -80,12 +70,6 @@ export default {
 	methods: {
 		closeNavMenu() {
 			this.navMenuIsOpen = false;
-		},
-		openAuthDialog() {
-			this.$store.dispatch("openAuthDialog");
-		},
-		closeAuthDialog() {
-			this.$store.dispatch("closeAuthDialog");
 		},
 		openUserDialog() {
 			this.$store.dispatch("openUserDialog");

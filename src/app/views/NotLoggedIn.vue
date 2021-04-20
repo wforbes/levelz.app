@@ -15,7 +15,7 @@
 						</v-btn>
 					</v-col>
 					<v-col sm="6" cols="12" align="center">
-						<v-btn x-large @click="openAuthDialog"
+						<v-btn x-large @click="openAuthPage"
 							><v-icon medium>mdi-key</v-icon>Signup or Login</v-btn
 						>
 					</v-col>
@@ -31,8 +31,8 @@ export default {
 		return {};
 	},
 	methods: {
-		openAuthDialog() {
-			this.$store.dispatch("openAuthDialog");
+		openAuthPage() {
+			this.$router.push("signup");
 		}
 	}
 };
