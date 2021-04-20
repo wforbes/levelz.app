@@ -53,7 +53,11 @@ class Post {
 				$this->inputData = $_POST[$this->dataKey] = $json[$this->dataKey];
 			} else {
 				//TODO: error - No data provided to Post
+				exit();
 			}
+		} else if(gettype($_POST[$this->dataKey]) === "string"){
+			//if data key contains a string value, decode it as json
+			$this->inputData = json_decode($_POST[$this->dataKey], true);
 		} else {
 			$this->inputData = $_POST[$this->dataKey];
 		}
@@ -76,6 +80,7 @@ class Post {
 				);
 			} else {
 				//TODO: error - Incorrect number of nouns provided to Post
+				exit();
 			}
 		}
 		
@@ -144,6 +149,8 @@ class Post {
 				$d[$k] = $v;
 			}
 		}
+		$d = (count($d) == 1) ? $d[array_key_first($d)] : $d;
+
 		return $d;
 	}
 
