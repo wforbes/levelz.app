@@ -46,19 +46,19 @@ class UserModel extends Model
 	}
 	
 	public function getIdByUsername($u){
-        return $this->app->db->gbi(['id'],['username'=>$u],'user');
+        return $this->app->db->gbi(['id'],['username'=>$u],'user')[0]["id"];
 	}
 	
     public function getIdByEmail($e){
-        return $this->app->db->gbi(['id'],['email'=>$e],'user');
+        return $this->app->db->gbi(['id'],['email'=>$e],'user')[0]["id"];
     }
 
     public function getUsernameById($id){
-        return $this->app->db->gbi(['username'],['id'=>$id],'user');
+        return $this->app->db->gbi(['username'],['id'=>$id],'user')[0]["username"];
 	}
 	
 	public function getEmailById($id) {
-		return $this->app->db->gbi(['email'],['id'=>$id],'user');
+		return $this->app->db->gbi(['email'],['id'=>$id],'user')[0]["email"];
 	}
 
 	public function verifyUser($userId) {
