@@ -19,7 +19,9 @@
 		"Data\\": "src/Data/",
 		"Http\\": "src/Http/",
 		"Auth\\": "src/Auth/",
+		"User\\": "src/User/",
 		"Email\\": "src/Email/",
+		"Image\\": "src/Image/",
 		"Model\\": "src/Model/",
 		"Sec\\":"src/Sec/"
 	  }
