@@ -57,8 +57,8 @@ export default class ApiDataAccess {
 		return this.callAPI(["Auth", "SessionController"], "checkSession");
 	}
 
-	getProfileById(userProfileId) {
-		return this.callAPI(["User", "UserProfile"], "getProfileById", {
+	getUserProfileById(userProfileId) {
+		return this.callAPI(["User", "UserProfile"], "getUserProfileById", {
 			userProfileId: userProfileId
 		});
 	}

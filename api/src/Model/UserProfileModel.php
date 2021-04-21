@@ -34,10 +34,10 @@ class UserProfileModel extends Model
         ];
 	}
 
-	public function getProfileByUserId($id){
+	public function getUserProfileByUserId($id){
         return $this->app->db->gbi(['*'],['userId'=>$id],'userprofile');
 	}
-	public function getProfileById($id){
+	public function getUserProfileById($id){
         return $this->app->db->gbi(['*'],['id'=>$id],'userprofile');
     }
 }

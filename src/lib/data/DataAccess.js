@@ -35,8 +35,8 @@ export default class DataAccess {
 	}
 
 	//TODO: rename this to getUserProfile...
-	getProfileById(userProfileId) {
-		return this.dataContext.getProfileById(userProfileId);
+	getUserProfileById(userProfileId) {
+		return this.dataContext.getUserProfileById(userProfileId);
 	}
 
 	getActivitySuggestions() {

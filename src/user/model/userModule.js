@@ -22,7 +22,7 @@ export default {
 	},
 	actions: {
 		loadUserProfile({ commit, rootState }, { userProfileId }) {
-			rootState.da.getProfileById({ userProfileId }).then(response => {
+			rootState.da.getUserProfileById({ userProfileId }).then(response => {
 				if (response.data[0]) {
 					commit("setUserProfile", response.data[0]);
 				}

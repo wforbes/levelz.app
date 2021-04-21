@@ -21,16 +21,17 @@ class UserProfile
         return $this->app->db->insertNew($model, $fields, $values)?$id:false;
     }
 
-    public function getProfileByUserId($d){
+    public function getUserProfileByUserId($d){
 		if (\is_array($d) && isset($d["userId"])) {
-			return $this->model->getProfileByUserId($d["userId"]);
+			return $this->model->getUserProfileByUserId($d["userId"]);
 		}
-		return $this->model->getProfileByUserId($d);
+		return $this->model->getUserProfileByUserId($d);
 	}
-	public function getProfileById($d){
+
+	public function getUserProfileById($d){
 		if (\is_array($d) && isset($d["userProfileId"])) {
-			return $this->model->getProfileById($d["userProfileId"]);
+			return $this->model->getUserProfileById($d["userProfileId"]);
 		}
-		return $this->model->getProfileById($d);
+		return $this->model->getUserProfileById($d);
     }
 }
