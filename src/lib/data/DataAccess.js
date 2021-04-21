@@ -39,6 +39,14 @@ export default class DataAccess {
 		return this.dataContext.getUserProfileById(userProfileId);
 	}
 
+	submitUserProfilePicture(formData) {
+		return this.dataContext.submitUserProfilePicture(formData);
+	}
+
+	getUserProfilePicUrlByUserId(userId) {
+		return this.dataContext.getUserProfilePicUrlByUserId(userId);
+	}
+
 	getActivitySuggestions() {
 		return this.dataContext.getActivitySuggestions();
 	}

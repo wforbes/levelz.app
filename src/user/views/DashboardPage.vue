@@ -22,12 +22,42 @@
 										</v-row>
 										<v-row>
 											<v-col md="5" cols="12" align="center">
-												<v-img
-													src="../../assets/profilePic.png"
-													max-width="200"
-													class="elevation-3"
-													align="center"
-												></v-img>
+												<v-hover v-slot="{ hover }">
+													<v-card
+														:elevation="hover ? 12 : 5"
+														:class="{ 'on-hover': hover }"
+														max-width="200"
+														fill-height
+													>
+														<v-img
+															:src="userProfilePicUrl"
+															max-width="200"
+															class="elevation-3"
+															align="center"
+															@click="openProfileImageDialog()"
+														>
+															<v-card-text
+																class="title white--text"
+																style="height:100%"
+															>
+																<v-row
+																	class="fill-height flex-column"
+																	justify="space-between"
+																>
+																	<div class="align-self-center mt-8">
+																		<v-icon
+																			:class="{ 'show-icon': hover }"
+																			:color="transparent"
+																			size="75"
+																		>
+																			mdi-upload
+																		</v-icon>
+																	</div>
+																</v-row>
+															</v-card-text>
+														</v-img>
+													</v-card>
+												</v-hover>
 											</v-col>
 											<v-col md="7" cols="12">
 												<v-row justify="center">
@@ -395,20 +425,32 @@
 				</v-col>
 			</v-row>
 		</v-container>
+		<ProfileImageDialog
+			:dialogOpen="profileImageDialogOpen"
+			@closeDialog="closeProfileImageDialog"
+		/>
 	</div>
 </template>
-<style>
-.ps {
-	height: 242px;
-}
+<style scoped>
 .userProfileItem {
 	border: 0.1em solid black;
 	border-radius: 0.5em;
 	margin-bottom: 0.3em;
 }
+.v-card {
+	transition: opacity 0.4s ease-in-out;
+}
+
+.v-card.on-hover {
+	opacity: 0.6;
+}
+
+.show-icon {
+	color: rgb(155, 155, 155) !important;
+}
 </style>
 <script>
-//import U from "../../lib/util/U.js";
+import ProfileImageDialog from "../components/ProfileImageDialog.vue";
 import NotLoggedIn from "../../app/views/NotLoggedIn.vue";
 import FeatureMenu from "../components/FeatureMenu.vue";
 import OptionMenu from "../components/OptionMenu.vue";
@@ -419,10 +461,13 @@ export default {
 	components: {
 		NotLoggedIn,
 		FeatureMenu,
-		OptionMenu
+		OptionMenu,
+		ProfileImageDialog
 	},
 	data() {
 		return {
+			transparent: "rgba(255, 255, 255, 0)",
+			profileImageDialogOpen: false,
 			menuTabs: 0,
 			fakeProfile: {
 				joined: "",
@@ -480,8 +525,8 @@ export default {
 		loginIsLoading() {
 			return this.$store.getters.loginIsLoading;
 		},
-		profileImgSrc() {
-			return "../../assets/profilePic.png";
+		userProfilePicUrl() {
+			return this.$store.getters.userProfilePicUrl;
 		},
 		userProfile() {
 			return this.$store.getters.userProfile;
@@ -522,6 +567,12 @@ export default {
 		}
 	},
 	methods: {
+		openProfileImageDialog() {
+			this.profileImageDialogOpen = true;
+		},
+		closeProfileImageDialog() {
+			this.profileImageDialogOpen = false;
+		},
 		editProfile(field) {
 			console.log("editing " + field);
 		},

@@ -3,6 +3,7 @@
 namespace User;
 
 use Model\UserProfileModel;
+use Image\ImageUploader;
 
 class UserProfile
 {
@@ -21,7 +22,31 @@ class UserProfile
         return $this->app->db->insertNew($model, $fields, $values)?$id:false;
     }
 
-    public function getUserProfileByUserId($d){
+	public function submitUserProfilePicture($d) {
+		if(!isset($_FILES["user_profile_img"])) {
+			return ["errors" => ["There was a problem recieving your image."]];
+		} else {
+			$result = (new ImageUploader($this->app))->uploadUserProfilePicture();
+			if(isset($result["success"])) {
+				$profilePicSrc = $result["success"][1];
+				array_pop($result["success"]); // pop imgSrc off result success array
+				$this->model->updateProfilePicSrcByUserId($profilePicSrc, $_SESSION["d"]["userId"]);
+				return $result;
+			} else if (isset($result["errors"])) {
+				return $result;
+			} else {
+				return ["errors" => ["There was an unknown problem with your upload, try again."]];
+			}
+		}
+	}
+
+	public function getUserProfilePicUrlByUserId($userId) {
+		$profilePicSrc = $this->model->getProfilePicSrcByUserId($userId);
+		$url = "/storage/ProfilePictures/".$userId."/". $profilePicSrc;
+		return $url;
+	}
+
+    public function getUserProfileByUserId($userId){
 		if (\is_array($d) && isset($d["userId"])) {
 			return $this->model->getUserProfileByUserId($d["userId"]);
 		}

@@ -40,4 +40,14 @@ class UserProfileModel extends Model
 	public function getUserProfileById($id){
         return $this->app->db->gbi(['*'],['id'=>$id],'userprofile');
     }
+	public function updateProfilePicSrcByUserId($profilePicSrc, $userId) {
+		return $this->app->db->ubi(["profilePicSrc"=>$profilePicSrc], ["userId"=>$userId], $this->getModelData()[0]);
+	}
+	public function getProfilePicSrcByUserId($userId) {
+		return $this->app->db->gbi(
+			"profilePicSrc", 
+			["userId"=>$userId], 
+			$this->getModelData()[0]
+		)[0]["profilePicSrc"];
+	}
 }

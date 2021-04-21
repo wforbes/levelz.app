@@ -4,7 +4,9 @@ export default {
 		userId: "",
 		username: "",
 		userEmail: "",
-		userProfile: {}
+		userProfile: {},
+		defaultUserProfilePicUrl: "storage/ProfilePictures/default/default.png",
+		userProfilePicUrl: ""
 	},
 	getters: {
 		userId: state => {
@@ -18,15 +20,54 @@ export default {
 		},
 		userDialogOpen: state => {
 			return state.userDialogOpen;
+		},
+		defaultUserProfilePicUrl: state => {
+			return state.defaultUserProfilePicUrl;
+		},
+		userProfilePicUrl: state => {
+			return state.userProfilePicUrl;
 		}
 	},
 	actions: {
-		loadUserProfile({ commit, rootState }, { userProfileId }) {
-			rootState.da.getUserProfileById({ userProfileId }).then(response => {
+		submitUserProfilePicture({ rootState }, { formData }) {
+			return rootState.da.submitUserProfilePicture(formData);
+		},
+		loadUserProfile(
+			{ rootState, commit, dispatch, rootGetters, getters },
+			{ userProfileId }
+		) {
+			rootState.da.getUserProfileById(userProfileId).then(response => {
+				console.log(response);
 				if (response.data[0]) {
 					commit("setUserProfile", response.data[0]);
+					if (response.data[0].profilePicSrc !== "") {
+						dispatch("loadUserProfilePicUrl");
+					} else {
+						commit(
+							"setUserProfilePicUrl",
+							rootGetters.host + "api/" + getters.defaultUserProfilePicUrl
+						);
+					}
 				}
 			});
+		},
+		loadUserProfilePicUrl({ rootState, getters, commit, rootGetters }) {
+			console.log(getters.userId);
+			rootState.da
+				.getUserProfilePicUrlByUserId(getters.userId)
+				.then(response => {
+					if (response.data[0]) {
+						commit(
+							"setUserProfilePicUrl",
+							rootGetters.host + "api/" + response.data[0]
+						);
+					} else {
+						commit(
+							"setUserProfilePicUrl",
+							rootGetters.host + "api/" + getters.defaultUserProfilePicUrl
+						);
+					}
+				});
 		},
 		clearUserData({ commit }) {
 			commit("clearUserId");
@@ -65,6 +106,9 @@ export default {
 		},
 		setUserProfile(state, profile) {
 			state.userProfile = Object.assign({}, profile);
+		},
+		setUserProfilePicUrl(state, url) {
+			state.userProfilePicUrl = url;
 		},
 		setUserDialogOpen(state, setting) {
 			state.userDialogOpen = setting;

@@ -30,6 +30,25 @@ export default class ApiDataAccess {
 		});
 	}
 
+	uploadFormData(noun, verb, formData) {
+		return new Promise((resolve, reject) => {
+			const data = {
+				n: noun,
+				v: verb
+			};
+			formData.append("data", JSON.stringify(data));
+			axios
+				.post(this.vue.$store.getters.host + "api/", formData)
+				.catch(error => {
+					console.error(error);
+					reject();
+				})
+				.then(response => {
+					resolve(response);
+				});
+		});
+	}
+
 	submitSignup(signupData) {
 		return this.callAPI(
 			["Auth", "SignupController"],
@@ -61,6 +80,22 @@ export default class ApiDataAccess {
 		return this.callAPI(["User", "UserProfile"], "getUserProfileById", {
 			userProfileId: userProfileId
 		});
+	}
+
+	submitUserProfilePicture(formData) {
+		return this.uploadFormData(
+			["User", "UserProfile"],
+			"submitUserProfilePicture",
+			formData
+		);
+	}
+
+	getUserProfilePicUrlByUserId(userId) {
+		return this.callAPI(
+			["User", "UserProfile"],
+			"getUserProfilePicUrlByUserId",
+			{ userId: userId }
+		);
 	}
 
 	logout() {

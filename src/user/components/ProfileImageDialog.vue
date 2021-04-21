@@ -1,0 +1,176 @@
+<template>
+	<div id="profile-image-dialog">
+		<v-dialog v-model="dialogOpen" ref="userDialog" persistent max-width="800">
+			<v-card class="elevation-12">
+				<v-toolbar dark dense flat>
+					<v-toolbar-title>{{ toolbarTitle }}</v-toolbar-title>
+					<v-spacer></v-spacer>
+					<v-btn @click="closeDialog" icon>
+						<v-icon>mdi-close</v-icon>
+					</v-btn>
+				</v-toolbar>
+				<v-card class="pa-5" v-if="!uploadSubmitted">
+					<v-form max-width="200" class="text-xs-center">
+						<v-row justify="center" align="center">
+							<v-col cols="12" md="6" style="text-align:center">
+								<img id="preview-image" v-if="previewFile" :width="200" />
+								<v-file-input
+									v-model="imageFile"
+									filled
+									:rules="rules"
+									show-size
+									accept="image/png, image/jpeg, image/bmp"
+									class="mt-5"
+									prepend-icon="mdi-camera"
+									label="Click to choose image"
+									max-width="50"
+									@change="fileAdded()"
+								></v-file-input>
+							</v-col>
+						</v-row>
+						<v-row class="ma-0 pa-0">
+							<v-col align="center" class="ma-0 pa-0">
+								<p>
+									<span
+										v-for="(errorMsg, index) of errorMsgs"
+										:key="index"
+										style="color:red; font-size: 0.9em;"
+									>
+										{{ errorMsg }}
+										<span v-if="index !== errorMsgs.length - 1"><br /></span>
+									</span>
+								</p>
+							</v-col>
+						</v-row>
+						<v-row>
+							<v-col align="center">
+								<v-btn
+									:disabled="!imageFile"
+									color="success"
+									@click="submitUpload()"
+								>
+									Upload
+								</v-btn>
+							</v-col>
+						</v-row>
+					</v-form>
+				</v-card>
+				<div v-if="showLoading">
+					<LoadingCard />
+				</div>
+				<v-card v-if="uploadSuccess" class="pa-5" align="center">
+					<v-card-title class="justify-center">
+						Upload Complete
+					</v-card-title>
+					<v-card-text>
+						{{ successMsg }}
+					</v-card-text>
+					<v-card-actions class="justify-center">
+						<v-btn @click="closeDialog()">Close</v-btn>
+					</v-card-actions>
+				</v-card>
+			</v-card>
+		</v-dialog>
+	</div>
+</template>
+
+<script>
+import LoadingCard from "@/app/components/LoadingCard.vue";
+export default {
+	name: "ProfileImageDialog",
+	props: ["dialogOpen"],
+	components: {
+		LoadingCard
+	},
+	data() {
+		return {
+			toolbarTitle: "Profile Image Upload",
+			imageFile: undefined,
+			previewFile: undefined,
+			previewNaturalWidth: 0,
+			previewNaturalHeight: 0,
+			errorMsgs: [],
+			successMsg: "",
+			uploadSubmitted: false,
+			showLoading: false,
+			uploadSuccess: false,
+			rules: [
+				value =>
+					!value ||
+					value.size < 3000000 ||
+					"Image size should be less than 4 MB!"
+			]
+		};
+	},
+	methods: {
+		async submitUpload() {
+			this.errorMsgs = [];
+			if (this.previewNaturalWidth > 640 || this.previewNaturalHeight > 640) {
+				this.errorMsgs.push("Image can't be larger than 640x640");
+			} else {
+				this.uploadSubmitted = true;
+				let formData = new FormData();
+				formData.append("user_profile_img", this.imageFile);
+				this.showLoading = true;
+				this.$store
+					.dispatch({
+						type: "submitUserProfilePicture",
+						formData: formData
+					})
+					.then(response => {
+						this.showLoading = false;
+						if (response.data.success) {
+							const msg = response.data.success[0];
+							this.successMsg = msg;
+							this.uploadSuccess = true;
+							this.$store.dispatch({
+								type: "loadUserProfile",
+								userProfileId: this.$store.getters.userProfile.id
+							});
+						} else {
+							this.uploadSubmitted = false;
+							if (response.data.errors) {
+								for (let error of response.data.errors) {
+									this.errorMsgs.push(error);
+								}
+							}
+						}
+					});
+			}
+		},
+		fileAdded() {
+			this.errorMsgs = [];
+			if (!this.imageFile) {
+				this.previewFile = undefined;
+				return;
+			}
+			this.previewFile = this.imageFile;
+			const reader = new FileReader();
+			reader.addEventListener("load", () => {
+				const img = document.querySelector("#preview-image");
+				img.addEventListener("load", () => {
+					this.previewNaturalWidth = img.naturalWidth;
+					this.previewNaturalHeight = img.naturalHeight;
+				});
+				img.src = reader.result;
+			});
+			reader.readAsDataURL(this.previewFile);
+		},
+		resetDialog() {
+			this.previewFile = undefined;
+			this.imageFile = undefined;
+			this.previewNaturalWidth = 0;
+			this.previewNaturalHeight = 0;
+			this.errorMsgs = [];
+			this.successMsg = "";
+			this.uploadSubmitted = false;
+			this.showLoading = false;
+			this.uploadSuccess = false;
+		},
+		closeDialog() {
+			this.resetDialog();
+			this.$emit("closeDialog");
+		}
+	}
+};
+</script>
