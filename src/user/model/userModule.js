@@ -37,7 +37,6 @@ export default {
 			{ userProfileId }
 		) {
 			rootState.da.getUserProfileById(userProfileId).then(response => {
-				console.log(response);
 				if (response.data[0]) {
 					commit("setUserProfile", response.data[0]);
 					if (response.data[0].profilePicSrc !== "") {
