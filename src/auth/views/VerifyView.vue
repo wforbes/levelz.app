@@ -114,13 +114,15 @@ export default {
 				if (response.success === true) {
 					this.successfullyVerified = true;
 				} else {
-					if (response.errors.length === 1) {
+					if ("errors" in response && response.errors.length === 1) {
 						this.errorMessage = response.errors[0].message;
 						if (response.errors[0].code == 0) {
 							this.verificationFailed = true;
 						} else if (response.errors[0].code == 1) {
 							this.alreadyVerified = true;
 						}
+					} else {
+						this.verificationFailed = true;
 					}
 				}
 				this.responseLoading = false;

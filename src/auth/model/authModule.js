@@ -22,28 +22,11 @@ export default {
 		}
 	},
 	actions: {
-		async submitSignup({ rootState, dispatch }, { signupData }) {
-			return rootState.da.submitSignup(signupData).then(response => {
-				if (response.data.success) {
-					const data = response.data["success"];
-					dispatch({
-						type: "loginUser",
-						userId: data["userId"],
-						username: data["username"],
-						userEmail: data["userEmail"],
-						userProfileId: data["userProfileId"]
-					});
-					return Promise.resolve();
-				} else {
-					return Promise.resolve(response.data.errors);
-				}
-			});
-		},
-		async submitLogin({ rootState }, { loginData }) {
-			return await rootState.da.submitLogin(loginData);
-		},
-		//userIsLoggedIn({})
 		initSession({ dispatch, getters, rootState }) {
+			dispatch({
+				type: "setLoginStatus",
+				status: getters.LOGIN_STATES.LOADING
+			});
 			rootState.da.checkSession().then(response => {
 				if (response.data["sessionData"]) {
 					dispatch({
@@ -74,6 +57,12 @@ export default {
 			});
 			commit("setLoginStatus", getters.LOGIN_STATES.IN);
 		},
+		async submitLogin({ rootState }, { loginData }) {
+			return await rootState.da.submitLogin(loginData);
+		},
+		setLoginStatus({ commit }, { status }) {
+			commit("setLoginStatus", status);
+		},
 		logoutUser({ commit, dispatch, getters, rootState }) {
 			rootState.da.logout().then(response => {
 				if (response.data["success"]) {
@@ -82,15 +71,26 @@ export default {
 				}
 			});
 		},
-		setLoginStatus({ commit }, { status }) {
-			commit("setLoginStatus", status);
-		}
-		/*
-		checkPermission({ rootState }, { permission }) {
-			rootState.da.checkPermission(permission).then(response => {
-				console.log(response);
+		async submitSignup({ rootState, dispatch }, { signupData }) {
+			return rootState.da.submitSignup(signupData).then(response => {
+				if (response.data.success) {
+					const data = response.data["success"];
+					dispatch({
+						type: "loginUser",
+						userId: data["userId"],
+						username: data["username"],
+						userEmail: data["userEmail"],
+						userProfileId: data["userProfileId"]
+					});
+					return Promise.resolve();
+				} else {
+					return Promise.resolve(response.data.errors);
+				}
 			});
-		}*/
+		},
+		async verifyEmailAddress({ rootState }, { verifyData }) {
+			return await rootState.da.verifyEmailAddress(verifyData);
+		}
 	},
 	mutations: {
 		setLoginStatus(state, status) {

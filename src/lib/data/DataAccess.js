@@ -14,24 +14,29 @@ export default class DataAccess {
 		return this.dataContext.init();
 	}
 
+	checkSession() {
+		return this.dataContext.checkSession();
+	}
+
 	submitSignup(signupData) {
 		return this.dataContext.submitSignup(signupData);
+	}
+
+	verifyEmailAddress(verifyData) {
+		return this.dataContext.verifyEmailAddress(verifyData);
 	}
 
 	submitLogin(loginData) {
 		return this.dataContext.submitLogin(loginData);
 	}
 
-	checkSession() {
-		return this.dataContext.checkSession();
-	}
-
-	getProfileById(userProfileId) {
-		return this.dataContext.getProfileById(userProfileId);
-	}
-
 	logout() {
 		return this.dataContext.logout();
+	}
+
+	//TODO: rename this to getUserProfile...
+	getProfileById(userProfileId) {
+		return this.dataContext.getProfileById(userProfileId);
 	}
 
 	getActivitySuggestions() {

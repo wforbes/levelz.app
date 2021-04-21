@@ -60,4 +60,13 @@ class UserModel extends Model
 	public function getEmailById($id) {
 		return $this->app->db->gbi(['email'],['id'=>$id],'user');
 	}
+
+	public function verifyUser($userId) {
+		return $this->app->db->ubi(["verified"=>1], ["id"=>$userId], $this->getModelData()[0]);
+	}
+
+	public function isVerified($userId) {
+		$result = $this->app->db->gbi(["verified"], ["id" => $userId], $this->getModelData()[0]);
+		return filter_var($result[0]["verified"], FILTER_VALIDATE_BOOLEAN);
+	}
 }

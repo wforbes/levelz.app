@@ -62,4 +62,12 @@ class User {
 	public function getEmailById($id) {
 		return $this->model->getEmailById($id);
 	}
+	
+	public function verifyUser($userId) {
+		return $this->model->verifyUser($userId);
+	}
+
+	public function isVerified($userId) {
+		return $this->model->isVerified($userId);
+	}
 }
