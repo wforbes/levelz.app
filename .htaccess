@@ -9,5 +9,6 @@
 	RewriteCond %{REQUEST_URI} !^/api/
 	RewriteRule . /index.html [L]
 </IfModule>
+Options -indexes
 Header set Access-Control-Allow-Origin "https://localhost:8080"
 Header set Access-Control-Allow-Credentials true
