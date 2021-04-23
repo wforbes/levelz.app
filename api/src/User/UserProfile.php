@@ -46,7 +46,7 @@ class UserProfile
 		return $url;
 	}
 
-    public function getUserProfileByUserId($userId){
+    public function getUserProfileByUserId($d){
 		if (\is_array($d) && isset($d["userId"])) {
 			return $this->model->getUserProfileByUserId($d["userId"]);
 		}
