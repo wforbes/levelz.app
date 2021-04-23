@@ -54,6 +54,9 @@ class App {
 
 	private function setDatabase():void {
 		$this->db = new MySQL($this);
+		if($this->db->freshInstall || $this->db->seedRequired($this)) {
+			$this->db->seedInitialData($this);
+		}
 	}
 
 	//https://stackoverflow.com/questions/6287903/how-to-properly-add-cross-site-request-forgery-csrf-token-using-php

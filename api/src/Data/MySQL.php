@@ -13,6 +13,7 @@ class MySQL {
 	private $dbUser;
 	private $dbPass;
 	private $dbName;
+	public $freshInstall = false;
 
 	public function __construct() {
 		$this->setConfig();
@@ -59,6 +60,7 @@ class MySQL {
 		$sql = "";
 
 		if(!$this->databaseExists($this->dbName)){
+			$this->freshInstall = true;
 			$sql = "CREATE DATABASE IF NOT EXISTS `{$this->dbName}` CHARACTER SET utf8 COLLATE utf8_general_ci;";
 		}
 
@@ -87,6 +89,14 @@ class MySQL {
 		$stmt = $this->connection->query("SHOW DATABASES LIKE '$n';");
 		$all = $stmt->fetchAll();
 		return(\count($all)!==0);
+	}
+
+	public function seedRequired($app) {
+		return (new DataSeeder($app))->seedRequired();
+	}
+
+	public function seedInitialData($app) {
+		(new DataSeeder($app))->seedData();
 	}
 
 	//name: tableExists
