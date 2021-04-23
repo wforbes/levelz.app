@@ -46,4 +46,18 @@ class Permission {
 	public function roleHasPermission($roleId, $permissionId) {
 		return $this->rolePermissionModel->roleHasPermission($roleId, $permissionId);
 	}
+
+	// Meta Permissions ...
+	// createNewPermission("create", "permission")
+	// createNewPermission("read", "permission")
+	// createNewPermission("update", "permission")
+	// createNewPermission("delete", "permission")
+
+	// In the case that a permission should specify
+	//	a context, like where an Admin can CRUD any entity
+	//	on the platform... ?
+	// createNewPermission("create", "Activity", "all");
+	// createNewPermission("read", "Activity", "all");
+	// createNewPermission("update", "Activity", "all");
+	// createNewPermission("delete", "Activity", "all");
 }
