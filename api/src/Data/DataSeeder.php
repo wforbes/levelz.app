@@ -79,37 +79,17 @@ class DataSeeder {
 		return $this->user->userExistsByName($username);
 	}
 
-	//	Create RolePermissions table
-	//	RolePermissions
-	//		id
-	//		roleId
-	//		permissionId
-
-	//	Create Permission table
-	//	Permission
-	//		id
-	//		action
-	//		object
-	//	createNewPermission("route", "wizard_page")
-	//	$roleId = getRoleIdByName("wizard");
-	//	$permissionId = getPermissionId("route", "wizard_page")
-	//	setRolePermission($roleId, $permissionId)
-
-	// createNewPermission("route", "dev_page")
-	//	$roleId = getRoleIdByName("dev");
-	//	$permissionId = getPermissionId("route", "dev_page")
-	//	setRolePermission($roleId, $permissionId)
-
+	//TODO concepts...
+	// Each entity could have a set of permissions for CRUD, including permissions themselves
 	// createNewPermission("create", "permission")
 	// createNewPermission("read", "permission")
 	// createNewPermission("update", "permission")
 	// createNewPermission("delete", "permission")
+
+	// Admins need the ability to access users...
 	// createNewPermission("create", "user")
 	// createNewPermission("read", "user")
 	// createNewPermission("update", "user")
-	// createNewPermission("delete", "user") - allow for deactivating a user from the database
-		
-
+	// createNewPermission("delete", "user")
 	
-		
 }
