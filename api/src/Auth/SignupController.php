@@ -94,7 +94,7 @@ class SignupController {
 	}
 
 	private function checkUsername($u):void{
-		//$this->signupErrors[]=$this->checkUsernameExists($u); //TODO: implement user class
+		$this->signupErrors[]=$this->checkUsernameExists($u);
 		$this->signupErrors[]=$this->checkUsernameLength($u);
 		$this->signupErrors[]=$this->checkUsernameSpaces($u);
 		$this->signupErrors[]=$this->checkUsernameFirstChar($u);
@@ -163,7 +163,7 @@ class SignupController {
 	//end checkPasswords helpers
 
 	private function checkEmail($e):void{
-		//$this->signupErrors[]=$this->checkEmailExists($e); //TODO: implement user class
+		$this->signupErrors[]=$this->checkEmailExists($e);
 		$this->signupErrors[]=$this->checkEmailStructure($e);
 		$this->signupErrors = $this->clearEmptyElements($this->signupErrors);
 	}
@@ -183,7 +183,7 @@ class SignupController {
 		foreach($this->signupErrors as $msg) {
 			$error_log .= $msg.PHP_EOL;
 		}
-		$this->app->logger->error($error_log);
+		$this->app->logger->log_error($error_log);
 	}
 
 	//Frontend @ src/auth/components/VerifyView.vue
