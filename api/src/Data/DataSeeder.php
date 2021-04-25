@@ -61,7 +61,7 @@ class DataSeeder {
 				$username,
 				$this->creds[$username]["password"],
 				$this->creds[$username]["email"]
-			);
+			)["userId"];
 		}
 	}
 
