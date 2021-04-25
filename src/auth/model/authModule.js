@@ -28,6 +28,7 @@ export default {
 				status: getters.LOGIN_STATES.LOADING
 			});
 			rootState.da.checkSession().then(response => {
+				console.log(response);
 				if (response.data["sessionData"]) {
 					dispatch({
 						type: "loginUser",

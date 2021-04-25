@@ -4,9 +4,11 @@ namespace Core;
 
 use Http\Router;
 use Data\MySQL;
+use Log\Logger;
 
 class App {
 	public const APP_ROOT = __DIR__."/..";
+	public $logger;
 	
 	public function __construct() {
 		$this->setup();
@@ -17,6 +19,7 @@ class App {
 		session_start();
 		$this->setDelimiter();
 		$this->autoload();
+		$this->initLogger();
 		$this->setDatabase();
 		$this->createToken();
 	}
@@ -46,10 +49,14 @@ class App {
                 require_once $class_name.".php";
                 return true;
             }else{
-                echo "Error: Can't find file $class_name - we'll be back shortly.";
+                $this->logger->log_error("Error: Can't find file $class_name - we'll be back shortly.");
             }
             return false;
         });
+	}
+
+	private function initLogger() {
+		$this->logger = new Logger();
 	}
 
 	private function setDatabase():void {

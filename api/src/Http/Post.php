@@ -32,11 +32,12 @@ class Post {
 		$this->verbName = filter_var($this->inputData[$this->verbKey], FILTER_SANITIZE_STRING);
 		$this->payload = $this->parseNonNVData();
 		$result = $this->doVerb($this->verbName, $this->payload);
-		Post::reply($result);
+		$this->reply($result);
 		exit();
 	}
 
-	public static function reply($s) {
+	public function reply($s) {
+		$this->app->logger->post_log();
 		echo json_encode((is_array($s))?($s):([$s]));
 	}
 	
@@ -105,6 +106,7 @@ class Post {
 
 		if ($fileContents === false) {
 			echo json_encode(["error" => "API noun not found."]);
+			$this->app->logError("Error: API noun not found (".$this->nounName.")");
 			exit;
 		} else {
 			$methods = array();

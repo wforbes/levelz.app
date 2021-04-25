@@ -71,8 +71,10 @@ class SignupController {
 		if ($this->signupIsValid($d['u'],$d['p'],$d['r'],$d['e'])){
 			$newUser = $_SESSION["d"] = $this->user->createNewUser($d['u'],$d['p'],$d['e']);
 			(new EmailController($this->app))->sendConfirmationEmail($newUser["userId"], $newUser["userEmail"]);
+			$this->app->logger->log_msg("New user signed up: ".$d['u']);
 			return [ "success"=> $newUser ];
 		} else {
+			$this->logSignupErrors();
 			return ["errors" => $this->signupErrors];
 		}
 	}
@@ -175,6 +177,14 @@ class SignupController {
 		return $this->user->userExistsByEmail($e)?$msg:"";
 	}
 	//end checkEmail helpers
+
+	private function logSignupErrors() {
+		$error_log = "Sign up errors (server-side): ".PHP_EOL;
+		foreach($this->signupErrors as $msg) {
+			$error_log .= $msg.PHP_EOL;
+		}
+		$this->app->logger->error($error_log);
+	}
 
 	//Frontend @ src/auth/components/VerifyView.vue
 	//Name: verifyEmailAddress
