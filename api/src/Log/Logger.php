@@ -30,11 +30,9 @@ class Logger {
 	}
 
 	public function log_error($s) {
-		$log  = "IP: ".$_SERVER["REMOTE_ADDR"]." - ".date("F j, Y, g:i a").PHP_EOL;
-		$log .= (isset($_SESSION["d"]["userId"]))?("UserID: ".$_SESSION["d"]["userId"]):("");
-		$log .= "ERROR: ".$s.PHP_EOL.
+		$error_msg = "ERROR: ".PHP_EOL.$s.PHP_EOL.
 				"-------------------------".PHP_EOL;
-		
+		$log = $this->header.$error_msg;
 		file_put_contents($this->dir."errors_".date("j.n.Y").".log", $log, FILE_APPEND);
 	}
 }
