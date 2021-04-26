@@ -81,7 +81,7 @@ class Post {
 				);
 			} else {
 				//TODO: error - Incorrect number of nouns provided to Post
-				exit();
+				exit(0);
 			}
 		}
 		
@@ -107,7 +107,7 @@ class Post {
 		if ($fileContents === false) {
 			echo json_encode(["errors" => ["API noun not found."]]);
 			$this->app->logError("Error: API noun not found (".$this->nounName.")");
-			exit;
+			exit(0);
 		} else {
 			$methods = array();
 			$tokens = token_get_all($fileContents);

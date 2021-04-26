@@ -8,9 +8,8 @@ class Logger {
 	public $msg;
 
 	public function __construct() {
-		if( is_dir($this->dir) === false )
-		{
-			mkdir($this->dir);
+		if(is_dir($this->dir) === false) {
+			mkdir($this->dir, 0755, true);
 		}
 		$this->header  = "IP: ".$_SERVER["REMOTE_ADDR"]." - ".date("F j, Y, g:i a").PHP_EOL;
 		$this->header .= (isset($_SESSION["d"]["userId"]))?("UserID: ".$_SESSION["d"]["userId"].PHP_EOL):("");
