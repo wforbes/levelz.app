@@ -98,6 +98,20 @@ export default class ApiDataAccess {
 		);
 	}
 
+	getAllUserProfilePictures() {
+		return this.callAPI(["User", "UserProfile"], "getAllUserProfilePictures");
+	}
+
+	updateDefaultUserProfilePic(fileName) {
+		return this.callAPI(
+			["User", "UserProfile"],
+			"updateDefaultUserProfilePic",
+			{
+				fileName: fileName
+			}
+		);
+	}
+
 	logout() {
 		//return this.callAPI("auth", "logout");
 		return this.callAPI(["Auth", "SessionController"], "logout");

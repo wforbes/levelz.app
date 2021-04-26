@@ -47,6 +47,13 @@ export default class DataAccess {
 		return this.dataContext.getUserProfilePicUrlByUserId(userId);
 	}
 
+	getAllUserProfilePictures() {
+		return this.dataContext.getAllUserProfilePictures();
+	}
+	updateDefaultUserProfilePic(fileName) {
+		return this.dataContext.updateDefaultUserProfilePic(fileName);
+	}
+
 	getActivitySuggestions() {
 		return this.dataContext.getActivitySuggestions();
 	}

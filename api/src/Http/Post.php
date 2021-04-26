@@ -105,7 +105,7 @@ class Post {
 		//TODO: check if file/class is not allowed
 
 		if ($fileContents === false) {
-			echo json_encode(["error" => "API noun not found."]);
+			echo json_encode(["errors" => ["API noun not found."]]);
 			$this->app->logError("Error: API noun not found (".$this->nounName.")");
 			exit;
 		} else {
