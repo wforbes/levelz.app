@@ -147,7 +147,7 @@ export default {
 				this.selectedImage = selectedIndex >= 0 ? selectedIndex : undefined;
 			}
 			if (oldV && !newV) {
-				console.log("dialog closed");
+				//console.log("dialog closed");
 			}
 		}
 	},
