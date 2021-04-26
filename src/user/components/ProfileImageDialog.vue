@@ -63,16 +63,35 @@
 							</v-col>
 						</v-row>
 					</v-form>
-					<div>
-						<v-img
-							:class="{ selected: selectedImage === index }"
-							max-width="200"
+					<v-row>
+						<v-col
 							v-for="(url, index) of imgUrlArray"
 							:key="index"
-							:src="url"
-							@click="selectImage(index)"
-						></v-img>
-					</div>
+							class="d-flex child-flex"
+							cols="4"
+						>
+							<v-img
+								:class="{ selected: selectedImage === index }"
+								aspect-ratio="1"
+								:src="url"
+								:lazy-src="$store.getters.defaultUserProfilePicUrl"
+								@click="selectImage(index)"
+							>
+								<template v-slot:placeholder>
+									<v-row
+										class="fill-height ma-0"
+										align="center"
+										justify="center"
+									>
+										<v-progress-circular
+											indeterminate
+											color="grey lighten-5"
+										></v-progress-circular>
+									</v-row>
+								</template>
+							</v-img>
+						</v-col>
+					</v-row>
 				</v-card>
 				<div v-if="showLoading">
 					<LoadingCard />
