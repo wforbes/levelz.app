@@ -418,10 +418,12 @@
 							</v-container>
 						</v-card>
 					</div>
+					<div v-else-if="loginIsLoading">
+						<LoadingCard />
+					</div>
 					<div v-else>
 						<NotLoggedIn />
 					</div>
-					<div v-if="loginIsLoading"></div>
 				</v-col>
 			</v-row>
 		</v-container>
@@ -452,14 +454,16 @@
 <script>
 import ProfileImageDialog from "../components/ProfileImageDialog.vue";
 import NotLoggedIn from "../../app/views/NotLoggedIn.vue";
+import LoadingCard from "@/app/components/LoadingCard.vue";
 import FeatureMenu from "../components/FeatureMenu.vue";
 import OptionMenu from "../components/OptionMenu.vue";
-import { util } from "../../mixins/util.js";
+import { util } from "@/mixins/util.js";
 export default {
 	name: "DashboardPage",
 	mixins: [util],
 	components: {
 		NotLoggedIn,
+		LoadingCard,
 		FeatureMenu,
 		OptionMenu,
 		ProfileImageDialog
