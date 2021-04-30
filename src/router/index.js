@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import goTo from "vuetify/es5/services/goto";
 
 Vue.use(VueRouter);
 
@@ -16,6 +17,14 @@ const routes = [
 		component: () =>
 			import(
 				/* webpackChunkName: "bundle-Home" */ "@/about/views/AboutPage.vue"
+			)
+	},
+	{
+		path: "/white-paper",
+		name: "WhitePaperPage",
+		component: () =>
+			import(
+				/* webpackChunkName: "bundle-Home" */ "@/about/views/WhitePaperPage.vue"
 			)
 	},
 	{
@@ -133,7 +142,22 @@ const routes = [
 const router = new VueRouter({
 	mode: "history",
 	base: process.env.BASE_URL,
-	routes: routes
+	routes: routes,
+	scrollBehavior: (to, from, savedPosition) => {
+		let scrollTo = 0;
+
+		if (to.hash) {
+			scrollTo = to.hash;
+		} else if (savedPosition) {
+			scrollTo = savedPosition.y;
+		}
+
+		return goTo(scrollTo, {
+			duration: 942,
+			offset: 64,
+			easing: "easeInOutCubic"
+		});
+	}
 });
 
 export default router;

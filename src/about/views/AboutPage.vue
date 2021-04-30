@@ -9,17 +9,28 @@
 			<v-row>
 				<v-col>
 					<h1>About Lvlz.app</h1>
+					<p>
+						<span style="font-size: 0.7em;">
+							last updated 4/27/2021 by
+							<a href="https://wforbes.net" target="_blank">Will Forbes</a>
+						</span>
+					</p>
 				</v-col>
 			</v-row>
 			<v-row>
 				<v-col>
 					<v-card class="pa-3 mb-4">
 						<p>
-							<span style="font-size: 0.7em;">
-								last updated 12/19/2020 by
-								<a href="https://wforbes.net" target="_blank">Will Forbes</a>
-							</span>
+							I've started working on a draft of our introductory white-paper
+							that explains Levelz and provides a description of it's features.
 						</p>
+						<div style="text-align:center">
+							<v-btn color="primary" to="/white-paper">
+								Read the Lvlz White Paper
+							</v-btn>
+						</div>
+					</v-card>
+					<v-card class="pa-3 mb-4">
 						<p>
 							Levelz is a productivity web app that looks to help you reinforce
 							your good habits, stay productive, and level up in life!
@@ -32,7 +43,7 @@
 						</p>
 						<p>
 							The first features of Levelz.app should be ready to start testing
-							sometime at the beginning of 2021.
+							sometime in the middle of 2021.
 						</p>
 						<p>
 							In the meantime, check out these similar apps:
