@@ -40,9 +40,7 @@
 									<v-container>
 										<v-row>
 											<v-col cols="12">
-												<div
-													style="border: 0.1em solid grey; border-radius:4px; text-align:center;"
-												>
+												<div style="text-align:center;">
 													<ActivityList
 														:stepperState="stepperState"
 														@openHelpOverlay="openHelpOverlay"

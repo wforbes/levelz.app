@@ -1,10 +1,10 @@
 <template>
 	<div>
 		<v-card>
-			<v-container class="pb-0">
+			<v-container>
 				<v-row>
 					<v-col class="pt-0 pl-1 pr-1 pb-0">
-						<v-container class="pa-0">
+						<v-container class="pt-5">
 							<v-row>
 								<v-col cols="10" class="pt-0 pb-0 mb-0">
 									<v-text-field
@@ -75,7 +75,7 @@
 									<v-list
 										v-if="filteredActivities.length > 0 && !listIsLoading"
 										class="pa-1 overflow-y-auto"
-										style="border: 0.1em solid grey; border-radius:0.3em"
+										style=""
 										max-height="52vh"
 									>
 										<v-list-item
