@@ -34,7 +34,7 @@ These are some features I'm working on and a general roadmap for the direction o
   * [X] **Create Database Entry** - Validate the User's new account info and store it on the database.
   * [X] **Confirmation Emails** - Sending out a confirmation email when a new account is created that provides a link to confirm the account.
   * [X] **Login Form** - Create a component that allows people that have made an account to log in to it securely with their password.
-* [ ] **Basic User Dashboard** - This dashboard should give controls to modify their information, add a profile picture, and provide links to other features that haven't been built yet like Activity, Notifications, Messages, and Friends. It should also include some UI for 'game' features like their Level, Experience Points, Vital Points, Statistics, Abilities, Spells, and Achievements.
+* [X] **Basic User Dashboard** - This dashboard should give controls to modify their information, add a profile picture, and provide links to other features that haven't been built yet like Activity, Notifications, Messages, and Friends. It should also include some UI for 'game' features like their Level, Experience Points, Vital Points, Statistics, Abilities, Spells, and Achievements.
   * [X] **Features Menu** - Create a component that provides links to all the Core Features of the app.
   * [ ] **Profile Picture Uploads** - Create a component that allows users to upload, change, and delete their profile picture, and another component that displays their profile picture throughout the app.
   * [ ] **Profile Information** - Create a component that allows users to add and update their basic profile information.
