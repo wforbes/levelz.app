@@ -1,6 +1,6 @@
 <template>
 	<v-row>
-		<v-col cols="11" class="pa-0 pl-4" style="min-height:3em">
+		<v-col cols="11" class="pa-0 pl-4 pt-4" style="min-height:3em">
 			<v-row>
 				<transition name="fade" mode="out-in">
 					<v-col class="pl-3 pa-0" v-if="states.length === 0">
@@ -29,7 +29,7 @@
 											<v-icon>mdi-arrow-left</v-icon>
 										</v-btn>
 									</v-col>
-									<v-col class="pa-0">
+									<v-col class="pa-0 pt-2">
 										<h2 style="margin-top:0.3em">
 											<span v-for="(state, i) of states" :key="i">
 												<span style="text-overflow:ellipsis">
