@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 export default {
 	state: {
 		LOGIN_STATES: {
@@ -90,6 +92,22 @@ export default {
 		},
 		async verifyEmailAddress({ rootState }, { verifyData }) {
 			return await rootState.da.verifyEmailAddress(verifyData);
+		},
+		async hasPermission({ rootState, rootGetters }, { action, object }) {
+			let userId = rootGetters.userId;
+			if (!rootGetters.isLoggedIn || _.isEmpty(userId)) {
+				return false;
+			}
+			let permissionData = {
+				action: action,
+				object: object
+			};
+			return await rootState.da
+				.userHasPermission(permissionData)
+				.then(response => {
+					console.log(response);
+					return Promise.resolve(response.data[0]);
+				});
 		}
 	},
 	mutations: {

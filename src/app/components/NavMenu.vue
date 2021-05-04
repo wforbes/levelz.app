@@ -33,20 +33,17 @@
 					<v-list-item-title>Contact</v-list-item-title>
 				</v-list-item-content>
 			</v-list-item>
-			<!--
-			<div v-if="viewAdminLink">
-				<v-divider inset></v-divider>
-				<v-subheader>Administration</v-subheader>
-				<v-list-item link to="/admin">
+			<div v-if="isLoggedIn && hasAnyPermission">
+				<v-divider></v-divider>
+				<v-list-item v-if="hasDevPageRoutePermission" link to="/dev">
 					<v-list-item-action>
-						<v-icon>mdi-account-tie</v-icon>
+						<v-icon>mdi-code-braces</v-icon>
 					</v-list-item-action>
 					<v-list-item-content>
-						<v-list-item-title>Admin</v-list-item-title>
+						<v-list-item-title>Developer</v-list-item-title>
 					</v-list-item-content>
 				</v-list-item>
 			</div>
-			-->
 		</v-list>
 	</v-navigation-drawer>
 </template>
@@ -56,7 +53,10 @@ export default {
 	name: "NavMenu",
 	props: ["navMenuIsOpen"],
 	data() {
-		return {};
+		return {
+			hasAnyPermission: false,
+			hasDevPageRoutePermission: false
+		};
 	},
 	computed: {
 		isOpen: {
@@ -68,24 +68,31 @@ export default {
 					this.$emit("closeNavMenu", newValue);
 				}
 			}
+		},
+		isLoggedIn() {
+			return this.$store.getters.isLoggedIn;
 		}
-		/*
-		viewAdminLink() {
-			if (this.$store.getters.loginStatus) {
-				return this.$store.dispatch({
-					type: "checkPermission",
-					permission: "viewAdminLink"
-				});
-			} else {
-				return false;
-			}
-		}*/
 	},
 	watch: {
 		isOpen(newVal, oldVal) {
 			if (!newVal && oldVal) {
 				this.$emit("closeNavMenu");
 			}
+			if (newVal && !oldVal) {
+				this.checkPermissions();
+			}
+		}
+	},
+	methods: {
+		async checkPermissions() {
+			this.hasDevPageRoutePermission = await this.$store.dispatch({
+				type: "hasPermission",
+				action: "route",
+				object: "developer_page"
+			});
+
+			//TODO: Modify this when multiple permissions are checked
+			this.hasAnyPermission = this.hasDevPageRoutePermission;
 		}
 	}
 };

@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import goTo from "vuetify/es5/services/goto";
+import store from "@/store/index.js";
 
 Vue.use(VueRouter);
 
@@ -64,6 +65,11 @@ const routes = [
 			import(/* webpackChunkName: "bundle-Home" */ "@/app/views/Error404.vue")
 	},
 	{
+		path: "/no-access",
+		name: "NoAccessPage",
+		component: () => import("@/app/views/NoAccessPage.vue")
+	},
+	{
 		path: "/admin",
 		name: "AdminPage",
 		component: () => import("@/admin/views/AdminPage.vue")
@@ -71,7 +77,19 @@ const routes = [
 	{
 		path: "/dev",
 		name: "DevPage",
-		component: () => import("@/dev/views/DevPage.vue")
+		component: () => import("@/dev/views/DevPage.vue"),
+		beforeEnter: async function(to, from, next) {
+			const hasPermission = await store.dispatch({
+				type: "hasPermission",
+				action: "route",
+				object: "developer_page"
+			});
+			if (hasPermission === true) {
+				next();
+			} else {
+				next({ path: "/no-access" });
+			}
+		}
 	},
 	{
 		path: "/dashboard",
