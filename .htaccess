@@ -12,3 +12,4 @@
 Options -indexes
 Header set Access-Control-Allow-Origin "https://localhost:8080"
 Header set Access-Control-Allow-Credentials true
+Header always edit Set-Cookie ^(.")$ $1;HttpOnly;Secure
