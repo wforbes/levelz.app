@@ -66,6 +66,12 @@ export default {
 				description: "",
 				types: []
 			},
+			emptyAction: {
+				id: "",
+				name: "",
+				description: "",
+				types: []
+			},
 			rules: {
 				required: value => !!value || "This can't be blank."
 				//TODO: check description upper bound length
@@ -85,11 +91,16 @@ export default {
 		}
 	},
 	methods: {
-		createAction() {
+		async createAction() {
+			console.log("createAction");
 			if (this.mode !== "create" || this.createFormValid === false) {
 				return;
 			}
-			console.log("create!");
+			await this.$store.dispatch({
+				type: "createNewAction",
+				action: this.newAction
+			});
+			this.closeForm();
 		},
 		closeForm() {
 			if (this.mode === "create") {
@@ -104,6 +115,7 @@ export default {
 		checkForUnsavedChanges() {
 			//show dialog confirming unsaved changes will be deleted
 			// - allow confirmation and clear current mode's obj and mode
+			this.newAction = Object.assign({}, this.emptyAction);
 			this.mode = "";
 			// - allow returning to the form to complete
 		}

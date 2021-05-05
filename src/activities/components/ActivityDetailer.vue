@@ -107,7 +107,7 @@
 										</v-list-item>
 									</v-list>
 									<v-card
-										v-if="!listIsLoading && actions.length === 0"
+										v-if="!listIsLoading && actionArray.length === 0"
 										width="100%"
 										height="100%"
 										elevation="5"
@@ -146,7 +146,7 @@
 										v-if="
 											listSearchTerm !== '' &&
 												filteredActions.length === 0 &&
-												actions.length > 0
+												actionArray.length > 0
 										"
 										width="100%"
 										height="100%"
@@ -199,7 +199,7 @@ export default {
 	},
 	async created() {
 		console.log("ActivityDetailer created");
-		await this.loadActions();
+		//await this.loadActions();
 		this.listIsLoading = false;
 	},
 	watch: {
@@ -214,18 +214,18 @@ export default {
 		detailActivity() {
 			return this.$store.getters.detailActivity;
 		},
-		actions() {
+		actionArray() {
 			return this.$store.getters.actionList;
 		},
 		filteredActions() {
 			return this.orderBy(
-				this.actions.filter(actions => {
-					if (!this.listSearchTerm) return this.actions;
+				this.actionArray.filter(action => {
+					if (!this.listSearchTerm) return this.actionArray;
 					return (
-						actions.name
+						action.name
 							.toLowerCase()
 							.includes(this.listSearchTerm.toLowerCase()) ||
-						actions.description
+						action.description
 							.toLowerCase()
 							.includes(this.listSearchTerm.toLowerCase())
 					);

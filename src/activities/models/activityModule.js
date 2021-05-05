@@ -5,7 +5,7 @@ export default {
 		activityModel: undefined,
 		activitySuggestions: [],
 		activities: [],
-		actions: [],
+		actionList: [],
 		detailActivity: {},
 		actionFormMode: ""
 	},
@@ -20,7 +20,7 @@ export default {
 			return state.detailActivity;
 		},
 		actionList: state => {
-			return state.actions;
+			return state.actionList;
 		},
 		actionFormMode: state => {
 			return state.actionFormMode;
@@ -91,7 +91,7 @@ export default {
 				.then(response => {
 					if (response.data["success"] === true) {
 						for (let action of response.data["actions"]) {
-							commit.addActionToList(action);
+							commit("addActionToList", action);
 						}
 					}
 					return Promise.resolve();
@@ -99,6 +99,17 @@ export default {
 		},
 		setActionFormMode({ commit }, { mode }) {
 			commit("setActionFormMode", mode);
+		},
+		createNewAction({ getters, rootState, commit }, { action }) {
+			action.activityId = getters.detailActivity.id;
+			return rootState.da.createNewAction(action).then(response => {
+				if (response.success === true) {
+					commit("addActionToList", response.newAction);
+					return Promise.resolve(response.newAction);
+				} else {
+					return Promise.resolve(response.message);
+				}
+			});
 		},
 		clearDetailActivity({ commit }) {
 			commit("clearDetailActivity");
@@ -128,7 +139,7 @@ export default {
 			state.detailActivity = {};
 		},
 		addActionToList(state, action) {
-			state.actions.push(action);
+			state.actionList.push(action);
 		},
 		setActionFormMode(state, mode) {
 			state.actionFormMode = mode;

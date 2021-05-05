@@ -149,4 +149,8 @@ export default class ApiDataAccess {
 	getActionsByActivityId(activityData) {
 		return this.callAPI("Action", "getActionsByActivityId", activityData);
 	}
+
+	createNewAction(actionData) {
+		return this.callAPI("Action", "createNewAction", actionData);
+	}
 }

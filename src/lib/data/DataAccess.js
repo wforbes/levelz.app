@@ -85,4 +85,8 @@ export default class DataAccess {
 	getActionsByActivityId(activityData) {
 		return this.dataContext.getActionsByActivityId(activityData);
 	}
+
+	createNewAction(actionData) {
+		return this.dataContext.createNewAction(actionData);
+	}
 }
