@@ -11,12 +11,16 @@ class Action {
 		$this->model = new ActionModel($app);
 	}
 
+	public function completeActionById($actionId) {
+		return (new ActionCompletion($this->app))->addActionCompletionByActionId($actionId);
+	}
+
 	//TODO: create a generic update function in model class like this using getEntityById and updateEntityById
 	public function updateAction($actionFields) {
 		$dbFields = $this->model->getActionById($actionFields["id"]);
 		$updateFields = [];
 		foreach($actionFields as $k => $v) {
-			if($dbFields[$k] !== $v) {
+			if($dbFields[$k] !== $v && $k !== "complete") {
 				$updateFields[$k] = $v;
 			}
 		}
@@ -67,6 +71,10 @@ class Action {
 		$response = [];
 		if (gettype($d) === "string") {
 			$result = $this->model->getActionsByActivityId($d);
+			$actionCompletion = new ActionCompletion($this->app);
+			foreach($result as &$action) {
+				$action["complete"] = $actionCompletion->actionIsComplete($action["id"]);
+			}
 			$response["actions"] = $result;
 		}
 		

@@ -93,4 +93,8 @@ export default class DataAccess {
 	updateAction(actionData) {
 		return this.dataContext.updateAction(actionData);
 	}
+
+	completeActionById(actionData) {
+		return this.dataContext.completeActionById(actionData);
+	}
 }

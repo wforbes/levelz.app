@@ -157,4 +157,8 @@ export default class ApiDataAccess {
 	updateAction(actionData) {
 		return this.callAPI("Action", "updateAction", actionData);
 	}
+
+	completeActionById(actionData) {
+		return this.callAPI("Action", "completeActionById", actionData);
+	}
 }

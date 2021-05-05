@@ -1,5 +1,5 @@
 import ActivityModel from "./ActivityModel.js";
-
+//update this to remove the use of activityModel
 export default {
 	state: {
 		activityModel: undefined,
@@ -86,7 +86,7 @@ export default {
 		setDetailActivity({ commit }, { activity }) {
 			commit("setDetailActivity", activity);
 		},
-		loadDetailActivityActions({ commit, rootState, getters }) {
+		loadDetailActivityActions({ getters, rootState, commit }) {
 			let activityData = {
 				activityId: getters.detailActivity.id
 			};
@@ -99,7 +99,7 @@ export default {
 							commit("addActionToList", action);
 						}
 					}
-					return Promise.resolve();
+					//return Promise.resolve();
 				});
 		},
 		clearDetailActivity({ commit }) {
@@ -111,7 +111,7 @@ export default {
 		createNewAction({ getters, rootState, commit }, { action }) {
 			action.activityId = getters.detailActivity.id;
 			return rootState.da.createNewAction(action).then(response => {
-				if (response.success === true) {
+				if (response.data["success"] === true) {
 					commit("addActionToList", response.newAction);
 					return Promise.resolve(response.newAction);
 				} else {
@@ -127,11 +127,26 @@ export default {
 		},
 		updateAction({ rootState, commit }, { action }) {
 			return rootState.da.updateAction(action).then(response => {
-				if (response.success === true) {
+				console.log(response);
+				if (response.data["success"] === true) {
 					commit("updateActionOnList", action);
 					return Promise.resolve(response.updatedAction);
 				} else {
 					return Promise.resolve(response.message);
+				}
+			});
+		},
+		completeActionById({ rootState, commit }, { actionId }) {
+			let actionData = {
+				id: actionId
+			};
+			return rootState.da.completeActionById(actionData).then(response => {
+				console.log(response);
+				if (response.data["success"] === true) {
+					console.log("response success true");
+					commit("setActionAsCompleteById", actionId);
+				} else {
+					//TODO: display error message?
 				}
 			});
 		},
@@ -163,6 +178,7 @@ export default {
 			state.detailActivity = {};
 		},
 		addActionToList(state, action) {
+			console.log("addActionToList");
 			state.actionList.push(action);
 		},
 		clearActionList(state) {
@@ -176,7 +192,12 @@ export default {
 		},
 		updateActionOnList(state, action) {
 			const index = state.actionList.findIndex(a => a.id === action.id);
-			state.organizationList.splice(index, 1, action);
+			state.actionList.splice(index, 1, action);
+		},
+		setActionAsCompleteById(state, actionId) {
+			console.log("setActionAsCompleteById");
+			const index = state.actionList.findIndex(a => a.id === actionId);
+			state.actionList[index].complete = true;
 		}
 	}
 };

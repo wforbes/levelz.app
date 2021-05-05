@@ -83,13 +83,13 @@
 										></v-skeleton-loader>
 									</div>
 									<v-list
-										v-if="filteredActions.length > 0 && !listIsLoading"
+										v-if="actionArray.length > 0 && !listIsLoading"
 										class="pa-1 overflow-y-auto"
 										style="border-radius:0.3em"
 										max-height="52vh"
 									>
 										<v-list-item
-											v-for="action in filteredActions"
+											v-for="action in actionArray"
 											:key="action.id"
 											style="border-radius:4px; height:5em;cursor:pointer;"
 											class="elevation-5 mb-2"
@@ -104,7 +104,10 @@
 													<v-icon dark>mdi-pencil</v-icon>
 												</v-btn>
 											</v-list-item-action>
-											<v-list-item-content>
+											<v-list-item-content
+												ripple
+												@click="openActionMetrics(action)"
+											>
 												<v-list-item-title
 													v-html="action.name"
 												></v-list-item-title>
@@ -112,7 +115,7 @@
 													v-html="action.description"
 												></v-list-item-subtitle>
 											</v-list-item-content>
-											<v-list-item-action>
+											<v-list-item-action v-if="!action.complete">
 												<v-btn fab small @click="completeAction(action)">
 													<v-icon dark color="success">
 														mdi-check-decagram
@@ -260,9 +263,14 @@ export default {
 			console.log("loadActions");
 			return this.$store.dispatch("loadDetailActivityActions");
 		},
-		completeAction(action) {
+		async completeAction(action) {
 			console.log("completeAction");
-			console.log(action);
+			//console.log(action);
+			await this.$store.dispatch({
+				type: "completeActionById",
+				actionId: action.id
+			});
+			console.log("completeAction done");
 		},
 		openEditActionForm(action) {
 			this.$store.dispatch({ type: "setActionFormMode", mode: "edit" });
@@ -272,6 +280,10 @@ export default {
 		openCreateActionForm() {
 			this.$store.dispatch({ type: "setActionFormMode", mode: "create" });
 			this.$emit("openActionForm");
+		},
+		openActionMetrics(action) {
+			console.log("openActionMetrics");
+			console.log(action);
 		},
 		openEditActivityDialog() {
 			//this.$emit("openEditActivityDialog");
