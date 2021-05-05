@@ -6,6 +6,11 @@
 					<v-col class="pt-0 pb-0">
 						<v-container class="pa-0">
 							<v-row>
+								<v-col cols="1" class="pa-0 pt-2" align="right">
+									<v-btn fab small @click="openEditActivityDialog">
+										<v-icon dark>mdi-cog</v-icon>
+									</v-btn>
+								</v-col>
 								<v-col cols="10" class="pt-0 pb-0 mb-0">
 									<v-text-field
 										v-model="listSearchTerm"
@@ -15,14 +20,15 @@
 										prepend-inner-icon="mdi-text-search"
 									></v-text-field>
 								</v-col>
-								<v-col cols="2" class="pa-0 pt-2" align="left">
+								<v-col cols="1" class="pa-0 pt-2" align="left">
 									<v-btn
 										fab
 										small
-										style="border:0.1em solid grey;"
-										@click="openEditActivityDialog"
+										dark
+										color="success"
+										@click="openCreateActionForm"
 									>
-										<v-icon dark>mdi-cog</v-icon>
+										<v-icon dark>mdi-plus</v-icon>
 									</v-btn>
 								</v-col>
 							</v-row>
@@ -79,7 +85,7 @@
 									<v-list
 										v-if="filteredActions.length > 0 && !listIsLoading"
 										class="pa-1 overflow-y-auto"
-										style="border: 0.1em solid grey; border-radius:0.3em"
+										style="border-radius:0.3em"
 										max-height="52vh"
 									>
 										<v-list-item
@@ -105,37 +111,36 @@
 										width="100%"
 										height="100%"
 										elevation="5"
+										class="mb-4"
 									>
-										<v-container>
-											<v-row>
-												<v-col>
-													<h3>
-														This Activity doesn't have any Actions!
-													</h3>
-													<br />
-													<p>
-														Click the
-														<v-btn
-															fab
-															x-small
-															dark
-															color="success"
-															@click="openCreateActionForm"
-														>
-															<v-icon dark>mdi-plus</v-icon>
-														</v-btn>
-														button to begin adding Actions.
-													</p>
-													<p>
-														Click the
-														<v-icon @click="openHelpOverlay">
-															mdi-help-circle-outline
-														</v-icon>
-														for more information.
-													</p>
-												</v-col>
-											</v-row>
-										</v-container>
+										<v-row>
+											<v-col>
+												<h3>
+													This Activity doesn't have any Actions!
+												</h3>
+												<br />
+												<p>
+													Click the
+													<v-btn
+														fab
+														x-small
+														dark
+														color="success"
+														@click="openCreateActionForm"
+													>
+														<v-icon dark>mdi-plus</v-icon>
+													</v-btn>
+													button to begin adding Actions.
+												</p>
+												<p>
+													Click the
+													<v-icon @click="openHelpOverlay">
+														mdi-help-circle-outline
+													</v-icon>
+													for more information.
+												</p>
+											</v-col>
+										</v-row>
 									</v-card>
 									<v-card
 										v-if="
@@ -188,17 +193,19 @@ export default {
 			showComponent: false,
 			listIsLoading: true,
 			listSearchTerm: "",
-			editActivityDialogOpen: false
+			editActivityDialogOpen: false,
+			focusAction: {}
 		};
 	},
-	created() {
+	async created() {
 		console.log("ActivityDetailer created");
+		await this.loadActions();
 		this.listIsLoading = false;
 	},
 	watch: {
-		stepperState(n, o) {
-			//activity detailer was just opened
-			if (n === 2 && o === 1) {
+		async stepperState(n) {
+			if (n === 2) {
+				await this.loadActions();
 				this.showComponent = true;
 			}
 		}
@@ -208,19 +215,7 @@ export default {
 			return this.$store.getters.detailActivity;
 		},
 		actions() {
-			//return this.$store.getters.actions;
-			return [
-				{
-					id: 0,
-					name: "Test Action 1",
-					desc: "Test Action 1's Description!"
-				},
-				{
-					id: 1,
-					name: "Test Action 2",
-					desc: "Test Action 2's Description!"
-				}
-			];
+			return this.$store.getters.actionList;
 		},
 		filteredActions() {
 			return this.orderBy(
@@ -246,6 +241,17 @@ export default {
 		},
 		openHelpOverlay() {
 			this.$emit("openHelpOverlay");
+		},
+		loadActions() {
+			console.log("loadActions");
+			return this.$store.dispatch("loadDetailActivityActions");
+		},
+		openEditActionForm(action) {
+			this.focusAction = Object.assign({}, action);
+		},
+		openCreateActionForm() {
+			this.$store.dispatch({ type: "setActionFormMode", mode: "create" });
+			this.$emit("openActionForm");
 		},
 		openEditActivityDialog() {
 			//this.$emit("openEditActivityDialog");

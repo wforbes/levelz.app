@@ -55,10 +55,25 @@
 									<v-container>
 										<v-row>
 											<v-col cols="12">
-												<div
-													style="border: 0.1em solid grey; border-radius:4px; text-align:center;"
-												>
-													<ActivityDetailer :stepperState="stepperState" />
+												<div style="text-align:center;">
+													<ActivityDetailer
+														:stepperState="stepperState"
+														@openActionForm="openActionForm"
+													/>
+												</div>
+											</v-col>
+										</v-row>
+									</v-container>
+								</v-stepper-content>
+								<v-stepper-content step="3" class="pa-0 ma-0">
+									<v-container>
+										<v-row>
+											<v-col cols="12">
+												<div style="text-align:center;">
+													<ActionForm
+														:stepperState="stepperState"
+														@closeActionForm="closeActionForm"
+													/>
 												</div>
 											</v-col>
 										</v-row>
@@ -85,6 +100,7 @@ import HeaderControls from "../components/HeaderControls.vue";
 import NotLoggedIn from "../../app/views/NotLoggedIn.vue";
 import ActivityList from "../components/ActivityList.vue";
 import ActivityDetailer from "../components/ActivityDetailer.vue";
+import ActionForm from "../components/ActionForm.vue";
 
 export default {
 	name: "ActivitesPage",
@@ -92,7 +108,8 @@ export default {
 		HeaderControls,
 		NotLoggedIn,
 		ActivityList,
-		ActivityDetailer
+		ActivityDetailer,
+		ActionForm
 	},
 	data() {
 		return {
@@ -111,6 +128,14 @@ export default {
 			console.log("openActivityDetailer");
 			this.stepperState = 2;
 			//this.activityDetailDialogOpen = true;
+		},
+		openActionForm() {
+			console.log("openActionForm");
+			this.stepperState = 3;
+		},
+		closeActionForm() {
+			console.log("closeActionForm");
+			this.stepperState = 2;
 		},
 		backStep() {
 			console.log("backStep on page");

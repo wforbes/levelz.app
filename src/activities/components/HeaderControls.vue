@@ -96,6 +96,17 @@ export default {
 					name: this.detailActivity.name,
 					hasBackBtn: true
 				});
+			} else if (n === 3 && o === 2) {
+				let actionFormTitle = "";
+				if (this.$store.getters.actionFormMode === "create") {
+					actionFormTitle = "Create Action";
+				}
+				this.states.push({
+					name: actionFormTitle,
+					hasBackBtn: true
+				});
+			} else if (n === 2 && o === 3) {
+				this.states.pop();
 			}
 		}
 	},

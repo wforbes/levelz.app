@@ -6,7 +6,8 @@ export default {
 		activitySuggestions: [],
 		activities: [],
 		actions: [],
-		detailActivity: {}
+		detailActivity: {},
+		actionFormMode: ""
 	},
 	getters: {
 		activitySuggestions: state => {
@@ -20,6 +21,9 @@ export default {
 		},
 		actionList: state => {
 			return state.actions;
+		},
+		actionFormMode: state => {
+			return state.actionFormMode;
 		}
 	},
 	actions: {
@@ -93,6 +97,9 @@ export default {
 					return Promise.resolve();
 				});
 		},
+		setActionFormMode({ commit }, { mode }) {
+			commit("setActionFormMode", mode);
+		},
 		clearDetailActivity({ commit }) {
 			commit("clearDetailActivity");
 		}
@@ -122,6 +129,9 @@ export default {
 		},
 		addActionToList(state, action) {
 			state.actions.push(action);
+		},
+		setActionFormMode(state, mode) {
+			state.actionFormMode = mode;
 		}
 	}
 };
