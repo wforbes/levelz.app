@@ -28,8 +28,8 @@ export const util = {
 				(v.constructor === Object && Object.keys(v).length === 0)
 			);
 		},
-		isEqual(o) {
-			return _.isEqual(o);
+		isEqual(o1, o2) {
+			return _.isEqual(o1, o2);
 		},
 		getRandomInt(max) {
 			return Math.floor(Math.random() * Math.floor(max));

@@ -153,4 +153,8 @@ export default class ApiDataAccess {
 	createNewAction(actionData) {
 		return this.callAPI("Action", "createNewAction", actionData);
 	}
+
+	updateAction(actionData) {
+		return this.callAPI("Action", "updateAction", actionData);
+	}
 }

@@ -37,6 +37,18 @@ class ActionModel extends Model
 		return $this->app->db->insertNew($model, $fields, $data);
 	}
 
+	public function getActionById($id) {
+		return $this->app->db->gbi("*", ["id" => $id], $this->getModelData()[0])[0];
+	}
+
+	public function updateActionById($id, $updateFields) {
+		$there = $this->getModelName();
+		$fields = $this->getModelData()[2];
+		$that = ["id"=> $id];
+		$these = $updateFields;
+		return $this->app->db->ubi($these, $that, $there);
+	}
+
 	public function getActionsByActivityId($activityId) {
 		return $this->app->db->gbi("*", ["activityId"=>$activityId], $this->getModelData()[0]);
 	}

@@ -11,6 +11,19 @@ class Action {
 		$this->model = new ActionModel($app);
 	}
 
+	//TODO: create a generic update function in model class like this using getEntityById and updateEntityById
+	public function updateAction($actionFields) {
+		$dbFields = $this->model->getActionById($actionFields["id"]);
+		$updateFields = [];
+		foreach($actionFields as $k => $v) {
+			if($dbFields[$k] !== $v) {
+				$updateFields[$k] = $v;
+			}
+		}
+		$result = $this->model->updateActionById($actionFields["id"], $updateFields);
+		return ["success" => $result];
+	}
+
 	public function createNewAction($newAction) {
 		$activityId = $newAction["activityId"];
 		$name = $newAction["name"];

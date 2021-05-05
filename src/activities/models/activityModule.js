@@ -7,7 +7,8 @@ export default {
 		activities: [],
 		actionList: [],
 		detailActivity: {},
-		actionFormMode: ""
+		actionFormMode: "",
+		editAction: {}
 	},
 	getters: {
 		activitySuggestions: state => {
@@ -24,6 +25,9 @@ export default {
 		},
 		actionFormMode: state => {
 			return state.actionFormMode;
+		},
+		editAction: state => {
+			return state.editAction;
 		}
 	},
 	actions: {
@@ -86,6 +90,7 @@ export default {
 			let activityData = {
 				activityId: getters.detailActivity.id
 			};
+			commit("clearActionList");
 			return rootState.da
 				.getActionsByActivityId(activityData)
 				.then(response => {
@@ -96,6 +101,9 @@ export default {
 					}
 					return Promise.resolve();
 				});
+		},
+		clearDetailActivity({ commit }) {
+			commit("clearDetailActivity");
 		},
 		setActionFormMode({ commit }, { mode }) {
 			commit("setActionFormMode", mode);
@@ -111,8 +119,24 @@ export default {
 				}
 			});
 		},
-		clearDetailActivity({ commit }) {
-			commit("clearDetailActivity");
+		clearActionFormMode({ commit }) {
+			commit("setActionFormMode", "");
+		},
+		setEditAction({ commit }, { action }) {
+			commit("setEditAction", action);
+		},
+		updateAction({ rootState, commit }, { action }) {
+			return rootState.da.updateAction(action).then(response => {
+				if (response.success === true) {
+					commit("updateActionOnList", action);
+					return Promise.resolve(response.updatedAction);
+				} else {
+					return Promise.resolve(response.message);
+				}
+			});
+		},
+		clearEditAction({ commit }) {
+			commit("setEditAction", {});
 		}
 	},
 	mutations: {
@@ -141,8 +165,18 @@ export default {
 		addActionToList(state, action) {
 			state.actionList.push(action);
 		},
+		clearActionList(state) {
+			state.actionList = [];
+		},
 		setActionFormMode(state, mode) {
 			state.actionFormMode = mode;
+		},
+		setEditAction(state, action) {
+			state.editAction = action;
+		},
+		updateActionOnList(state, action) {
+			const index = state.actionList.findIndex(a => a.id === action.id);
+			state.organizationList.splice(index, 1, action);
 		}
 	}
 };

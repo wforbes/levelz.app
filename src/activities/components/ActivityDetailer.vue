@@ -93,9 +93,17 @@
 											:key="action.id"
 											style="border-radius:4px; height:5em;cursor:pointer;"
 											class="elevation-5 mb-2"
-											ripple
-											@click="openActionForm(action)"
 										>
+											<v-list-item-action>
+												<v-btn
+													fab
+													small
+													ripple
+													@click="openEditActionForm(action)"
+												>
+													<v-icon dark>mdi-pencil</v-icon>
+												</v-btn>
+											</v-list-item-action>
 											<v-list-item-content>
 												<v-list-item-title
 													v-html="action.name"
@@ -104,6 +112,13 @@
 													v-html="action.description"
 												></v-list-item-subtitle>
 											</v-list-item-content>
+											<v-list-item-action>
+												<v-btn fab small @click="completeAction(action)">
+													<v-icon dark color="success">
+														mdi-check-decagram
+													</v-icon>
+												</v-btn>
+											</v-list-item-action>
 										</v-list-item>
 									</v-list>
 									<v-card
@@ -193,8 +208,7 @@ export default {
 			showComponent: false,
 			listIsLoading: true,
 			listSearchTerm: "",
-			editActivityDialogOpen: false,
-			focusAction: {}
+			editActivityDialogOpen: false
 		};
 	},
 	async created() {
@@ -246,8 +260,14 @@ export default {
 			console.log("loadActions");
 			return this.$store.dispatch("loadDetailActivityActions");
 		},
+		completeAction(action) {
+			console.log("completeAction");
+			console.log(action);
+		},
 		openEditActionForm(action) {
-			this.focusAction = Object.assign({}, action);
+			this.$store.dispatch({ type: "setActionFormMode", mode: "edit" });
+			this.$store.dispatch({ type: "setEditAction", action: action });
+			this.$emit("openActionForm");
 		},
 		openCreateActionForm() {
 			this.$store.dispatch({ type: "setActionFormMode", mode: "create" });
@@ -256,7 +276,7 @@ export default {
 		openEditActivityDialog() {
 			//this.$emit("openEditActivityDialog");
 			console.log("openEditActivityDialog");
-			this.editActivity = Object.assign({}, this.detailActivity);
+			this.editActivity = this.cloneDeep(this.detailActivity);
 			this.editActivityDialogOpen = true;
 		},
 		closeEditActivityDialog() {

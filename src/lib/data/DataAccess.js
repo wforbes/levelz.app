@@ -89,4 +89,8 @@ export default class DataAccess {
 	createNewAction(actionData) {
 		return this.dataContext.createNewAction(actionData);
 	}
+
+	updateAction(actionData) {
+		return this.dataContext.updateAction(actionData);
+	}
 }
