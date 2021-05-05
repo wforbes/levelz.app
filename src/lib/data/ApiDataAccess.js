@@ -145,4 +145,8 @@ export default class ApiDataAccess {
 	userHasPermission(data) {
 		return this.callAPI("User", "userHasPermission", data);
 	}
+
+	getActionsByActivityId(activityData) {
+		return this.callAPI("Action", "getActionsByActivityId", activityData);
+	}
 }

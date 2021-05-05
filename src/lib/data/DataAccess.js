@@ -81,4 +81,8 @@ export default class DataAccess {
 	userHasPermission(permissionData) {
 		return this.dataContext.userHasPermission(permissionData);
 	}
+
+	getActionsByActivityId(activityData) {
+		return this.dataContext.getActionsByActivityId(activityData);
+	}
 }

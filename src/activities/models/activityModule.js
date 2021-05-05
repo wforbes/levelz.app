@@ -5,6 +5,7 @@ export default {
 		activityModel: undefined,
 		activitySuggestions: [],
 		activities: [],
+		actions: [],
 		detailActivity: {}
 	},
 	getters: {
@@ -16,6 +17,9 @@ export default {
 		},
 		detailActivity: state => {
 			return state.detailActivity;
+		},
+		actionList: state => {
+			return state.actions;
 		}
 	},
 	actions: {
@@ -74,6 +78,21 @@ export default {
 		setDetailActivity({ commit }, { activity }) {
 			commit("setDetailActivity", activity);
 		},
+		loadDetailActivityActions({ commit, rootState, getters }) {
+			let activityData = {
+				activityId: getters.detailActivity.id
+			};
+			return rootState.da
+				.getActionsByActivityId(activityData)
+				.then(response => {
+					if (response.data["success"] === true) {
+						for (let action of response.data["actions"]) {
+							commit.addActionToList(action);
+						}
+					}
+					return Promise.resolve();
+				});
+		},
 		clearDetailActivity({ commit }) {
 			commit("clearDetailActivity");
 		}
@@ -100,6 +119,9 @@ export default {
 		},
 		clearDetailActivity(state) {
 			state.detailActivity = {};
+		},
+		addActionToList(state, action) {
+			state.actions.push(action);
 		}
 	}
 };
