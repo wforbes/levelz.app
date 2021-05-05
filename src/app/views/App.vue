@@ -38,9 +38,7 @@ export default {
 		SnackBar
 	},
 	data() {
-		return {
-			localhost: "localhost:8080"
-		};
+		return {};
 	},
 	async created() {
 		axios.defaults.withCredentials = true;

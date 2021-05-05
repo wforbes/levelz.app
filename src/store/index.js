@@ -16,6 +16,7 @@ export default new Vuex.Store({
 	state: {
 		vue: undefined,
 		host: "",
+		localhostAddr: "localhost:8080",
 		da: undefined,
 		snackBarSignal: false,
 		snackBarText: ""
@@ -26,6 +27,9 @@ export default new Vuex.Store({
 		},
 		da: state => {
 			return state.da;
+		},
+		localhostAddr: state => {
+			return state.localhostAddr;
 		},
 		host: state => {
 			return state.host;
@@ -61,11 +65,11 @@ export default new Vuex.Store({
 		initModels({ dispatch }) {
 			dispatch("initActivityModel");
 		},
-		setHost({ commit }) {
+		setHost({ commit, getters }) {
 			commit(
 				"setHost",
-				window.location.host === this.getters.vue.localhost ||
-					window.location.host.href === this.getters.vue.localhost
+				window.location.host === getters.localhostAddr ||
+					window.location.host.href === getters.vue.localhostAddr
 					? "https://levelz.app.local/"
 					: ""
 			);
