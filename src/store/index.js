@@ -69,7 +69,7 @@ export default new Vuex.Store({
 			commit(
 				"setHost",
 				window.location.host === getters.localhostAddr ||
-					window.location.host.href === getters.vue.localhostAddr
+					window.location.host.href === getters.localhostAddr
 					? "https://levelz.app.local/"
 					: ""
 			);

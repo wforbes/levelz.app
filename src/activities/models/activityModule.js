@@ -112,10 +112,10 @@ export default {
 			action.activityId = getters.detailActivity.id;
 			return rootState.da.createNewAction(action).then(response => {
 				if (response.data["success"] === true) {
-					commit("addActionToList", response.newAction);
-					return Promise.resolve(response.newAction);
+					commit("addActionToList", response.data["newAction"]);
+					return Promise.resolve(response.data["newAction"]);
 				} else {
-					return Promise.resolve(response.message);
+					return Promise.resolve(response.data["message"]);
 				}
 			});
 		},
@@ -130,9 +130,9 @@ export default {
 				console.log(response);
 				if (response.data["success"] === true) {
 					commit("updateActionOnList", action);
-					return Promise.resolve(response.updatedAction);
+					return Promise.resolve(response.data["updatedAction"]);
 				} else {
-					return Promise.resolve(response.message);
+					return Promise.resolve(response.data["message"]);
 				}
 			});
 		},
