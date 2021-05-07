@@ -267,9 +267,10 @@ export default {
 			this.$store.dispatch("openEditActivityForm");
 		},
 		openEditActionForm(action) {
-			this.$store.dispatch({ type: "setActionFormMode", mode: "edit" });
-			this.$store.dispatch({ type: "setEditAction", action: action });
-			this.$emit("openActionForm");
+			this.$store.dispatch({
+				type: "openEditActionForm",
+				action: action
+			});
 		},
 		openCreateActionForm() {
 			this.$store.dispatch("openCreateActionForm");

@@ -140,6 +140,11 @@ export default {
 			return !this.isEqual(this.editAction, this.$store.getters.editAction);
 		}
 	},
+	created() {
+		if (this.mode === "edit") {
+			this.editAction = this.cloneDeep(this.$store.getters.editAction);
+		}
+	},
 	methods: {
 		async createAction() {
 			console.log("createAction");
@@ -172,24 +177,11 @@ export default {
 			}
 			this.$store.dispatch("closeActionForm");
 		},
-		closeCreateForm() {
-			this.checkForUnsavedChanges();
-			this.newAction = this.cloneDeep(this.emptyAction);
-			this.$refs.newActionForm.reset();
-		},
-		closeEditForm() {
-			this.checkForUnsavedChanges();
-			this.editAction = this.cloneDeep(this.editAction);
-			this.$store.dispatch("clearEditAction");
-			this.$refs.editActionForm.reset();
-		},
 		checkForUnsavedChanges() {
 			//if create mode, check if newAction was changed
 			//if edit mode, check if editAction was changed
 			//show dialog confirming unsaved changes will be deleted
 			// - allow confirmation and clear current mode's obj and mode
-			this.mode = "";
-			this.$store.dispatch("clearActionFormMode");
 			// - allow returning to the form to complete
 		}
 	}

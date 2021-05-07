@@ -240,6 +240,19 @@ export default {
 		clearActionFormMode({ commit }) {
 			commit("setActionFormMode", "");
 		},
+		openEditActionForm({ dispatch }, { action }) {
+			dispatch({ type: "setActionFormMode", mode: "edit" });
+			dispatch({ type: "setEditAction", action: action });
+			dispatch({
+				type: "pushStepState",
+				stepState: {
+					step: 3,
+					component: "ActionForm",
+					name: "Edit Action",
+					hasBackBtn: false
+				}
+			});
+		},
 		setEditAction({ commit }, { action }) {
 			commit("setEditAction", action);
 		},
