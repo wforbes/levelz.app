@@ -163,16 +163,6 @@
 				</v-row>
 			</v-container>
 		</v-card>
-		<CreateActivityDialog
-			:dialogOpen="createActivityDialogOpen"
-			@closeDialog="closeCreateActivityDialog"
-		/>
-		<!--
-		<ActivityDialog
-			:dialogOpen="activityDialogOpen"
-			:focusActivity="focusActivity"
-			@closeDialog="closeActivityDialog"
-		/>-->
 	</div>
 </template>
 <style>
@@ -182,16 +172,11 @@
 </style>
 <script>
 import { util } from "@/mixins/util.js";
-import CreateActivityDialog from "./CreateActivityDialog.vue";
-//import ActivityDialog from "./ActivityDialog.vue";
 export default {
 	name: "ActivityList",
 	props: ["stepperState"],
 	mixins: [util],
-	components: {
-		CreateActivityDialog
-		//ActivityDialog
-	},
+	components: {},
 	data() {
 		return {
 			showComponent: false,
@@ -236,7 +221,7 @@ export default {
 	async created() {
 		this.showComponent = true;
 		this.listIsLoading = true;
-		await this.$store.dispatch("loadMyActivities").then(() => {
+		await this.$store.dispatch("loadActivities").then(() => {
 			this.listIsLoading = false;
 		});
 	},

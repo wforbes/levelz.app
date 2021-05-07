@@ -131,7 +131,7 @@ export default class ApiDataAccess {
 	}
 
 	getAllMyActivities() {
-		return this.callAPI("activity", "getAllMyActivities");
+		return this.callAPI("Activity", "getAllMyActivities");
 	}
 
 	saveActivityChanges(activityData) {

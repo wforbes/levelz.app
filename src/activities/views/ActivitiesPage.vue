@@ -69,7 +69,11 @@
 													<ActionForm
 														v-if="currentStepState.component === 'ActionForm'"
 													/>
-													<ActionDetailer />
+													<ActionDetailer
+														v-if="
+															currentStepState.component === 'ActionDetailer'
+														"
+													/>
 												</div>
 											</v-col>
 										</v-row>

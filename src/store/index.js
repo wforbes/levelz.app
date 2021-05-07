@@ -51,7 +51,6 @@ export default new Vuex.Store({
 				vue: vue
 			});
 			dispatch("setDataAccess");
-			dispatch("initModels");
 			dispatch("setHost");
 			dispatch("initSession");
 		},
@@ -61,9 +60,6 @@ export default new Vuex.Store({
 		setDataAccess({ commit }) {
 			commit("setDataAccess", new DataAccess(this.getters.vue));
 			//commit("setDataAccess", new DataAccess());
-		},
-		initModels({ dispatch }) {
-			dispatch("initActivityModel");
 		},
 		setHost({ commit, getters }) {
 			commit(

@@ -1,5 +1,3 @@
-import ActivityModel from "./ActivityModel.js";
-//update this to remove the use of activityModel
 export default {
 	state: {
 		stepStates: [],
@@ -10,7 +8,8 @@ export default {
 		actionList: [],
 		detailActivity: {},
 		actionFormMode: "",
-		editAction: {}
+		editAction: {},
+		detailAction: {}
 	},
 	getters: {
 		stepStates: state => {
@@ -36,12 +35,12 @@ export default {
 		},
 		editAction: state => {
 			return state.editAction;
+		},
+		detailAction: state => {
+			return state.detailAction;
 		}
 	},
 	actions: {
-		initActivityModel({ commit, rootState }) {
-			commit("initActivityModel", new ActivityModel(rootState.da));
-		},
 		loadActivitySuggestions({ state, commit }) {
 			return state.activityModel.getActivitySuggestions().then(response => {
 				if (response.data["success"]) {
@@ -96,17 +95,10 @@ export default {
 		addActivityToList({ commit }, { activity }) {
 			commit("addActivityToList", activity);
 		},
-		async loadMyActivities({ state, commit }) {
-			const response = await state.activityModel.getAllMyActivities();
+		async loadActivities({ rootState, commit }) {
+			const response = await rootState.da.getAllMyActivities();
 			commit("setActivities", response.data["success"]);
 			return Promise.resolve();
-		},
-		async saveActivityChanges({ state, commit }, { activityData }) {
-			return state.activityModel
-				.saveActivityChanges(activityData)
-				.then(activity => {
-					commit("updateActivityOnList", activity);
-				});
 		},
 		updateActivity({ rootState, commit, dispatch, getters }, { activity }) {
 			return rootState.da.updateActivity(activity).then(response => {
@@ -134,20 +126,6 @@ export default {
 				old: oldName,
 				new: newName
 			});
-		},
-		async updateActivityField({ state }, { activityId, fieldName, newValue }) {
-			console.log(fieldName);
-			console.log(newValue);
-			const activityData = {
-				id: activityId,
-				fieldName: fieldName,
-				newValue: newValue
-			};
-			return state.activityModel
-				.updateActivityField(activityData)
-				.then(response => {
-					return Promise.resolve(response.data.success);
-				});
 		},
 		updateActivityOnList({ commit }, { activity }) {
 			commit("updateActivityOnList", activity);
@@ -283,6 +261,24 @@ export default {
 		},
 		clearEditAction({ commit }) {
 			commit("setEditAction", {});
+		},
+		openActionDetailer({ dispatch }, { detailAction }) {
+			dispatch({
+				type: "setDetailAction",
+				action: Object.assign({}, detailAction)
+			});
+			dispatch({
+				type: "pushStepState",
+				stepState: {
+					step: 3,
+					component: "ActionDetailer",
+					name: "Action: " + detailAction.name,
+					hasBackBtn: true
+				}
+			});
+		},
+		setDetailAction({ commit }, { action }) {
+			commit("setDetailAction", action);
 		}
 	},
 	mutations: {
@@ -294,9 +290,6 @@ export default {
 		},
 		popStepState(state) {
 			state.stepStates.pop();
-		},
-		initActivityModel(state, newActivityModel) {
-			state.activityModel = newActivityModel;
 		},
 		setActivitySuggestions(state, suggestions) {
 			state.activitySuggestions = suggestions;
@@ -345,6 +338,9 @@ export default {
 			console.log("setActionAsCompleteById");
 			const index = state.actionList.findIndex(a => a.id === actionId);
 			state.actionList[index].complete = true;
+		},
+		setDetailAction(state, action) {
+			state.detailAction = action;
 		}
 	}
 };

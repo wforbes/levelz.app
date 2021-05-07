@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div id="activity-detailer">
 		<v-card>
 			<v-container class="pa-0 pt-4">
 				<v-row class="ma-0 pa-0">
@@ -106,7 +106,7 @@
 											</v-list-item-action>
 											<v-list-item-content
 												ripple
-												@click="openActionMetrics(action)"
+												@click="openActionDetailer(action)"
 											>
 												<v-list-item-title
 													v-html="action.name"
@@ -255,13 +255,10 @@ export default {
 			return this.$store.dispatch("loadDetailActivityActions");
 		},
 		async completeAction(action) {
-			console.log("completeAction");
-			//console.log(action);
 			await this.$store.dispatch({
 				type: "completeActionById",
 				actionId: action.id
 			});
-			console.log("completeAction done");
 		},
 		openEditActivityForm() {
 			this.$store.dispatch("openEditActivityForm");
@@ -275,9 +272,11 @@ export default {
 		openCreateActionForm() {
 			this.$store.dispatch("openCreateActionForm");
 		},
-		openActionMetrics(action) {
-			console.log("openActionMetrics");
-			console.log(action);
+		openActionDetailer(action) {
+			this.$store.dispatch({
+				type: "openActionDetailer",
+				detailAction: action
+			});
 		},
 		openEditActivityDialog() {
 			//this.$emit("openEditActivityDialog");
