@@ -52,7 +52,7 @@
 										small
 										dark
 										color="success"
-										@click="openCreateActivityDialog"
+										@click="openCreateActivityForm"
 									>
 										<v-icon dark>mdi-plus</v-icon>
 									</v-btn>
@@ -241,6 +241,9 @@ export default {
 		});
 	},
 	methods: {
+		openCreateActivityForm() {
+			this.$store.dispatch("openCreateActivityForm");
+		},
 		openCreateActivityDialog() {
 			this.createActivityDialogOpen = true;
 		},

@@ -2,6 +2,8 @@ import ActivityModel from "./ActivityModel.js";
 //update this to remove the use of activityModel
 export default {
 	state: {
+		stepStates: [],
+		activityFormMode: "",
 		activityModel: undefined,
 		activitySuggestions: [],
 		activities: [],
@@ -11,6 +13,12 @@ export default {
 		editAction: {}
 	},
 	getters: {
+		stepStates: state => {
+			return state.stepStates;
+		},
+		activityFormMode: state => {
+			return state.activityFormMode;
+		},
 		activitySuggestions: state => {
 			return state.activitySuggestions;
 		},
@@ -31,6 +39,30 @@ export default {
 		}
 	},
 	actions: {
+		openCreateActivityForm({ dispatch }) {
+			dispatch({
+				type: "setActivityFormMode",
+				mode: "create"
+			});
+			dispatch({
+				type: "pushStepState",
+				stepState: {
+					step: 2,
+					component: "ActivityForm",
+					name: "CreateActivity",
+					hasBackBtn: false
+				}
+			});
+		},
+		closeCreateActivityForm({ commit }) {
+			commit("popStepState");
+		},
+		setActivityFormMode({ commit }, { mode }) {
+			commit("setActivityFormMode", mode);
+		},
+		pushStepState({ commit }, { stepState }) {
+			commit("pushStepState", stepState);
+		},
 		initActivityModel({ commit, rootState }) {
 			commit("initActivityModel", new ActivityModel(rootState.da));
 		},
@@ -44,12 +76,15 @@ export default {
 		activityNameExists({ state }, { name }) {
 			return state.activityModel.activityNameExists(name);
 		},
-		createNewActivity({ state }, { newActivity }) {
-			const activityData = {
-				name: newActivity.name,
-				description: newActivity.description
-			};
-			return state.activityModel.createNewActivity(activityData);
+		createNewActivity({ rootState, commit }, { newActivity }) {
+			return rootState.da.createNewActivity(newActivity).then(response => {
+				if (response.data["success"] === true) {
+					commit("addActivityToList", response.data["newActivity"]);
+					return Promise.resolve(response.data["newActivity"]);
+				} else {
+					return Promise.resolve(response.data["message"]);
+				}
+			});
 		},
 		addActivityToList({ commit }, { activity }) {
 			commit("addActivityToList", activity);
@@ -155,6 +190,15 @@ export default {
 		}
 	},
 	mutations: {
+		setActivityFormMode(state, mode) {
+			state.activityFormMode = mode;
+		},
+		pushStepState(state, stepState) {
+			state.stepStates.push(stepState);
+		},
+		popStepState(state) {
+			state.stepStates.pop();
+		},
 		initActivityModel(state, newActivityModel) {
 			state.activityModel = newActivityModel;
 		},

@@ -26,26 +26,18 @@
 					</v-row>
 				</v-card>
 			</v-overlay>
-			<HeaderControls
-				:stepperState="stepperState"
-				@openHelpOverlay="openHelpOverlay"
-				@backStep="backStep"
-			/>
+			<HeaderControls />
 			<v-row>
 				<v-col class="pa-0">
 					<div v-if="isLoggedIn">
-						<v-stepper v-model="stepperState" class="elevation-0 pa-0 ma-0">
+						<v-stepper v-model="stepState" class="elevation-0 pa-0 ma-0">
 							<v-stepper-items>
 								<v-stepper-content step="1" class="pa-0 ma-0">
 									<v-container>
 										<v-row>
 											<v-col cols="12">
 												<div style="text-align:center;">
-													<ActivityList
-														:stepperState="stepperState"
-														@openHelpOverlay="openHelpOverlay"
-														@openActivityDetailer="openActivityDetailer"
-													/>
+													<ActivityList @openHelpOverlay="openHelpOverlay" />
 												</div>
 											</v-col>
 										</v-row>
@@ -56,9 +48,13 @@
 										<v-row>
 											<v-col cols="12">
 												<div style="text-align:center;">
+													<ActivityForm
+														v-if="currentStepState.component === 'ActivityForm'"
+													/>
 													<ActivityDetailer
-														:stepperState="stepperState"
-														@openActionForm="openActionForm"
+														v-if="
+															currentStepState.component === 'ActivityDetailer'
+														"
 													/>
 												</div>
 											</v-col>
@@ -70,10 +66,8 @@
 										<v-row>
 											<v-col cols="12">
 												<div style="text-align:center;">
-													<ActionForm
-														:stepperState="stepperState"
-														@closeActionForm="closeActionForm"
-													/>
+													<ActionForm />
+													<ActionDetailer />
 												</div>
 											</v-col>
 										</v-row>
@@ -99,8 +93,10 @@
 import HeaderControls from "../components/HeaderControls.vue";
 import NotLoggedIn from "../../app/views/NotLoggedIn.vue";
 import ActivityList from "../components/ActivityList.vue";
+import ActivityForm from "../components/ActivityForm.vue";
 import ActivityDetailer from "../components/ActivityDetailer.vue";
 import ActionForm from "../components/ActionForm.vue";
+import ActionDetailer from "../components/ActionDetailer.vue";
 
 export default {
 	name: "ActivitesPage",
@@ -108,34 +104,48 @@ export default {
 		HeaderControls,
 		NotLoggedIn,
 		ActivityList,
+		ActivityForm,
 		ActivityDetailer,
-		ActionForm
+		ActionForm,
+		ActionDetailer
 	},
 	data() {
 		return {
-			helpOverlayOpen: false,
-			stepperState: 1,
-			createActivityDialogOpen: false
+			helpOverlayOpen: false
 		};
 	},
 	computed: {
 		isLoggedIn() {
 			return this.$store.getters.isLoggedIn;
+		},
+		stepState() {
+			//console.log(this.$store.getters.stepStates);
+			let len = this.$store.getters.stepStates.length;
+			return len > 0 ? this.$store.getters.stepStates[len - 1].step : 1;
+		},
+		currentStepState() {
+			let len = this.$store.getters.stepStates.length;
+			return len > 0
+				? this.$store.getters.stepStates[len - 1]
+				: { name: "", component: "", step: 1 };
 		}
 	},
 	methods: {
 		openActivityDetailer() {
 			console.log("openActivityDetailer");
-			this.stepperState = 2;
+			//this.stepperState = 2;
+			this.stepperState++;
 			//this.activityDetailDialogOpen = true;
 		},
 		openActionForm() {
 			console.log("openActionForm");
-			this.stepperState = 3;
+			//this.stepperState = 3;
+			this.stepperState++;
 		},
 		closeActionForm() {
 			console.log("closeActionForm");
-			this.stepperState = 2;
+			//this.stepperState = 2;
+			this.stepperState--;
 		},
 		backStep() {
 			console.log("backStep on page");
