@@ -78,10 +78,7 @@
 export default {
 	name: "HeaderControls",
 	data() {
-		return {
-			states: [],
-			currentState: {}
-		};
+		return {};
 	},
 	computed: {
 		stepStates() {
@@ -91,45 +88,14 @@ export default {
 			return this.$store.getters.stepStates[
 				this.$store.getters.stepStates.length - 1
 			].hasBackBtn;
-		},
-		detailActivity() {
-			return this.$store.getters.detailActivity;
 		}
-	},
-	watch: {
-		/*
-		stepperState(n, o) {
-			if (n === 2 && o === 1) {
-				this.states.push({
-					name: this.detailActivity.name,
-					hasBackBtn: true
-				});
-			} else if (n === 3 && o === 2) {
-				let actionFormTitle = "";
-				if (this.$store.getters.actionFormMode === "create") {
-					actionFormTitle = "Create Action";
-				}
-				this.states.push({
-					name: actionFormTitle,
-					hasBackBtn: true
-				});
-			} else if (n === 2 && o === 3) {
-				if (this.states.length > 1) {
-					this.states.pop();
-				}
-			}
-		}*/
-	},
-	created() {
-		this.currentState = this.states[1];
 	},
 	methods: {
 		openHelpOverlay() {
 			this.$emit("openHelpOverlay");
 		},
 		backStep() {
-			this.$emit("backStep");
-			this.states.pop();
+			this.$store.dispatch("popStepState");
 		}
 	}
 };

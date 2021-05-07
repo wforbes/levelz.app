@@ -39,6 +39,22 @@ export default {
 		}
 	},
 	actions: {
+		initActivityModel({ commit, rootState }) {
+			commit("initActivityModel", new ActivityModel(rootState.da));
+		},
+		loadActivitySuggestions({ state, commit }) {
+			return state.activityModel.getActivitySuggestions().then(response => {
+				if (response.data["success"]) {
+					commit("setActivitySuggestions", response.data["success"]);
+				}
+			});
+		},
+		pushStepState({ commit }, { stepState }) {
+			commit("pushStepState", stepState);
+		},
+		popStepState({ commit }) {
+			commit("popStepState");
+		},
 		openCreateActivityForm({ dispatch }) {
 			dispatch({
 				type: "setActivityFormMode",
@@ -59,19 +75,6 @@ export default {
 		},
 		setActivityFormMode({ commit }, { mode }) {
 			commit("setActivityFormMode", mode);
-		},
-		pushStepState({ commit }, { stepState }) {
-			commit("pushStepState", stepState);
-		},
-		initActivityModel({ commit, rootState }) {
-			commit("initActivityModel", new ActivityModel(rootState.da));
-		},
-		loadActivitySuggestions({ state, commit }) {
-			return state.activityModel.getActivitySuggestions().then(response => {
-				if (response.data["success"]) {
-					commit("setActivitySuggestions", response.data["success"]);
-				}
-			});
 		},
 		activityNameExists({ state }, { name }) {
 			return state.activityModel.activityNameExists(name);
@@ -117,6 +120,21 @@ export default {
 		},
 		updateActivityOnList({ commit }, { activity }) {
 			commit("updateActivityOnList", activity);
+		},
+		openActivityDetailer({ dispatch }, { detailActivity }) {
+			dispatch({
+				type: "setDetailActivity",
+				activity: Object.assign({}, detailActivity)
+			});
+			dispatch({
+				type: "pushStepState",
+				stepState: {
+					step: 2,
+					component: "ActivityDetailer",
+					name: detailActivity.name,
+					hasBackBtn: true
+				}
+			});
 		},
 		setDetailActivity({ commit }, { activity }) {
 			commit("setDetailActivity", activity);

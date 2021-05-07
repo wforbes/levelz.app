@@ -251,12 +251,11 @@ export default {
 			this.createActivityDialogOpen = false;
 		},
 		openActivityDetailer(activity) {
-			this.showComponent = false;
+			//this.showComponent = false;
 			this.$store.dispatch({
-				type: "setDetailActivity",
-				activity: Object.assign({}, activity)
+				type: "openActivityDetailer",
+				detailActivity: activity
 			});
-			this.$emit("openActivityDetailer");
 		},
 		openHelpOverlay() {
 			this.$emit("openHelpOverlay");
