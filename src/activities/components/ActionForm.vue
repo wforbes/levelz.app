@@ -164,6 +164,9 @@ export default {
 			this.closeForm();
 		},
 		closeForm() {
+			if (this.mode === "create") {
+				this.newActivity = this.cloneDeep(this.emptyAction);
+			}
 			if (this.mode === "edit") {
 				this.editAction = this.cloneDeep(this.emptyAction);
 			}
