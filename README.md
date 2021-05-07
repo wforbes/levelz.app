@@ -130,8 +130,8 @@ class Auth {
 
 The goal here is to reduce the amount of time spent doing manual database admin tasks and writing sql statements.
 
-* Dynamic DB/Tables - The MySQL class creates the database and it's tables up if they don't exist. If the database or any tables are dropped, the next time they're used they will be recreated. That's made for a faster process developing, prototyping, and releasing new features. Just add the proper mysql/db credentials and the app will spin up tables as it needs them.
-* Models are Tables - The Model class is inherited by classes that represent each table on the app. Model\Model provides the functions that enable this 'dynamic' table creation. Each inheriting class has a 'getModelData' function that describes the Model's table fields.
+* Dynamic DB/Tables - The MySQL class creates the database and it's tables if they don't exist. If the database or any tables are dropped, the next time they're used they will be recreated. That's made for a faster process developing, prototyping, and releasing new features. Just add the proper mysql/db credentials and the app will stand up tables as it needs them.
+* Models are Tables - The api\Model\Model class is inherited by classes that represent each table on the app. It provides the functions that enable this 'dynamic' table creation. Each inheriting class has a 'getModelData' function that describes the Model's table fields.
 * Generic Database Calls - The MySQL class has a number of functions to make database calls that build their own sql statements. This removes the need to directly write sql code for trivial SELECT, INSERT, or UPDATE calls. The SELECT function is "gbi(these, that, there)" which is shorthand for "Get these By that In there". The 'these' parameter are the fields you need, use '*' for all fields; the 'that' parameter is an associative array to be used for the WHERE clause; and the 'there' parameter is the name of the table to select from.
 
 ---
