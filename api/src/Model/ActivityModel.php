@@ -40,6 +40,10 @@ class ActivityModel extends Model
 	public function getActivitiesByUserId($userId) {
 		return $this->app->db->gbi("*", ["userId"=>$userId], $this->getModelData()[0]);
 	}
+
+	public function getActivityById($id) {
+		return $this->app->db->gbi("*", ["id" => $id], $this->getModelData()[0])[0];
+	}
 	
 	public function saveActivityChanges($data) {
 		$there = $this->getModelName();
@@ -53,6 +57,13 @@ class ActivityModel extends Model
 		$there = $this->getModelName();
 		$that = $data[0];
 		$these = $data[1];
+		return $this->app->db->ubi($these, $that, $there);
+	}
+
+	public function updateActivityById($id, $updateFields) {
+		$these = $updateFields;
+		$that = ["id" => $id ];
+		$there = $this->getModelName();
 		return $this->app->db->ubi($these, $that, $there);
 	}
 }

@@ -65,12 +65,16 @@ export default {
 				stepState: {
 					step: 2,
 					component: "ActivityForm",
-					name: "CreateActivity",
+					name: "Create Activity",
 					hasBackBtn: false
 				}
 			});
 		},
-		closeCreateActivityForm({ commit }) {
+		closeActivityForm({ dispatch, commit }) {
+			dispatch({
+				type: "setActivityFormMode",
+				mode: ""
+			});
 			commit("popStepState");
 		},
 		setActivityFormMode({ commit }, { mode }) {
@@ -103,6 +107,33 @@ export default {
 				.then(activity => {
 					commit("updateActivityOnList", activity);
 				});
+		},
+		updateActivity({ rootState, commit, dispatch, getters }, { activity }) {
+			return rootState.da.updateActivity(activity).then(response => {
+				console.log(response);
+				if (response.data["success"] === true) {
+					commit("updateActivityOnList", activity);
+					if (getters.detailActivity.name !== activity.name) {
+						dispatch({
+							type: "replaceStepStateActivityName",
+							oldName: getters.detailActivity.name,
+							newName: activity.name
+						});
+					}
+					dispatch({
+						type: "setDetailActivity",
+						activity: Object.assign({}, activity)
+					});
+				} else {
+					//TODO: show error if unsuccessful
+				}
+			});
+		},
+		replaceStepStateActivityName({ commit }, { oldName, newName }) {
+			commit("replaceStepStateName", {
+				old: oldName,
+				new: newName
+			});
 		},
 		async updateActivityField({ state }, { activityId, fieldName, newValue }) {
 			console.log(fieldName);
@@ -138,6 +169,21 @@ export default {
 		},
 		setDetailActivity({ commit }, { activity }) {
 			commit("setDetailActivity", activity);
+		},
+		openEditActivityForm({ dispatch }) {
+			dispatch({
+				type: "setActivityFormMode",
+				mode: "edit"
+			});
+			dispatch({
+				type: "pushStepState",
+				stepState: {
+					step: 2,
+					component: "ActivityForm",
+					name: "Edit Activity",
+					hasBackBtn: false
+				}
+			});
 		},
 		loadDetailActivityActions({ getters, rootState, commit }) {
 			let activityData = {
@@ -232,6 +278,13 @@ export default {
 		updateActivityOnList(state, updated) {
 			const index = state.activities.findIndex(a => a.id === updated.id);
 			state.activities.splice(index, 1, updated);
+		},
+		replaceStepStateName(state, names) {
+			for (let step of state.stepStates) {
+				if (step.name === names.old) {
+					step.name = names.new;
+				}
+			}
 		},
 		setDetailActivity(state, activity) {
 			state.detailActivity = activity;

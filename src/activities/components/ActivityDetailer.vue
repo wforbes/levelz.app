@@ -7,7 +7,7 @@
 						<v-container class="pa-0">
 							<v-row>
 								<v-col cols="1" class="pa-0 pt-2" align="right">
-									<v-btn fab small @click="openEditActivityDialog">
+									<v-btn fab small @click="openEditActivityForm">
 										<v-icon dark>mdi-cog</v-icon>
 									</v-btn>
 								</v-col>
@@ -190,22 +190,13 @@
 				</v-row>
 			</v-container>
 		</v-card>
-		<EditActivityDialog
-			:dialogOpen="editActivityDialogOpen"
-			@closeDialog="closeEditActivityDialog"
-		/>
 	</div>
 </template>
 <script>
 import { util } from "@/mixins/util.js";
-import EditActivityDialog from "./EditActivityDialog.vue";
 export default {
 	name: "ActivityDetail",
-	props: ["stepperState"],
 	mixins: [util],
-	components: {
-		EditActivityDialog
-	},
 	data() {
 		return {
 			showComponent: false,
@@ -216,7 +207,7 @@ export default {
 	},
 	async created() {
 		console.log("ActivityDetailer created");
-		//await this.loadActions();
+		await this.loadActions();
 		this.listIsLoading = false;
 	},
 	watch: {
@@ -271,6 +262,9 @@ export default {
 				actionId: action.id
 			});
 			console.log("completeAction done");
+		},
+		openEditActivityForm() {
+			this.$store.dispatch("openEditActivityForm");
 		},
 		openEditActionForm(action) {
 			this.$store.dispatch({ type: "setActionFormMode", mode: "edit" });

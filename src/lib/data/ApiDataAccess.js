@@ -142,6 +142,10 @@ export default class ApiDataAccess {
 		return this.callAPI("activity", "updateActivityField", data);
 	}
 
+	updateActivity(activityData) {
+		return this.callAPI("Activity", "updateActivity", activityData);
+	}
+
 	userHasPermission(data) {
 		return this.callAPI("User", "userHasPermission", data);
 	}

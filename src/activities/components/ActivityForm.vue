@@ -59,8 +59,7 @@
 											v-model="editActivity.name"
 											outlined
 											label="Activity Name"
-											:rules="[rules.required]"
-											validate-on-blur
+											:rules="[rules.required, rules.nameLength]"
 										></v-text-field>
 									</v-col>
 								</v-row>
@@ -78,7 +77,7 @@
 									<v-col>
 										<v-btn
 											color="success"
-											:disabled="!editFormValid || !actionWasChanged"
+											:disabled="!editFormValid || !activityWasChanged"
 											@click="updateActivity"
 											>Save</v-btn
 										>
@@ -103,7 +102,6 @@ import { util } from "@/mixins/util.js";
 import LoadingCard from "@/app/components/LoadingCard.vue";
 export default {
 	name: "ActivityForm",
-	props: ["stepperState"],
 	mixins: [util],
 	components: {
 		LoadingCard
@@ -149,11 +147,23 @@ export default {
 		},
 		activities() {
 			return this.$store.getters.activities;
+		},
+		activityWasChanged() {
+			return !this.isEqual(
+				this.editActivity,
+				this.$store.getters.detailActivity
+			);
+		}
+	},
+	created() {
+		if (this.mode === "edit") {
+			this.editActivity = this.cloneDeep(this.$store.getters.detailActivity);
 		}
 	},
 	methods: {
 		closeForm() {
-			this.$store.dispatch("closeCreateActivityForm");
+			this.editActivity = this.cloneDeep(this.emptyActivity);
+			this.$store.dispatch("closeActivityForm");
 		},
 		activityNameExists(name) {
 			return (
@@ -173,6 +183,16 @@ export default {
 					console.log("created activity:");
 					console.log(response);
 				});
+			this.isLoading = false;
+			this.closeForm();
+		},
+		async updateActivity() {
+			if (!this.editFormValid) return;
+			this.isLoading = true;
+			await this.$store.dispatch({
+				type: "updateActivity",
+				activity: this.editActivity
+			});
 			this.isLoading = false;
 			this.closeForm();
 		}

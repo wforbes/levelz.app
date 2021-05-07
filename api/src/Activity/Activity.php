@@ -11,6 +11,17 @@ class Activity {
 		$this->model = new ActivityModel($app);
 	}
 
+	public function updateActivity($activityFields) {
+		$dbFields = $this->model->getActivityById($activityFields["id"]);
+		foreach($activityFields as $k => $v) {
+			if($dbFields[$k] !== $v) {
+				$updateFields[$k] = $v;
+			}
+		}
+		$result = $this->model->updateActivityById($activityFields["id"], $updateFields);
+		return ["success" => $result];
+	}
+
 	public function updateActivityField($data) {
 		$updateData = [
 			[

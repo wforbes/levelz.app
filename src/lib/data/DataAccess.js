@@ -74,8 +74,13 @@ export default class DataAccess {
 		return this.dataContext.saveActivityChanges(activityData);
 	}
 
+	//TODO: removal candidate
 	updateActivityField(activityData) {
 		return this.dataContext.updateActivityField(activityData);
+	}
+
+	updateActivity(activityData) {
+		return this.dataContext.updateActivity(activityData);
 	}
 
 	userHasPermission(permissionData) {
