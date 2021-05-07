@@ -16,8 +16,7 @@
 											v-model="newAction.name"
 											outlined
 											label="Action Name"
-											:rules="[rules.required]"
-											validate-on-blur
+											:rules="[rules.required, rules.nameLength]"
 										></v-text-field>
 									</v-col>
 								</v-row>
@@ -26,7 +25,7 @@
 										<v-textarea
 											v-model="newAction.description"
 											outlined
-											label="Activity Description (Optional)"
+											label="Action Description (Optional)"
 											height="150"
 										></v-textarea>
 									</v-col>
@@ -37,7 +36,7 @@
 											color="success"
 											:disabled="!createFormValid"
 											@click="createAction"
-											>Create</v-btn
+											>Save</v-btn
 										>
 									</v-col>
 									<v-col>
@@ -66,7 +65,7 @@
 										<v-textarea
 											v-model="editAction.description"
 											outlined
-											label="Activity Description (Optional)"
+											label="Action Description (Optional)"
 											height="150"
 										></v-textarea>
 									</v-col>
@@ -100,7 +99,7 @@ export default {
 	mixins: [util],
 	data() {
 		return {
-			mode: "",
+			isLoading: false,
 			createFormValid: false,
 			editFormValid: false,
 			emptyAction: {
@@ -122,29 +121,23 @@ export default {
 				types: []
 			},
 			rules: {
-				required: value => !!value || "This can't be blank."
+				required: value => !!value || "This can't be blank.",
+				nameAlreadyExists: value =>
+					(value && !this.actionNameExists(value)) || this.nameExistsMsg,
+				nameLength: value =>
+					(value && value.length >= 3 && value.length <= 70) ||
+					"Must be between 3 and 70 characters."
 				//TODO: check description upper bound length
-			}
+			},
+			nameExistsMsg: "You already have an Action by that name!"
 		};
 	},
 	computed: {
+		mode() {
+			return this.$store.getters.actionFormMode;
+		},
 		actionWasChanged() {
 			return !this.isEqual(this.editAction, this.$store.getters.editAction);
-		}
-	},
-	watch: {
-		async stepperState(n, o) {
-			//await this.loadActions();
-			if (n === 3 && o === 2) {
-				//component opened
-				this.mode = this.$store.getters.actionFormMode;
-				if (this.mode === "edit") {
-					this.editAction = this.cloneDeep(this.$store.getters.editAction);
-				}
-			}
-			if (n !== 3 && o === 3) {
-				this.closeForm();
-			}
 		}
 	},
 	methods: {
@@ -171,13 +164,10 @@ export default {
 			this.closeForm();
 		},
 		closeForm() {
-			if (this.mode === "create") {
-				this.closeCreateForm();
-			}
 			if (this.mode === "edit") {
-				this.closeEditForm();
+				this.editAction = this.cloneDeep(this.emptyAction);
 			}
-			this.$emit("closeActionForm");
+			this.$store.dispatch("closeActionForm");
 		},
 		closeCreateForm() {
 			this.checkForUnsavedChanges();

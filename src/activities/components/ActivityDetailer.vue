@@ -272,8 +272,7 @@ export default {
 			this.$emit("openActionForm");
 		},
 		openCreateActionForm() {
-			this.$store.dispatch({ type: "setActionFormMode", mode: "create" });
-			this.$emit("openActionForm");
+			this.$store.dispatch("openCreateActionForm");
 		},
 		openActionMetrics(action) {
 			console.log("openActionMetrics");

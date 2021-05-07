@@ -204,8 +204,27 @@ export default {
 		clearDetailActivity({ commit }) {
 			commit("clearDetailActivity");
 		},
+		openCreateActionForm({ dispatch }) {
+			dispatch({ type: "setActionFormMode", mode: "create" });
+			dispatch({
+				type: "pushStepState",
+				stepState: {
+					step: 3,
+					component: "ActionForm",
+					name: "Create Action",
+					hasBackBtn: false
+				}
+			});
+		},
 		setActionFormMode({ commit }, { mode }) {
 			commit("setActionFormMode", mode);
+		},
+		closeActionForm({ dispatch, commit }) {
+			dispatch({
+				type: "setActionFormMode",
+				mode: ""
+			});
+			commit("popStepState");
 		},
 		createNewAction({ getters, rootState, commit }, { action }) {
 			action.activityId = getters.detailActivity.id;

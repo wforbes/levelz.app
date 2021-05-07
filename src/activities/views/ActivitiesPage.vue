@@ -66,7 +66,9 @@
 										<v-row>
 											<v-col cols="12">
 												<div style="text-align:center;">
-													<ActionForm />
+													<ActionForm
+														v-if="currentStepState.component === 'ActionForm'"
+													/>
 													<ActionDetailer />
 												</div>
 											</v-col>
