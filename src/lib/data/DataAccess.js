@@ -102,4 +102,8 @@ export default class DataAccess {
 	completeActionById(actionData) {
 		return this.dataContext.completeActionById(actionData);
 	}
+
+	getActionCompletionsByActionId(actionId) {
+		return this.dataContext.getActionCompletionsByActionId(actionId);
+	}
 }

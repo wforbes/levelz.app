@@ -165,4 +165,10 @@ export default class ApiDataAccess {
 	completeActionById(actionData) {
 		return this.callAPI("Action", "completeActionById", actionData);
 	}
+
+	getActionCompletionsByActionId(actionId) {
+		return this.callAPI("Action", "getActionCompletionsByActionId", {
+			id: actionId
+		});
+	}
 }

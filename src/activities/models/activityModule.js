@@ -9,7 +9,8 @@ export default {
 		detailActivity: {},
 		actionFormMode: "",
 		editAction: {},
-		detailAction: {}
+		detailAction: {},
+		detailActionCompletionList: []
 	},
 	getters: {
 		stepStates: state => {
@@ -38,6 +39,9 @@ export default {
 		},
 		detailAction: state => {
 			return state.detailAction;
+		},
+		detailActionCompletionList: state => {
+			return state.detailActionCompletionList;
 		}
 	},
 	actions: {
@@ -245,19 +249,23 @@ export default {
 				}
 			});
 		},
-		completeActionById({ rootState, commit }, { actionId }) {
-			let actionData = {
-				id: actionId
-			};
+		completeActionById({ rootState, commit }, { actionData }) {
 			return rootState.da.completeActionById(actionData).then(response => {
-				console.log(response);
 				if (response.data["success"] === true) {
 					console.log("response success true");
-					commit("setActionAsCompleteById", actionId);
+					//commit("setActionAsCompleteById", actionData.id);
+					commit(
+						"addActionCompletionToList",
+						response.data["actionCompletion"]
+					);
 				} else {
 					//TODO: display error message?
+					console.log(response);
 				}
 			});
+		},
+		addActionCompletionToList({ commit }, { actionCompletion }) {
+			commit("addActionCompletionToList", actionCompletion);
 		},
 		clearEditAction({ commit }) {
 			commit("setEditAction", {});
@@ -277,8 +285,25 @@ export default {
 				}
 			});
 		},
-		setDetailAction({ commit }, { action }) {
+		setDetailAction({ dispatch, commit }, { action }) {
+			dispatch({
+				type: "loadActionCompletionsByActionId",
+				actionId: action.id
+			});
 			commit("setDetailAction", action);
+		},
+		loadActionCompletionsByActionId({ rootState, commit }, { actionId }) {
+			commit("clearActionCompletionList");
+			rootState.da.getActionCompletionsByActionId(actionId).then(response => {
+				if (response.data["success"] === true) {
+					console.log(response.data["actionCompletions"]);
+					commit("setActionCompletionList", response.data["actionCompletions"]);
+					/*
+					for (let completion of response.data["actionCompletions"]) {
+						commit("addActionCompletionToList", completion);
+					}*/
+				}
+			});
 		}
 	},
 	mutations: {
@@ -341,6 +366,23 @@ export default {
 		},
 		setDetailAction(state, action) {
 			state.detailAction = action;
+		},
+		//TODO: move completion list sorting to component!
+		addActionCompletionToList(state, actionCompletion) {
+			console.log("addActionCompletionToList");
+			state.detailActionCompletionList.push(actionCompletion);
+			state.detailActionCompletionList.sort(function(a, b) {
+				return Date.parse(b.created_ts) - Date.parse(a.created_ts);
+			});
+		},
+		setActionCompletionList(state, actionCompletions) {
+			state.detailActionCompletionList = actionCompletions;
+			state.detailActionCompletionList.sort(function(a, b) {
+				return Date.parse(b.created_ts) - Date.parse(a.created_ts);
+			});
+		},
+		clearActionCompletionList(state) {
+			state.detailActionCompletionList = [];
 		}
 	}
 };

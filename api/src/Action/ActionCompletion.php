@@ -11,16 +11,21 @@ class ActionCompletion {
 		$this->model = new ActionCompletionModel($app);
 	}
 
+	public function getActionCompletionsByActionId($actionId) {
+		return $this->model->getActionCompletionsByActionId($actionId);
+	}
+
 	public function addActionCompletionByActionId($actionId) {
 		$id = Uuid::v4();
-		
+		/* // actions repeatable by default?
 		if ($this->model->actionAlreadyCompleted($actionId)) {
 			return ["success" => false, "message" => "Action was already completed"];
 		}
+		*/
 
 		$completionData = [$id, $actionId];
-		$result = $this->model->addActionCompletionByActionId($completionData);
-		return ["success" => $result];
+		$this->model->addActionCompletionByActionId($completionData);
+		return $this->model->getActionCompletionById($id);
 	}
 
 	public function actionIsComplete($actionId) {

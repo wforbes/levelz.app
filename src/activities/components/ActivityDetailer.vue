@@ -115,7 +115,7 @@
 													v-html="action.description"
 												></v-list-item-subtitle>
 											</v-list-item-content>
-											<v-list-item-action v-if="!action.complete">
+											<v-list-item-action>
 												<v-btn fab small @click="completeAction(action)">
 													<v-icon dark color="success">
 														mdi-check-decagram
@@ -257,7 +257,9 @@ export default {
 		async completeAction(action) {
 			await this.$store.dispatch({
 				type: "completeActionById",
-				actionId: action.id
+				actionData: {
+					actionId: action.id
+				}
 			});
 		},
 		openEditActivityForm() {

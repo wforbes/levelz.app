@@ -11,8 +11,23 @@ class Action {
 		$this->model = new ActionModel($app);
 	}
 
+	public function getActionCompletionsByActionId($actionId) {
+		$result = (new ActionCompletion($this->app))->getActionCompletionsByActionId($actionId);
+		return !$result? ["success" => $result] : ["success" => true, "actionCompletions" => $result];
+	}
+
 	public function completeActionById($actionId) {
-		return (new ActionCompletion($this->app))->addActionCompletionByActionId($actionId);
+		if (gettype($actionId) === "string") {
+			$result = (new ActionCompletion($this->app))->addActionCompletionByActionId($actionId);
+			return !$result? ["success" => $result] : ["success" => true, "actionCompletion" => $result ];
+		}
+		$actionData = $actionId;
+		if (isset($actionData["grade"])) {
+			var_dump("Got grade");
+			die();
+		}
+		//$result = (new ActionCompletion($this->app))->addActionCompletionByActionId($actionId);
+		return ["success" => $result];
 	}
 
 	//TODO: create a generic update function in model class like this using getEntityById and updateEntityById
