@@ -25,6 +25,14 @@ class ActionCompletionModel extends Model
         ];
 	}
 
+	public function getActionCompletionsByActionId($actionId) {
+		return $this->app->db->gbi("*", ["actionId" => $actionId], $this->getModelData()[0]);
+	}
+
+	public function getActionCompletionById($id) {
+		return $this->app->db->gbi("*", ["id" => $id], $this->getModelData()[0])[0];
+	}
+
 	public function addActionCompletionByActionId($completionData) {
 		$model = $this->getModelName();
 		$fields = $this->getModelColumns();
