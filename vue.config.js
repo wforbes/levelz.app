@@ -28,6 +28,9 @@ module.exports = {
 		https: {
 			key: fs.readFileSync("./certs/localhost-key.pem"),
 			cert: fs.readFileSync("./certs/localhost.pem")
-		}
+		},
+		host: "127.0.0.1",
+		port: 8080,
+		public: "localhost:8080"
 	}
 };
