@@ -6,45 +6,62 @@
 					<v-col class="pt-0 pl-1 pr-1 pb-0">
 						<v-container class="pt-5">
 							<v-row>
-								<v-col cols="10" class="pt-0 pb-0 mb-0">
-									<v-text-field
-										v-model="listSearchTerm"
-										outlined
-										rounded
-										placeholder="Search"
-										prepend-inner-icon="mdi-text-search"
-									></v-text-field>
-									<!--
-									<v-card
-										v-if="listSearchTerm !== ''"
-										style="margin-top:-1.2em;"
-										min-height="2em"
-										class="pa-1"
-										align="left"
+								<v-col cols="2" class="pa-0 pt-2 ma-0">
+									<v-btn
+										fab
+										small
+										dark
+										color="primary"
+										@click="toggleSearchField"
 									>
-										<v-row>
-											<v-col cols="10">
-												<div style="overflow-y:auto;">
-													Filtering list by:
-													<strong>{{ listSearchTerm }}</strong>
-												</div>
-											</v-col>
-											<v-col cols="2" align="right" class="pt-1">
-												<v-btn
-													fab
-													small
-													dark
-													color="error"
-													@click="listSearchTerm = ''"
-												>
-													<v-icon dark>
-														mdi-close
-													</v-icon>
-												</v-btn>
-											</v-col>
-										</v-row>
-									</v-card>
-									-->
+										<v-icon>mdi-text-search</v-icon>
+									</v-btn>
+								</v-col>
+								<v-col cols="8" class="pt-2 pb-0 mb-0">
+									<v-scroll-x-transition>
+										<v-text-field
+											v-model="listSearchTerm"
+											v-if="showSearchField"
+											clearable
+											outlined
+											rounded
+											dense
+											hide-details="true"
+											placeholder="Search"
+											prepend-inner-icon="mdi-text-search"
+										></v-text-field>
+									</v-scroll-x-transition>
+									<!--
+										<v-card
+											v-show="listSearchTerm !== ''"
+											style="margin-top:-1.2em;"
+											min-height="2em"
+											class="pa-1"
+											align="left"
+										>
+											<v-row>
+												<v-col cols="10">
+													<div style="overflow-y:auto;">
+														Filtering list by:
+														<strong>{{ listSearchTerm }}</strong>
+													</div>
+												</v-col>
+												<v-col cols="2" align="right" class="pt-1">
+													<v-btn
+														fab
+														small
+														dark
+														color="error"
+														@click="listSearchTerm = ''"
+													>
+														<v-icon dark>
+															mdi-close
+														</v-icon>
+													</v-btn>
+												</v-col>
+											</v-row>
+										</v-card>
+										-->
 								</v-col>
 								<v-col cols="2" class="pa-0 pt-2" align="left">
 									<v-btn
@@ -181,6 +198,7 @@ export default {
 		return {
 			showComponent: false,
 			listIsLoading: true,
+			showSearchField: false,
 			listSearchTerm: "",
 			createActivityDialogOpen: false,
 			activityDialogOpen: false
@@ -234,6 +252,9 @@ export default {
 		},
 		closeCreateActivityDialog() {
 			this.createActivityDialogOpen = false;
+		},
+		toggleSearchField() {
+			this.showSearchField = !this.showSearchField;
 		},
 		openActivityDetailer(activity) {
 			//this.showComponent = false;
