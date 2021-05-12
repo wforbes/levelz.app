@@ -253,8 +253,7 @@ export default {
 		completeActionById({ rootState, commit }, { actionData }) {
 			return rootState.da.completeActionById(actionData).then(response => {
 				if (response.data["success"] === true) {
-					console.log("response success true");
-					//commit("setActionAsCompleteById", actionData.id);
+					commit("setActionAsCompleteById", actionData.actionId);
 					commit(
 						"addActionCompletionToList",
 						response.data["actionCompletion"]
@@ -361,7 +360,6 @@ export default {
 			state.actionList.splice(index, 1, action);
 		},
 		setActionAsCompleteById(state, actionId) {
-			console.log("setActionAsCompleteById");
 			const index = state.actionList.findIndex(a => a.id === actionId);
 			state.actionList[index].complete = true;
 		},
