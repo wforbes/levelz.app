@@ -47,6 +47,7 @@ class Action {
 		$activityId = $newAction["activityId"];
 		$name = $newAction["name"];
 		$desc = $newAction["description"];
+		$rep = $newAction["repeatable"];
 		if (strlen($name) < 3) {
 			return ["success" => false, "message" => "Error: Activity names must be longer than 2 characters."];
 		}
@@ -62,7 +63,7 @@ class Action {
 		//$descIsValid = $this->model->actionDescIsValid($desc);
 		
 		$id = Uuid::v4();
-		$actionData = [$id, $activityId, $name, $desc];
+		$actionData = [$id, $activityId, $name, $desc, $rep];
 		$result = $this->model->createNewAction($actionData);
 		$returnArray = ["success" => $result];
 		if ($result) {
@@ -70,7 +71,8 @@ class Action {
 				"id" => $id,
 				"activityId" => $activityId,
 				"name" => $name,
-				"description" => $desc
+				"description" => $desc,
+				"repeatable" => $rep
 			]; 
 		}
 		return $returnArray;

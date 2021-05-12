@@ -31,6 +31,41 @@
 									</v-col>
 								</v-row>
 								<v-row>
+									<v-col class="pt-0 pb-0 mt-0" cols="3">
+										<v-checkbox
+											v-model="newAction.repeatable"
+											label="Repeatable"
+										>
+										</v-checkbox>
+									</v-col>
+								</v-row>
+								<!--
+								<v-row>
+									<v-col cols="12" style="text-align:left" class="pt-0 pb-0">
+										<h3>Action Types</h3>
+									</v-col>
+									<v-col class="pt-0 pb-0">
+										<v-select
+											v-model="newAction.types"
+											:items="typeOptions"
+											outlined
+											placeholder="Choose Type(s)"
+											chips
+											multiple
+										></v-select>
+									</v-col>
+								</v-row>
+								<v-row v-if="newAction.types.length > 0">
+									<v-col>
+										<v-row v-if="newAction.types.includes('Gradable')">
+											<v-col>
+												Check
+											</v-col>
+										</v-row>
+									</v-col>
+								</v-row>
+								-->
+								<v-row>
 									<v-col>
 										<v-btn
 											color="success"
@@ -102,22 +137,26 @@ export default {
 			isLoading: false,
 			createFormValid: false,
 			editFormValid: false,
+			//typeOptions: ["Gradable"],
 			emptyAction: {
 				id: "",
 				name: "",
 				description: "",
+				repeatable: false,
 				types: []
 			},
 			newAction: {
 				id: "",
 				name: "",
 				description: "",
+				repeatable: false,
 				types: []
 			},
 			editAction: {
 				id: "",
 				name: "",
 				description: "",
+				repeatable: false,
 				types: []
 			},
 			rules: {
