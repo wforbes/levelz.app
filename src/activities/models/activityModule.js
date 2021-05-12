@@ -210,6 +210,7 @@ export default {
 		},
 		createNewAction({ getters, rootState, commit }, { action }) {
 			action.activityId = getters.detailActivity.id;
+			if (action.repeatable === false) action.complete = false;
 			return rootState.da.createNewAction(action).then(response => {
 				if (response.data["success"] === true) {
 					commit("addActionToList", response.data["newAction"]);

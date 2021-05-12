@@ -110,15 +110,35 @@
 											>
 												<v-list-item-title
 													v-html="action.name"
+													:class="{
+														struck:
+															action.repeatable == 0 && action.complete === true
+													}"
 												></v-list-item-title>
 												<v-list-item-subtitle
 													v-html="action.description"
 												></v-list-item-subtitle>
 											</v-list-item-content>
 											<v-list-item-action>
-												<v-btn fab small @click="completeAction(action)">
+												<v-btn
+													v-if="action.repeatable == 1"
+													fab
+													small
+													@click="completeAction(action)"
+												>
 													<v-icon dark color="success">
 														mdi-check-decagram
+													</v-icon>
+												</v-btn>
+												<v-btn
+													v-else
+													fab
+													small
+													:disabled="action.complete === true"
+													@click="completeAction(action)"
+												>
+													<v-icon dark color="success">
+														mdi-check-decagram-outline
 													</v-icon>
 												</v-btn>
 											</v-list-item-action>
@@ -192,6 +212,11 @@
 		</v-card>
 	</div>
 </template>
+<style scoped>
+.struck {
+	text-decoration: line-through;
+}
+</style>
 <script>
 import { util } from "@/mixins/util.js";
 export default {

@@ -106,6 +106,15 @@
 									</v-col>
 								</v-row>
 								<v-row>
+									<v-col class="pt-0 pb-0 mt-0" cols="3">
+										<v-checkbox
+											v-model="newAction.repeatable"
+											label="Repeatable"
+										>
+										</v-checkbox>
+									</v-col>
+								</v-row>
+								<v-row>
 									<v-col>
 										<v-btn
 											color="success"

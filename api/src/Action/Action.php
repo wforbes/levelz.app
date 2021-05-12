@@ -90,7 +90,9 @@ class Action {
 			$result = $this->model->getActionsByActivityId($d);
 			$actionCompletion = new ActionCompletion($this->app);
 			foreach($result as &$action) {
-				$action["complete"] = $actionCompletion->actionIsComplete($action["id"]);
+				if (!$action["repeatable"]) {
+					$action["complete"] = $actionCompletion->actionIsComplete($action["id"]);
+				}
 			}
 			$response["actions"] = $result;
 		}
