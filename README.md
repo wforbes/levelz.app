@@ -9,7 +9,7 @@ We try to help you reinforce good habits and level up your life!
 
 Started in 2020 by Will Forbes - github.com/wforbes, @wforbes87 or @wforbes on most networks and platforms.
 
-This project will be used for my Computer Science capstone project for [Western Governor's University](https://wgu.edu)
+This project will be used for my Computer Science capstone project for [Western Governor's University](https://wgu.edu).
 
 ### What is this repo?
 
@@ -125,6 +125,21 @@ class Auth {
     $this->user = new User();
 ...
 ```
+
+#### PHP API strategy
+
+The goal of the API is to make the process of receiving and responding to requests from the front-end dead simple.
+
+The frontend implicitly calls public functions on objects in the PHP project, removing the need to write functions to explicitly accept requests and handle them in the PHP.
+
+* Requests sent with Noun/Verb data - Vue uses axios to send Post Http requests to the PHP api. When it does this, it sends it's data object payload with an 'n' and 'v' property for Noun and Verb, respectively. The Noun is the name of a Class on the Api and the Verb is the name of a public function on that Api Class. Additional data properties can be included in the data object. For instance, it's common to simply pass a javascript object into the request's data payload. Example: This calls the 'saveActivityChanges' function on the PHP Activity object, passing it a javascript Activity object.... { data: { n: "Activity", v: "saveActivityChanges", id: "205a5c46-e1be-4be0-8b51-fefba6fc8a84", name: "Wash The Car", description: "Wash the car and remember to empty the bucket!" } }.
+* Http/Post parses the request - When the API receives a request, it looks for a PHP file by the name of the Noun, and ensures it has a function by the name of the Verb. It then uses the dynamic features of PHP to instantiate the proper object and run that function, passing the rest of the data to the function as an array arguement.
+* Responses as PHP arrays - All responses from the API are associative arrays that, at the very least, include a 'success' key/value to indicate whether or not the request was successful. Often they also include the data that the frontend requested. These associative arrays are received as JSON objects.
+
+For more insight see:
+
+* [src/lib/ApiDataAccess.js](https://github.com/wforbes/levelz.app/blob/master/src/lib/data/ApiDataAccess.js) - responsible for sending all API requests
+* [api/src/Http/Post.php](https://github.com/wforbes/levelz.app/blob/master/api/src/Http/Post.php) - responsible for parsing all API requests
 
 #### PHP Data strategy
 
