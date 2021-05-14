@@ -126,6 +126,8 @@ class Auth {
 ...
 ```
 
+### Backend Custom Framework
+
 #### PHP API strategy
 
 The goal of the API is to make the process of receiving and responding to requests from the front-end dead simple.
