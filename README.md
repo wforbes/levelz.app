@@ -153,6 +153,12 @@ The goal here is to reduce the amount of time spent doing manual database admin 
 
 ---
 
-### Open-Source Contributions and Involvement  
+### Open-Source Contributions and Involvement
+
+I'd love to collaborate with other developers on this project and get some second opinions on the source code.
+
+When the project is further along I intended to provide a complete guide for setting up a local development environment. Right now it's not very simple to get started, nor is the project very far along. Generally, set up is straight forward with some modification required to ./vue.config.js and api/.htaccess if you don't want to use SSL.
+
+Instead, if you'd like to use any of the source code for your own project I only humbly ask that you let me know how it's used and give me credit if it's a for-profit project. (wforbes87@gmail.com)
 
 **Levelz.app is licensed under the GNU Public License v3.0 which you can read about [here](http://www.gnu.org/licenses/gpl-3.0.html).**
