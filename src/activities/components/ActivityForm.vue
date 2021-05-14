@@ -54,6 +54,11 @@
 								ref="editActivityForm"
 							>
 								<v-row>
+									<v-col class="pt-0 pb-0 mt-0">
+										<h3>Activity Details</h3>
+									</v-col>
+								</v-row>
+								<v-row>
 									<v-col class="pb-0">
 										<v-text-field
 											v-model="editActivity.name"
@@ -71,6 +76,31 @@
 											label="Activity Description (Optional)"
 											height="150"
 										></v-textarea>
+									</v-col>
+								</v-row>
+								<v-row>
+									<v-col class="pt-0 pb-0 mt-0">
+										<h3>Activity Options</h3>
+									</v-col>
+								</v-row>
+								<v-row
+									style="border:0.1em solid grey; border-radius: 0.25em; margin: 0.8em 0.01em"
+									class="pa-3"
+								>
+									<v-col class="pt-0 pb-0 mt-0">
+										<p>
+											<strong>Delete Activity</strong>: Remove this activity and
+											all it's actions from your lists.
+										</p>
+									</v-col>
+									<v-col class="pt-0 pb-0 mt-0">
+										<v-btn
+											style="margin-top:25%;"
+											color="error"
+											@click="openDeleteActivityDialog()"
+										>
+											delete
+										</v-btn>
 									</v-col>
 								</v-row>
 								<v-row>
@@ -95,22 +125,30 @@
 		<div v-else-if="isLoading">
 			<LoadingCard />
 		</div>
+		<DeleteActivityDialog
+			:dialogOpen="deleteActivityDialogOpen"
+			:activity="editActivity"
+			@closeDialog="closeDeleteActivityDialog"
+		/>
 	</div>
 </template>
 <script>
 import { util } from "@/mixins/util.js";
 import LoadingCard from "@/app/components/LoadingCard.vue";
+import DeleteActivityDialog from "@/activities/components/DeleteActivityDialog.vue";
 export default {
 	name: "ActivityForm",
 	mixins: [util],
 	components: {
-		LoadingCard
+		LoadingCard,
+		DeleteActivityDialog
 	},
 	data() {
 		return {
 			isLoading: false,
 			createFormValid: false,
 			editFormValid: false,
+			deleteActivityDialogOpen: false,
 			emptyActivity: {
 				id: "",
 				name: "",
@@ -195,6 +233,22 @@ export default {
 			});
 			this.isLoading = false;
 			this.closeForm();
+		},
+		openDeleteActivityDialog() {
+			this.deleteActivityDialogOpen = true;
+		},
+		async closeDeleteActivityDialog(confirm) {
+			this.deleteActivityDialogOpen = false;
+			if (confirm === true) {
+				this.isLoading = true;
+				/*
+				await this.$store.dispatch({
+					type: "deleteActivityById",
+					activityId: this.editActivity.id
+				});*/
+				this.isLoading = false;
+				this.closeForm();
+			}
 		}
 	}
 };
