@@ -137,26 +137,6 @@ export default {
 		}
 	},
 	methods: {
-		openActivityDetailer() {
-			console.log("openActivityDetailer");
-			//this.stepperState = 2;
-			this.stepperState++;
-			//this.activityDetailDialogOpen = true;
-		},
-		openActionForm() {
-			console.log("openActionForm");
-			//this.stepperState = 3;
-			this.stepperState++;
-		},
-		closeActionForm() {
-			console.log("closeActionForm");
-			//this.stepperState = 2;
-			this.stepperState--;
-		},
-		backStep() {
-			console.log("backStep on page");
-			this.stepperState = this.stepperState - 1;
-		},
 		openHelpOverlay() {
 			this.helpOverlayOpen = true;
 		},

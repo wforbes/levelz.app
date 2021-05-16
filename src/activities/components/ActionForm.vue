@@ -108,7 +108,7 @@
 								<v-row>
 									<v-col class="pt-0 pb-0 mt-0" cols="3">
 										<v-checkbox
-											v-model="newAction.repeatable"
+											v-model="editAction.repeatable"
 											label="Repeatable"
 										>
 										</v-checkbox>
@@ -139,7 +139,6 @@
 import { util } from "@/mixins/util.js";
 export default {
 	name: "ActionForm",
-	props: ["stepperState"],
 	mixins: [util],
 	data() {
 		return {

@@ -191,7 +191,6 @@
 import { util } from "@/mixins/util.js";
 export default {
 	name: "ActivityList",
-	props: ["stepperState"],
 	mixins: [util],
 	components: {},
 	data() {
@@ -203,14 +202,6 @@ export default {
 			createActivityDialogOpen: false,
 			activityDialogOpen: false
 		};
-	},
-	watch: {
-		stepperState(n, o) {
-			//opening from another step
-			if (n === 1 && o === 2) {
-				true;
-			}
-		}
 	},
 	computed: {
 		activities() {

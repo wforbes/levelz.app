@@ -244,14 +244,6 @@ export default {
 		}
 		this.listIsLoading = false;
 	},
-	watch: {
-		async stepperState(n) {
-			if (n === 2) {
-				await this.loadActions();
-				this.showComponent = true;
-			}
-		}
-	},
 	computed: {
 		detailActivity() {
 			return this.$store.getters.detailActivity;

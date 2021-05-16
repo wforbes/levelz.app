@@ -60,6 +60,7 @@ class Action {
 			return ["success" => false, "message" => "Error: You already have an activity named '".$name."'! Try another name."];
 		}
 
+		//TODO: implement description validation when wysiwyg editor is added
 		//$descIsValid = $this->model->actionDescIsValid($desc);
 		
 		$id = Uuid::v4();
@@ -90,6 +91,7 @@ class Action {
 			$result = $this->model->getActionsByActivityId($d);
 			$actionCompletion = new ActionCompletion($this->app);
 			foreach($result as &$action) {
+				$action["repeatable"] = boolval($action["repeatable"]);
 				if (!$action["repeatable"]) {
 					$action["complete"] = $actionCompletion->actionIsComplete($action["id"]);
 				}
