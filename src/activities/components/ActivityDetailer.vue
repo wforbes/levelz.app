@@ -236,7 +236,12 @@ export default {
 	},
 	async created() {
 		console.log("ActivityDetailer created");
-		await this.loadActions();
+		if (this.isEmpty(this.detailActivity)) {
+			// returning to detailer after activity was deleted on form
+			this.$store.dispatch("popStepState");
+		} else {
+			await this.loadActions();
+		}
 		this.listIsLoading = false;
 	},
 	watch: {

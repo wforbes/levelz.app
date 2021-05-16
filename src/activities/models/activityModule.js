@@ -298,11 +298,24 @@ export default {
 				if (response.data["success"] === true) {
 					console.log(response.data["actionCompletions"]);
 					commit("setActionCompletionList", response.data["actionCompletions"]);
-					/*
-					for (let completion of response.data["actionCompletions"]) {
-						commit("addActionCompletionToList", completion);
-					}*/
 				}
+			});
+		},
+		deleteActivityById(
+			{ rootState, commit, getters, dispatch },
+			{ activityId }
+		) {
+			return new Promise(resolve => {
+				rootState.da.deleteActivityById(activityId).then(response => {
+					if (response.data["success"] === true) {
+						console.log("deleted activity " + activityId);
+						commit("removeActivityFromList", activityId);
+					}
+					if (getters.detailActivity.id === activityId) {
+						dispatch("clearDetailActivity");
+					}
+					resolve();
+				});
 			});
 		}
 	},
@@ -382,6 +395,11 @@ export default {
 		},
 		clearActionCompletionList(state) {
 			state.detailActionCompletionList = [];
+		},
+		removeActivityFromList(state, activityId) {
+			state.activities = state.activities.filter(
+				activity => activity.id !== activityId
+			);
 		}
 	}
 };

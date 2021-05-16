@@ -3,6 +3,7 @@
 namespace Activity;
 
 use Model\ActivityModel;
+use Audit\AuditActivity;
 use Sec\Uuid;
 
 class Activity {
@@ -91,6 +92,16 @@ class Activity {
 		$userId = $_SESSION["d"]["userId"];
 		$activities = $this->model->getActivitiesByUserId($userId);
 		return [ "success" => $activities ];
+	}
+
+	public function deleteActivityById($activityId) {
+		$activity = $this->model->getActivityById($activityId);
+		$auditResult = (new AuditActivity($this->app))->addAuditActivity($activity);
+		if (!$auditResult) 
+			return [ "success" => $auditResult ];
+
+		$result = $this->model->deleteActivityById($activityId);
+		return [ "success" => $result ];
 	}
 
 	public function getActivitySuggestions() {

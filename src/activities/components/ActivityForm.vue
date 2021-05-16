@@ -85,22 +85,24 @@
 								</v-row>
 								<v-row
 									style="border:0.1em solid grey; border-radius: 0.25em; margin: 0.8em 0.01em"
-									class="pa-3"
+									class="pt-4"
 								>
 									<v-col class="pt-0 pb-0 mt-0">
-										<p>
-											<strong>Delete Activity</strong>: Remove this activity and
-											all it's actions from your lists.
-										</p>
-									</v-col>
-									<v-col class="pt-0 pb-0 mt-0">
 										<v-btn
-											style="margin-top:25%;"
+											:style="
+												$vuetify.breakpoint.mdAndUp ? '' : 'margin-top:25%;'
+											"
 											color="error"
 											@click="openDeleteActivityDialog()"
 										>
 											delete
 										</v-btn>
+									</v-col>
+									<v-col class="pt-0 pb-0 mt-0">
+										<p>
+											<strong>Delete Activity</strong>: Remove this activity and
+											all it's actions from your lists.
+										</p>
 									</v-col>
 								</v-row>
 								<v-row>
@@ -241,11 +243,10 @@ export default {
 			this.deleteActivityDialogOpen = false;
 			if (confirm === true) {
 				this.isLoading = true;
-				/*
 				await this.$store.dispatch({
 					type: "deleteActivityById",
 					activityId: this.editActivity.id
-				});*/
+				});
 				this.isLoading = false;
 				this.closeForm();
 			}

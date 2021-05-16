@@ -106,4 +106,8 @@ export default class DataAccess {
 	getActionCompletionsByActionId(actionId) {
 		return this.dataContext.getActionCompletionsByActionId(actionId);
 	}
+
+	deleteActivityById(activityId) {
+		return this.dataContext.deleteActivityById(activityId);
+	}
 }

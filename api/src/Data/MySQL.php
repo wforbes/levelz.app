@@ -304,6 +304,27 @@ class MySQL {
 		return $result;
 	}
 
+	public function dfw($there, $that) {
+		$params = [];
+		$sql = "DELETE FROM `$there` WHERE ";
+		$i = 0;
+		foreach ($that as $f=>$v) {
+			$sql .= $f . " = ?";
+			$sql .= ($i !== count($that)-1) ? ", " : ";";
+			$params[] = $v;
+			$i++;
+		}
+		$stmt = $this->connection->prepare($sql);
+		$paramCount = count($params);
+		for($i=0;$i<$paramCount;$i++) {
+			$pi = $i + 1;
+			$param = $params[$i];
+			$stmt->bindValue($pi, $param);
+		}
+		$result = $stmt->execute();
+		return $result;
+	}
+
 	public function showTables() {
 		$s = "SHOW TABLES;";
 		$statement = $this->connection->prepare($s);
@@ -324,6 +345,7 @@ class MySQL {
 		$statement = $this->connection->prepare($s);
 		$statement->execute();
 		$data = $statement->fetchAll(\PDO::FETCH_ASSOC);
+		//TODO: place 'hidden' specification in model class
 		$hiddenTableFields = [
 			"user" => "passhash"
 		];

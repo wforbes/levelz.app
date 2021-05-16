@@ -27,6 +27,10 @@ class ActivityModel extends Model
         ];
 	}
 
+	public function deleteActivityById($activityId) {
+		return $this->app->db->dfw($this->getModelData()[0], ["id" => $activityId]);
+	}
+
 	public function activityNameExists($userId, $name) {
 		return $this->app->db->thisExists($this->getModelData()[0], ["userId", "name"], [$userId, $name]);
 	}
