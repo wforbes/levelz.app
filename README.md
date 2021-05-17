@@ -7,9 +7,16 @@
 Levelz.app is a productivity web app that gamifies the concept of a todo list or task tracking app.
 We try to help you reinforce good habits and level up your life!
 
-Started in 2020 by Will Forbes - github.com/wforbes, @wforbes87 or @wforbes on most networks and platforms.
+On Levelz, you'll create your account by signing up and use your user dashboard to access your
+Activities page. On the Activities page, you create an Activity - this could be something in your daily routine, like "Get Ready For Work" or "Clean The House", or it could be a hobby or skill you enjoy working on, like "Practice Guitar" or "Study Math". Then in that Activity, you'll create a list of Actions. These are individual things you do while performing the Activity. For example, the Activity "Get Ready For Work" might include Actions like "Wake Up On Time", "Brush Teeth", "Take A Shower", or "Eat Breakfast".
+
+Then, as you do these Actions you'll mark them as complete on Levelz. As you complete Actions, you'll earn Experience points or Skill points. As you earn these points, you'll level up and gain other in-app rewards. Further metrics on how the Actions are completed, in terms of quality, duration, and regularity can help give you insight into your ability, consistency, and habits over time.
+
+Activities can be grouped into a Task, which represents a short-term goal. Tasks can be grouped into a Quest, which represents a long-term goal. You can embark on a Quest to finish your college degree, with each of your classes becoming a Task, each unit of study in the class becoming an Activity, and each time you study or practice a subject for the class becoming an Action! Keeping up with your schoolwork becomes an epic RPG quest, rewarding you every step of the way with visible achievements and experience points.
 
 This project will be used for my Computer Science capstone project for [Western Governor's University](https://wgu.edu).
+
+Started in 2020 by Will Forbes - github.com/wforbes, @wforbes87 or @wforbes on most networks and platforms.
 
 ### What is this repo?
 
@@ -36,10 +43,10 @@ These are some features I'm working on and a general roadmap for the direction o
   * [X] **Login Form** - Create a component that allows people that have made an account to log in to it securely with their password.
 * [X] **Basic User Dashboard** - This dashboard should give controls to modify their information, add a profile picture, and provide links to other features that haven't been built yet like Activity, Notifications, Messages, and Friends. It should also include some UI for 'game' features like their Level, Experience Points, Vital Points, Statistics, Abilities, Spells, and Achievements.
   * [X] **Features Menu** - Create a component that provides links to all the Core Features of the app.
-  * [ ] **Profile Picture Uploads** - Create a component that allows users to upload, change, and delete their profile picture, and another component that displays their profile picture throughout the app.
+  * [X] **Profile Picture Uploads** - Create a component that allows users to upload, change, and delete their profile picture, and another component that displays their profile picture throughout the app.
   * [ ] **Profile Information** - Create a component that allows users to add and update their basic profile information.
 * [ ] **Prototype Core Features** - Create some barebones versions of the core features envisioned for the app.
-  * [ ] **Activites Page/Component** - Prototype a simple Activities page that allows the user to create a simple Activity, add Actions to it, keeps track of previously made lists, and explore other parameters/returns.
+  * [X] **Activites Page/Component** - Prototype a simple Activities page that allows the user to create a simple Activity, add Actions to it, keeps track of previously made lists, and explore other parameters/returns.
   * [ ] **Task Page/Component** - Prototype a simple task tracker page that allows the user to define a task, add a description to it, create/assign Activities to it, and explore other associated features.
   * [ ] **Inventory Page** - Prototype a simple inventory management system which provides some tools for tracking a user's physical real world equipment and possessions, then coordinating their use with tasks and activities on the app.
   * [ ] **Achievement Page/Component** - Prototype an achievement page that allows the user to see the Rewards they've earned and are working on, define their own Rewards, and explore creating a Rewards component that can be displayed throughout the app.
@@ -48,6 +55,7 @@ These are some features I'm working on and a general roadmap for the direction o
 * [ ] **Additional Prototype** - Create some optional features and pages which bolster the core features and provide further post alpha possibilities.
   * [ ] **Friends Page/Components** - Prototype a Friends page that allows Users to add each other as friends, see a list of their current friends, remove friendships, block other Users.
   * [ ] **Messages Page/Components** - Prototype a Messages page that allows Users to send messages to each other, see a list of the message conversations with each friend with consideration to Friendships (list messages from friends seperately from non-friends), and explore associated features.
+  * [ ] **Templates Page** - Add a templating feature to the app which allows users to share pre-made Quests, Tasks, and Activities. Users should be able to browse through lists of templates, add them to their account and use them.
   * [ ] **Financials Page** - Prototype a simple budget management system which can assist the user with their spending and savings habits, providing savings goals, task budgets and an example of linking up to a bank API for real time account balance information.
   * [ ] **Travel Page** - Prototype a simple travel and explorating page which allows the user to plan and record their adventures into the big wide world out there.
   * [ ] **User Configuration Page** - Prototype a user accessible configuration page which provides controls for various settings across the app
@@ -55,7 +63,6 @@ These are some features I'm working on and a general roadmap for the direction o
 * [ ] **Release Alpha Version** - Given all the lessons learned and insights gained throughout building core prototype features; Plan for the Alpha version of the app which provides a more streamlined, user friendly, enjoyable experience. This includes improving Activity, Rewards, and Social features - among other ideas gained through the prototyping process.
   * [ ] **Prototype Test Program** - Advertise the app a little, recruit people to test the app, get their bug reports and feedback, then work through coding all the issues and ideas they find.
   * [ ] **Forums** - Add a forum to the Levelz.app website which allows users to share their ideas, connect with each other outside of the app, and report bugs in a community setting.
-* [ ] **Templates** - Add a templating feature to the app which allows users to share pre-made Quests, Tasks, and Activities. Users should be able to browse through lists of templates, add them to their account and use them.
 
 ---
 
@@ -157,7 +164,7 @@ The goal here is to reduce the amount of time spent doing manual database admin 
 
 I'd love to collaborate with other developers on this project and get some second opinions on the source code.
 
-When the project is further along I intended to provide a complete guide for setting up a local development environment. Right now it's not very simple to get started, nor is the project very far along. Generally, set up is straight forward with some modification required to ./vue.config.js and api/.htaccess if you don't want to use SSL.
+When the project is further along I intended to provide a complete guide for setting up a local development environment. Generally, set up is straight forward with some modification required to ./vue.config.js and api/.htaccess if you don't want to use SSL. Send wforbes87@gmail.com an email with any questions.
 
 Instead, if you'd like to use any of the source code for your own project I only humbly ask that you let me know how it's used and give me credit if it's a for-profit project. (wforbes87@gmail.com)
 
