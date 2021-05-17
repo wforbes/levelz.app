@@ -222,7 +222,10 @@ class MySQL {
 
 	//name: GBI (Get these, By that, In there)
 	//params: These, That, There
-	//desc: creates a sql string, prepares a pdo:statement, pdo:bindParams and pdo:executes; returns a fetchAll array
+	//desc: Retrieves fields specified by their names in the 'These' param
+	//	constrained by the field names and values in the "That" param
+	//	on the table specified by "There"
+	//return: the MySQL result array on success or boolean false on failure
 	public function gbi($these, $that, $there){
 		$s = "SELECT ";
 		if(!is_array($these)) {
@@ -304,6 +307,10 @@ class MySQL {
 		return $result;
 	}
 
+	//name: (D)elete (F)rom There (W)here That
+	//desc: Deletes rows from the table specified by the 'there' param
+	//	constrained by where fields/values in the 'that param
+	//return: result boolean true/false
 	public function dfw($there, $that) {
 		$params = [];
 		$sql = "DELETE FROM `$there` WHERE ";
