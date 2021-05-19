@@ -2,14 +2,14 @@
 	<div>
 		<v-dialog
 			v-model="dialogOpen"
-			ref="deleteActivityDialog"
+			ref="deleteActionDialog"
 			persistent
 			max-width="800"
 		>
 			<v-card class="elevation-12">
 				<v-toolbar dark dense flat>
 					<v-toolbar-title>
-						Confirm Delete: Activity
+						Confirm Delete: Action
 					</v-toolbar-title>
 					<v-spacer></v-spacer>
 					<v-btn @click="closeDialog(false)" icon>
@@ -21,9 +21,9 @@
 						<v-col>
 							<h2>Are you sure?</h2>
 							<p>
-								Deleting the <strong>"{{ activityName }}"</strong> Activity
-								means it will be permanently removed along with any Actions or
-								other information connected to it!
+								Deleting the <strong>"{{ actionName }}"</strong> Action means it
+								will be permanently removed along with any associated
+								information connected to it!
 							</p>
 							<v-checkbox
 								v-model="confirmCheck"
@@ -51,16 +51,16 @@
 </template>
 <script>
 export default {
-	name: "DeleteActivityDialog",
-	props: ["activity", "dialogOpen"],
+	name: "DeleteActionDialog",
+	props: ["action", "dialogOpen"],
 	data() {
 		return {
 			confirmCheck: false
 		};
 	},
 	computed: {
-		activityName() {
-			return this.activity.name;
+		actionName() {
+			return this.action.name;
 		}
 	},
 	methods: {

@@ -28,6 +28,12 @@ class ActionModel extends Model
         ];
 	}
 
+	public function deleteActionById($actionId) {
+		return $this->app->db->dfw($this->getModelData()[0], ["id" => $actionId]);
+	}
+
+	//desc: Checks the database to see if an action exists by name associated
+	//	with the given activityId
 	public function actionNameExists($activityId, $name) {
 		return $this->app->db->thisExists($this->getModelData()[0], ["activityId", "name"], [$activityId, $name]);
 	}

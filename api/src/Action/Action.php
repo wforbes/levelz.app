@@ -3,6 +3,7 @@
 namespace Action;
 
 use Model\ActionModel;
+use Audit\AuditAction;
 use Sec\Uuid;
 
 class Action {
@@ -101,5 +102,14 @@ class Action {
 		
 		$response["success"] = true;
 		return $response;
+	}
+
+	public function deleteActionById($actionId) {
+		$action = $this->model->getActionById($actionId);
+		$auditResult = (new AuditAction($this->app))->addAuditAction($action);
+		if(!$auditResult) return ["success" => $auditResult];
+
+		$result = $this->model->deleteActionById($actionId);
+		return [ "success" => $result ];
 	}
 }

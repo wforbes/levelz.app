@@ -1,6 +1,6 @@
 <template>
 	<div id="action-form">
-		<v-card>
+		<v-card v-if="mode !== '' && !isLoading">
 			<v-container class="pa-0 pt-4 pb-4">
 				<v-row class="ma-0 pa-0">
 					<v-col class="pt-0 pb-0">
@@ -115,6 +115,33 @@
 									</v-col>
 								</v-row>
 								<v-row>
+									<v-col class="pt-0 pb-0 mt-0">
+										<h3>Action Options</h3>
+									</v-col>
+								</v-row>
+								<v-row
+									style="border:0.1em solid grey; border-radius: 0.25em; margin: 0.8em 0.01em"
+									class="pt-4"
+								>
+									<v-col class="pt-0 pb-0 mt-0">
+										<v-btn
+											:style="
+												$vuetify.breakpoint.mdAndUp ? '' : 'margin-top:25%;'
+											"
+											color="error"
+											@click="openDeleteActionDialog()"
+										>
+											delete
+										</v-btn>
+									</v-col>
+									<v-col class="pt-0 pb-0 mt-0">
+										<p>
+											<strong>Delete Action</strong>: Remove this action and
+											it's associated data.
+										</p>
+									</v-col>
+								</v-row>
+								<v-row>
 									<v-col>
 										<v-btn
 											color="success"
@@ -133,18 +160,33 @@
 				</v-row>
 			</v-container>
 		</v-card>
+		<div v-else-if="isLoading">
+			<LoadingCard />
+		</div>
+		<DeleteActionDialog
+			:dialogOpen="deleteActionDialogOpen"
+			:action="editAction"
+			@closeDialog="closeDeleteActionDialog"
+		/>
 	</div>
 </template>
 <script>
 import { util } from "@/mixins/util.js";
+import LoadingCard from "@/app/components/LoadingCard.vue";
+import DeleteActionDialog from "@/activities/components/DeleteActionDialog.vue";
 export default {
 	name: "ActionForm",
 	mixins: [util],
+	components: {
+		LoadingCard,
+		DeleteActionDialog
+	},
 	data() {
 		return {
 			isLoading: false,
 			createFormValid: false,
 			editFormValid: false,
+			deleteActionDialogOpen: false,
 			//typeOptions: ["Gradable"],
 			emptyAction: {
 				id: "",
@@ -230,6 +272,21 @@ export default {
 			//show dialog confirming unsaved changes will be deleted
 			// - allow confirmation and clear current mode's obj and mode
 			// - allow returning to the form to complete
+		},
+		openDeleteActionDialog() {
+			this.deleteActionDialogOpen = true;
+		},
+		async closeDeleteActionDialog(confirm) {
+			this.deleteActionDialogOpen = false;
+			if (confirm === true) {
+				this.isLoading = true;
+				await this.$store.dispatch({
+					type: "deleteActionById",
+					actionId: this.editAction.id
+				});
+				this.isLoading = false;
+				this.closeForm();
+			}
 		}
 	}
 };

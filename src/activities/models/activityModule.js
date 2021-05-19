@@ -206,6 +206,7 @@ export default {
 				type: "setActionFormMode",
 				mode: ""
 			});
+			dispatch("clearEditAction");
 			commit("popStepState");
 		},
 		createNewAction({ getters, rootState, commit }, { action }) {
@@ -317,6 +318,18 @@ export default {
 					resolve();
 				});
 			});
+		},
+		deleteActionById({ rootState, commit }, { actionId }) {
+			return new Promise(resolve => {
+				rootState.da.deleteActionById(actionId).then(response => {
+					console.log(response);
+					if (response.data["success"] === true) {
+						console.log("deleted action " + actionId);
+						commit("removeActionFromList", actionId);
+					}
+					resolve();
+				});
+			});
 		}
 	},
 	mutations: {
@@ -399,6 +412,11 @@ export default {
 		removeActivityFromList(state, activityId) {
 			state.activities = state.activities.filter(
 				activity => activity.id !== activityId
+			);
+		},
+		removeActionFromList(state, actionId) {
+			state.actionList = state.actionList.filter(
+				action => action.id !== actionId
 			);
 		}
 	}

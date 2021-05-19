@@ -177,4 +177,10 @@ export default class ApiDataAccess {
 			id: activityId
 		});
 	}
+
+	deleteActionById(actionId) {
+		return this.callAPI("Action", "deleteActionById", {
+			id: actionId
+		});
+	}
 }

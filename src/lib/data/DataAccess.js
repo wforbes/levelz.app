@@ -110,4 +110,8 @@ export default class DataAccess {
 	deleteActivityById(activityId) {
 		return this.dataContext.deleteActivityById(activityId);
 	}
+
+	deleteActionById(actionId) {
+		return this.dataContext.deleteActionById(actionId);
+	}
 }
