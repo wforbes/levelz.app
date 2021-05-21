@@ -307,7 +307,6 @@ export default {
 			});
 		},
 		openEditActivityDialog() {
-			//this.$emit("openEditActivityDialog");
 			console.log("openEditActivityDialog");
 			this.editActivity = this.cloneDeep(this.detailActivity);
 			this.editActivityDialogOpen = true;

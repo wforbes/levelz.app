@@ -31,13 +31,33 @@
 									</v-col>
 								</v-row>
 								<v-row>
-									<v-col class="pt-0 pb-0 mt-0" cols="3">
+									<v-col class="pt-0 pb-0 mt-0" md="3" cols="12">
 										<v-checkbox
 											v-model="newAction.repeatable"
 											label="Repeatable"
 										>
 										</v-checkbox>
 									</v-col>
+									<div v-if="newAction.repeatable">
+										<v-col class="pt-0 pb-0 mt-0" cols="12">
+											<v-checkbox
+												v-model="newAction.repeatedRegularly"
+												label="Schedule Regularly?"
+											>
+											</v-checkbox>
+										</v-col>
+									</div>
+									<div v-if="newAction.repeatedRegularly">
+										<v-col class="pt-0 pb-0 mt-0" cols="12">
+											<v-select
+												v-model="newAction.repeatIntervalId"
+												:items="repeatIntervals"
+												item-text="name"
+												item-value="id"
+												label="How Often?"
+											></v-select>
+										</v-col>
+									</div>
 								</v-row>
 								<!--
 								<v-row>
@@ -200,6 +220,8 @@ export default {
 				name: "",
 				description: "",
 				repeatable: false,
+				repeatedRegularly: false,
+				repeatIntervalId: "",
 				types: []
 			},
 			editAction: {
@@ -227,6 +249,22 @@ export default {
 		},
 		actionWasChanged() {
 			return !this.isEqual(this.editAction, this.$store.getters.editAction);
+		},
+		repeatIntervals() {
+			//TODO: move this to configurable list in options
+			return this.$store.getters.repeatIntervals;
+		},
+		repeatedRegularly() {
+			return this.newAction.repeatedRegularly;
+		}
+	},
+	watch: {
+		repeatedRegularly(newVal, oldVal) {
+			console.log("watch hit");
+			if (!newVal && oldVal) {
+				console.log("watch block hit");
+				this.newAction.repeatIntervalId = "";
+			}
 		}
 	},
 	created() {

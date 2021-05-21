@@ -10,7 +10,8 @@ export default {
 		actionFormMode: "",
 		editAction: {},
 		detailAction: {},
-		detailActionCompletionList: []
+		detailActionCompletionList: [],
+		repeatIntervals: []
 	},
 	getters: {
 		stepStates: state => {
@@ -42,6 +43,9 @@ export default {
 		},
 		detailActionCompletionList: state => {
 			return state.detailActionCompletionList;
+		},
+		repeatIntervals: state => {
+			return state.repeatIntervals;
 		}
 	},
 	actions: {
@@ -99,10 +103,38 @@ export default {
 		addActivityToList({ commit }, { activity }) {
 			commit("addActivityToList", activity);
 		},
-		async loadActivities({ rootState, commit }) {
+		async loadActivities({ rootState, dispatch, commit }) {
 			const response = await rootState.da.getAllMyActivities();
 			commit("setActivities", response.data["success"]);
+			await dispatch("loadOptionsData");
 			return Promise.resolve();
+		},
+		loadOptionsData({ /*rootState, rootGetters,*/ commit }) {
+			commit("setRepeatIntervals", [
+				{
+					id: 0,
+					name: "daily"
+				},
+				{
+					id: 1,
+					name: "weekly"
+				},
+				{
+					id: 2,
+					name: "bi-weekly"
+				},
+				{
+					id: 3,
+					name: "monthly"
+				}
+			]);
+			/*
+			return rootState.da
+				.getActionOptionsByUserId(rootGetters.userId)
+				.then(resolve => {
+					commit("setRepeatIntervals", resolve.data["repeatIntervals"]);
+				});
+				*/
 		},
 		updateActivity({ rootState, commit, dispatch, getters }, { activity }) {
 			return rootState.da.updateActivity(activity).then(response => {
@@ -418,6 +450,9 @@ export default {
 			state.actionList = state.actionList.filter(
 				action => action.id !== actionId
 			);
+		},
+		setRepeatIntervals(state, intervals) {
+			state.repeatIntervals = [...intervals];
 		}
 	}
 };
